@@ -83,17 +83,17 @@ static int cmd_si(char *args) {
 	/* extract the first argument */
 	char *arg = strtok(NULL, " ");
 	int num;
-	int i;
 
 	if(arg == NULL) {
 		/* no argument given*/
-		cpu_exec(-1);
+		cpu_exec(1);
 	}
 	else {
 		sscanf(arg,"%d",&num);
-		for(i = 0; i < num; i++) {
+	/*	for(i = 0; i < num; i++) {
 			cpu_exec(-1);
-		}
+		}*/
+		cpu_exec(num);
 	}
 	return 0;	
 }
