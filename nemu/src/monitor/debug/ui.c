@@ -82,7 +82,7 @@ static int cmd_help(char *args) {
 static int cmd_si(char *args) {
 	/* extract the first argument */
 	char *arg = strtok(NULL, " ");
-	int num;
+	int num,i;
 
 	if(arg == NULL) {
 		/* no argument given*/
@@ -90,10 +90,9 @@ static int cmd_si(char *args) {
 	}
 	else {
 		sscanf(arg,"%d",&num);
-	/*	for(i = 0; i < num; i++) {
-			cpu_exec(-1);
-		}*/
-		cpu_exec(num);
+		for(i = 0; i < num; i++) {
+			cpu_exec(1);
+		}
 	}
 	return 0;	
 }
