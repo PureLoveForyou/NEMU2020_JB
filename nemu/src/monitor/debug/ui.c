@@ -102,11 +102,11 @@ static int cmd_info(char *args)
 {
 	char *arg = strtok(NULL, " ");
 	if(arg == NULL) {
-		printf("What information do you want");
-		printf("Usage: info r/w");
+		printf("What information do you want\n");
+		printf("Usage: info r/w\n");
 	}
 	else if(*arg == 'r'){
-		printf("Nothing yet");
+		printf("Nothing yet\n");
 	}
 	return 0;
 }
