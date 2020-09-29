@@ -40,6 +40,8 @@ static int cmd_help(char *args);
 
 static int cmd_si(char *args);
 
+static int cmd_info(char *args);
+
 static struct {
 	char *name;
 	char *description;
@@ -48,7 +50,8 @@ static struct {
 	{ "help", "Display informations about all supported commands", cmd_help },
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
-	{ "si", "Execute one instruction.Format:si n.Execute n instructions", cmd_si},
+	{ "si", "Execute one instruction.Format:si n.Execute n instructions", cmd_si },
+	{ "info", "Print the information of registers or the monitor point", cmd_info },
 
 	/* TODO: Add more commands */
 
@@ -93,6 +96,19 @@ static int cmd_si(char *args) {
 		cpu_exec(num);
 	}
 	return 0;	
+}
+
+static int cmd_info(char *args)
+{
+	char *arg = strtok(NULL, " ");
+	if(arg == NULL) {
+		printf("What information do you want");
+		printf("Usage: info r/w");
+	}
+	else if(*arg == 'r'){
+		printf("Nothing yet");
+	}
+	return 0;
 }
 
 void ui_mainloop() {
