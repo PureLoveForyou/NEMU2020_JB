@@ -108,7 +108,7 @@ static int cmd_info(char *args)
 		printf("Usage: info r/w\n");
 	}
 	else if(*arg == 'r'){
-		printf( "eax        0x%x        %d\n",cpu.eax,cpu.eax);
+		printf( "eax\t0x%x\t%d\n",cpu.eax,cpu.eax);
 		printf(	"ecx        0x%x        %d\n",cpu.ecx,cpu.ecx);
 		printf(	"edx        0x%x        %d\n",cpu.edx,cpu.edx);
 		printf(	"ebx        0x%x        %d\n",cpu.ebx,cpu.ebx);
