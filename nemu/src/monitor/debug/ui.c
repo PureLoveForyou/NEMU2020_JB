@@ -108,14 +108,16 @@ static int cmd_info(char *args)
 		printf("Usage: info r/w\n");
 	}
 	else if(*arg == 'r'){
-		printf( "eax\t0x%s\t%d\n",regsl[0],cpu.gpr[0]._32);
-		printf(	"ecx\t0x%x\t%d\n",cpu.ecx,cpu.ecx);
-		printf(	"edx\t0x%x\t%d\n",cpu.edx,cpu.edx);
-		printf(	"ebx\t0x%x\t%d\n",cpu.ebx,cpu.ebx);
-		printf(	"esp\t0x%x\t%d\n",cpu.esp,cpu.esp);
-		printf(	"ebp\t0x%x\t%d\n",cpu.ebp,cpu.ebp);
-		printf(	"esi\t0x%x\t%d\n",cpu.esi,cpu.esi);
-		printf(	"edi\t0x%x\t%d\n",cpu.edi,cpu.edi);
+		int i;
+		for(i = 0; i < 8; i++) {
+			printf("%s\t0x%x\t%d\n", regsl[i], cpu.gpr[i]._32, cpu.gpr[i]._32);
+		}
+		for(i = 0; i < 8; i++) {
+			printf("%s\t0x%x\t%d\n", regsw[i], cpu.gpr[i]._16, cpu.gpr[i]._16);
+		}
+		for(i = 0; i < 8; i++) {
+			printf("%s\t0x%s\t%s\n", regsb[i], cpu.gpr[i]._8, cpu.gpr[i]._8);
+		}
 	}
 	else {
 		printf("Unknow command\nUsage: info r/w\n");
