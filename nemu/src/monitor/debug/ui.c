@@ -7,6 +7,8 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+extern CPU_state cpu;
+
 void cpu_exec(uint32_t);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
@@ -102,11 +104,11 @@ static int cmd_info(char *args)
 {
 	char *arg = strtok(NULL, " ");
 	if(arg == NULL) {
-		printf("What information do you want\n");
+		printf("What information do you want. 'r' for registers and 'w' for watchpoints\n");
 		printf("Usage: info r/w\n");
 	}
 	else if(*arg == 'r'){
-		printf("Nothing yet\n");
+		printf("%x\n",cpu.eax);
 	}
 	else {
 		printf("Unknow command\nUsage: info r/w\n");
