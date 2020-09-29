@@ -7,7 +7,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-extern CPU_state cpu;
+//extern CPU_state cpu;
 
 void cpu_exec(uint32_t);
 
