@@ -110,13 +110,13 @@ static int cmd_info(char *args)
 	else if(*arg == 'r'){
 		int i;
 		for(i = 0; i < 8; i++) {
-			printf("%s\t0x%x\t%d\n", regsl[i], cpu.gpr[i]._32, cpu.gpr[i]._32);
+			printf("%s\t0x%08x\t%08d\n", regsl[i], cpu.gpr[i]._32, cpu.gpr[i]._32);
 		}
 		for(i = 0; i < 8; i++) {
 			printf("%s\t0x%x\t%d\n", regsw[i], cpu.gpr[i]._16, cpu.gpr[i]._16);
 		}
 		for(i = 0; i < 8; i++) {
-			printf("%s\t0x%x%x\n", regsb[i], cpu.gpr[i]._8[0], cpu.gpr[i]._8[1]);
+			printf("%s\t0x%x%x\t%d%d\n", regsb[i], cpu.gpr[i]._8[0], cpu.gpr[i]._8[1], cpu.gpr[i]._8[0], cpu.gpr[i]._8[1]);
 		}
 	}
 	else {
