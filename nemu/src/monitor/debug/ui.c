@@ -108,6 +108,9 @@ static int cmd_info(char *args)
 	else if(*arg == 'r'){
 		printf("Nothing yet\n");
 	}
+	else {
+		printf("Unknow command\nUsage: info r/w\n");
+	}
 	return 0;
 }
 
