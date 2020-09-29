@@ -109,13 +109,13 @@ static int cmd_info(char *args)
 	}
 	else if(*arg == 'r'){
 		printf( "eax\t0x%x\t%d\n",cpu.eax,cpu.eax);
-		printf(	"ecx        0x%x        %d\n",cpu.ecx,cpu.ecx);
-		printf(	"edx        0x%x        %d\n",cpu.edx,cpu.edx);
-		printf(	"ebx        0x%x        %d\n",cpu.ebx,cpu.ebx);
-		printf(	"esp        0x%x        %d\n",cpu.esp,cpu.esp);
-		printf(	"ebp        0x%x        %d\n",cpu.ebp,cpu.ebp);
-		printf(	"esi        0x%x        %d\n",cpu.esi,cpu.esi);
-		printf(	"edi        0x%x        %d\n",cpu.edi,cpu.edi);
+		printf(	"ecx\t0x%x\t%d\n",cpu.ecx,cpu.ecx);
+		printf(	"edx\t0x%x\t%d\n",cpu.edx,cpu.edx);
+		printf(	"ebx\t0x%x\t%d\n",cpu.ebx,cpu.ebx);
+		printf(	"esp\t0x%x\t%d\n",cpu.esp,cpu.esp);
+		printf(	"ebp\t0x%x\t%d\n",cpu.ebp,cpu.ebp);
+		printf(	"esi\t0x%x\t%d\n",cpu.esi,cpu.esi);
+		printf(	"edi\t0x%x\t%d\n",cpu.edi,cpu.edi);
 	}
 	else {
 		printf("Unknow command\nUsage: info r/w\n");
