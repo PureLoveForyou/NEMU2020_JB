@@ -108,7 +108,7 @@ static int cmd_info(char *args)
 		printf("Usage: info r/w\n");
 	}
 	else if(*arg == 'r'){
-		printf("%x\n",cpu.eax);
+		printf("eax        %x        %d\n",cpu.eax,cpu.eax);
 	}
 	else {
 		printf("Unknow command\nUsage: info r/w\n");
