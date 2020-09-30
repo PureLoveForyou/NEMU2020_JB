@@ -43,6 +43,8 @@ static int cmd_si(char *args);
 
 static int cmd_info(char *args);
 
+static int cmd_x(char *args);
+
 static struct {
 	char *name;
 	char *description;
@@ -53,6 +55,7 @@ static struct {
 	{ "q", "Exit NEMU", cmd_q },
 	{ "si", "Execute one instruction.Format:si n.Execute n instructions", cmd_si },
 	{ "info", "Print the information of registers or the monitor point", cmd_info },
+	{ "x", "Scan memory",cmd_x },
 
 	/* TODO: Add more commands */
 
@@ -125,6 +128,26 @@ static int cmd_info(char *args)
 	}
 	else {
 		printf("Unknow command\nUsage: info r/w\n");
+	}
+	return 0;
+}
+
+static int cmd_x(char *args)
+{
+	char *arg1 = strtok(NULL, " ");
+	char *arg2 = strtok(NULL, " ");
+	int num, VirtualAddress, i;
+	sscanf(arg1, "%d", &num);
+	sscanf(arg2, "%x", &VirtualAddress);
+	if(arg1 == NULL || arg2 == NULL) {
+		printf( "Command 'x' must follow two instructions"
+			"Usage: x number address"
+			"Example: x 10 0x100000");
+	}
+	else {
+		for(i = 0; i < num; i++) {
+			printf("NOthing yet");
+		}
 	}
 	return 0;
 }
