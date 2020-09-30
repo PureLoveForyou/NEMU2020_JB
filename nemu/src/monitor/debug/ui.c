@@ -137,16 +137,16 @@ static int cmd_x(char *args)
 	char *arg1 = strtok(NULL, " ");
 	char *arg2 = strtok(NULL, " ");
 	int num, VirtualAddress, i;
-	sscanf(arg1, "%d", &num);
-	sscanf(arg2, "%x", &VirtualAddress);
 	if(arg1 == NULL || arg2 == NULL) {
 		printf( "Command 'x' must follow two instructions"
 			"Usage: x number address"
 			"Example: x 10 0x100000");
 	}
 	else {
+		sscanf(arg1, "%d", &num);
+		sscanf(arg2, "%x", &VirtualAddress);
 		for(i = 0; i < num; i++) {
-			printf("NOthing yet");
+			printf("NOthing yet\n");
 		}
 	}
 	return 0;
