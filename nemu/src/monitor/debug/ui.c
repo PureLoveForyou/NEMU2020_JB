@@ -138,9 +138,9 @@ static int cmd_x(char *args)
 	char *arg2 = strtok(NULL, " ");
 	int num, VirtualAddress, i;
 	if(arg1 == NULL || arg2 == NULL) {
-		printf( "Command 'x' must follow two instructions"
-			"Usage: x number address"
-			"Example: x 10 0x100000");
+		printf( "Command 'x' must follow two instructions\n"
+			"Usage: x number address\n"
+			"Example: x 10 0x100000\n");
 	}
 	else {
 		sscanf(arg1, "%d", &num);
