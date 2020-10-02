@@ -147,9 +147,8 @@ static int cmd_x(char *args)
 		sscanf(arg1, "%d", &num);
 		sscanf(arg2, "%x", &VirtualAddress);
 		for(i = 0; i < num; i++) {
-			//printf("NOthing yet\n");
 			content = swaddr_read(VirtualAddress + i*4, 4);
-			printf("0x%08x\n", content);
+			printf("%08x\t0x%08x\n", VirtualAddress, content);
 		}
 	}
 	return 0;
