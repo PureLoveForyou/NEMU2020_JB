@@ -149,7 +149,7 @@ static int cmd_x(char *args)
 		for(i = 0; i < num; i++) {
 			//printf("NOthing yet\n");
 			content = swaddr_read(VirtualAddress + i*4, 4);
-			printf("%-8x\n", content);
+			printf("%-80x\n", content);
 		}
 	}
 	return 0;
