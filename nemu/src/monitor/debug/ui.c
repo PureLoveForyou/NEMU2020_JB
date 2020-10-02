@@ -106,7 +106,7 @@ static int cmd_info(char *args)
 {
 	char *arg = strtok(NULL, " ");
 	if(arg == NULL) {
-		printf("What information do you want. 'r' for registers and 'w' for watchpoints\n");
+		printf("Argument required. 'r' for registers and 'w' for watchpoints\n");
 		printf("Usage: info r/w\n");
 	}
 	else if(*arg == 'r'){
@@ -139,7 +139,7 @@ static int cmd_x(char *args)
 	int num, i;
 	int VirtualAddress,content;
 	if(arg1 == NULL || arg2 == NULL) {
-		printf( "Command 'x' must follow two instructions\n"
+		printf( "Arguments required.\n"
 			"Usage: x number address\n"
 			"Example: x 10 0x100000\n");
 	}
