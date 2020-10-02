@@ -137,7 +137,7 @@ static int cmd_x(char *args)
 	char *arg1 = strtok(NULL, " ");
 	char *arg2 = strtok(NULL, " ");
 	int num, i;
-	int VirtualAddress;
+	int VirtualAddress,content;
 	if(arg1 == NULL || arg2 == NULL) {
 		printf( "Command 'x' must follow two instructions\n"
 			"Usage: x number address\n"
@@ -148,7 +148,8 @@ static int cmd_x(char *args)
 		sscanf(arg2, "%x", &VirtualAddress);
 		for(i = 0; i < num; i++) {
 			//printf("NOthing yet\n");
-			swaddr_read(VirtualAddress,4);
+			content = swaddr_read(VirtualAddress,4);
+			printf("%d",content);
 		}
 	}
 	return 0;
