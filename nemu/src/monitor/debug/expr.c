@@ -84,6 +84,12 @@ static bool make_token(char *e) {
 				 */
 
 				switch(rules[i].token_type) {
+					case '+': tokens[position].type = rules[i].token_type;break;
+					case '-': tokens[position].type = rules[i].token_type;break;
+					case '*': tokens[position].type = rules[i].token_type;break;
+					case '/': tokens[position].type = rules[i].token_type;break;
+					case '(': tokens[position].type = rules[i].token_type;break;
+					case ')': tokens[position].type = rules[i].token_type;break;
 					default: panic("please implement me");
 				}
 
