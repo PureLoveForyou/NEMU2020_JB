@@ -168,7 +168,7 @@ static int cmd_p(char *args)
 		bool success = 1;
 		int result;
 		result = expr(expression, &success);
-		printf("%d", result);
+		printf("%d\n", result);
 	}
 	return 0;
 }
