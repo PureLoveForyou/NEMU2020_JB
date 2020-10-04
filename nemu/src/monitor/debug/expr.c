@@ -95,8 +95,11 @@ static bool make_token(char *e) {
 					case NOTYPE: break;
 					case '1': tokens[nr_token].type = rules[i].token_type;
 						  int j;
-						  for( j = 0; j < substr_len; j++) {
-						 	tokens[nr_token].str[j] = substr_start[j];
+						  for( j = 32 - substr_len; j < 32; j++) {
+							  tokens[nr_token].str[j] = substr_start[j];
+						  }
+						  for( j = 0; j < 32 - substr_len; j++) {
+							  tokens[nr_token].str[j] = '0';
 						  }
 						  nr_token++;break;
 					default: panic("please implement me");
