@@ -191,7 +191,7 @@ static int eval(int p, int q) {
 				}
 			}
 			else if(tokens[i].type == '*' || tokens[i].type == '/') {
-				if(lparenthese_num == rparenthese_num && lowpriority != 0) {
+				if(lparenthese_num == rparenthese_num && lowpriority == 0) {
 					op = i;
 				}
 			}
