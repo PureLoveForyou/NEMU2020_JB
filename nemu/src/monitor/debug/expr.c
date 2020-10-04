@@ -92,6 +92,7 @@ static bool make_token(char *e) {
 					case '(': tokens[nr_token++].type = rules[i].token_type;break;
 					case ')': tokens[nr_token++].type = rules[i].token_type;break;
 					case EQ: tokens[nr_token++].type = rules[i].token_type;break;
+					case NOTYPE: break;
 					case '1': tokens[nr_token].type = rules[i].token_type;
 						  int j;
 						  for( j = 0; j < substr_len; j++) {
@@ -201,7 +202,7 @@ uint32_t expr(char *e, bool *success) {
 
 	/* TODO: Insert codes to evaluate the expression. */
 	int result;
-	result = eval(0, nr_token);
+	result = eval(0, nr_token - 1);
 	printf("%d\n", result);
 	panic("please implement me");
 	return 0;
