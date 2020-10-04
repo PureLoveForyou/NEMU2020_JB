@@ -167,7 +167,7 @@ static int eval(int p, int q) {
 		int i;
 		result = 0;
 		for(i = 0; i < 32; i++) {
-			result = result*10 + tokens[p].str[i] - '0';
+			result = result*10 + (int)(tokens[p].str[i] - '0');
 		}
 	}
 	else if(check_parentheses(p, q) == true) {
