@@ -153,7 +153,6 @@ static int eval(int p, int q) {
 	int result;
 	if(p > q) {
 		printf("Bad expression");
-		assert(0);
 	}
 	else if(p == q) {
 		/*Single token. And it should be a number*/
