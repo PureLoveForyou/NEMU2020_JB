@@ -141,16 +141,15 @@ static bool check_parentheses(int p, int q)
 				stack_count--;
 			}
 			else if( tokens[p].type == ')' && stack_count == 0) {
-				flag = false;//Right parentheses are more than the left
-				break;
+				return false;//Right parentheses are more than the left
 			}
 			p++;
 		}
 		if(stack_count == 0) {
-			flag = false;
+			flag = true;
 		}
 		else {
-			flag = true;
+			flag = false;
 		}
 	}
 	return flag;
