@@ -94,12 +94,12 @@ static bool make_token(char *e) {
 					case EQ: tokens[nr_token++].type = rules[i].token_type;break;
 					case NOTYPE: break;
 					case '1': tokens[nr_token].type = rules[i].token_type;
-						  int j;
+						  int j, i;
 						  for( j = 0; j < 32; j++) {
 							  tokens[nr_token].str[j] = '0';
 						  }
-						  for( j = 32 - substr_len; j < 32; j++) {
-							  tokens[nr_token].str[j] = substr_start[j];
+						  for( j = 32 - substr_len, i = 0; j < 32; j++) {
+							  tokens[nr_token].str[j] = substr_start[i];
 						  }
 						  for( j = 0; j < 32 - substr_len; j++) {
 							  tokens[nr_token].str[j] = '0';
