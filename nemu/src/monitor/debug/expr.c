@@ -166,6 +166,7 @@ static int eval(int p, int q) {
 	else {
 		/*First find out where the dominant operator is*/
 		int i, lparenthese_num = 0, rparenthese_num = 0, var1, var2, op = 1;
+		int lowpriority = 0;
 		for(i = p; i <= q; i++) {
 			if(tokens[i].type == '(') {
 				lparenthese_num++;
@@ -173,9 +174,16 @@ static int eval(int p, int q) {
 			else if(tokens[i].type == ')') {
 				rparenthese_num++;
 			}
-			else if(tokens[i].type == '+' || tokens[i].type == '-' || tokens[i].type == '*' || tokens[i].type == '/') {
-				if(lparenthese_num == rparenthese_num)
+			else if(tokens[i].type == '+' || tokens[i].type == '-') {
+				if(lparenthese_num == rparenthese_num) {
+					lowpriority++;
 					op = i;
+				}
+			}
+			else if(tokens[i].type == '*' || tokens[i].type == '/') {
+				if(lparenthese_num == rparenthese_num && lowpriority != 0) {
+					op = i;
+				}
 			}
 		}
 
