@@ -161,7 +161,11 @@ static int eval(int p, int q) {
 	}
 	else if(p == q) {
 		/*Single token. And it should be a number*/
-		sscanf(tokens[p].str, "%d", &result);
+		int i;
+		result = 0;
+		for(i = 0; i < 32; i++) {
+			result = result*10 + tokens[p].str[i] - '0';
+		}
 	}
 	else if(check_parentheses(p, q) == true) {
 		result =  eval(p + 1, q - 1);

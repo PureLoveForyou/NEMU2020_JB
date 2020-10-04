@@ -159,15 +159,14 @@ static int cmd_x(char *args)
 
 static int cmd_p(char *args)
 {
-	char *expression = strtok(NULL, " ");
-	if(expression == NULL) {
+	if(args == NULL) {
 		printf( "Expression required."
 			"Usage: p ArithmeticExpression.");
 	}
 	else {
 		bool success = 1;
 		int result;
-		result = expr(expression, &success);
+		result = expr(args, &success);
 		printf("%d\n", result);
 	}
 	return 0;
