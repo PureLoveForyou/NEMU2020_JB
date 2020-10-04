@@ -24,12 +24,13 @@ static struct rule {
 
 	{" +",	NOTYPE},				// spaces
 	{"\\+", '+'},					// plus
-	{"==", EQ},						// equal
+	{"==", EQ},					// equal
 	{"-", '-'},					//minus
 	{"\\*", '*'},					//multiply
-	{"/", '/'},					//devide
+	{"/", '/'},					//divide
 	{"\\(", '('},					//left bracket
-	{"\\)", ')'}					//right bracket
+	{"\\)", ')'},					//right bracket
+	{"[1-9][0-9]*", '1'}				//number
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -84,13 +85,19 @@ static bool make_token(char *e) {
 				 */
 
 				switch(rules[i].token_type) {
-					case '+': tokens[position].type = rules[i].token_type;break;
-					case '-': tokens[position].type = rules[i].token_type;break;
-					case '*': tokens[position].type = rules[i].token_type;break;
-					case '/': tokens[position].type = rules[i].token_type;break;
-					case '(': tokens[position].type = rules[i].token_type;break;
-					case ')': tokens[position].type = rules[i].token_type;break;
-					case EQ: tokens[position].type = rules[i].token_type;break;
+					case '+': tokens[nr_token++].type = rules[i].token_type;break;
+					case '-': tokens[nr_token++].type = rules[i].token_type;break;
+					case '*': tokens[nr_token++].type = rules[i].token_type;break;
+					case '/': tokens[nr_token++].type = rules[i].token_type;break;
+					case '(': tokens[nr_token++].type = rules[i].token_type;break;
+					case ')': tokens[nr_token++].type = rules[i].token_type;break;
+					case EQ: tokens[nr_token++].type = rules[i].token_type;break;
+					case '1': tokens[nr_token].type = rules[i].token_type;
+						  int j;
+						  for( j = 0; j < substr_len; j++) {
+						 	tokens[nr_token].str[j] = substr_start[j];
+						  }
+						  nr_token++;break;
 					default: panic("please implement me");
 				}
 
@@ -107,6 +114,85 @@ static bool make_token(char *e) {
 	return true; 
 }
 
+static bool check_parentheses(int p, int q)
+{
+	/*Check if the expression is surrounded by a matchedd pair of parentheses*/
+	bool flag;
+	int stack_count = 0;
+	if( tokens[p].type != '(' || tokens[q].type != ')' ) {
+		flag = false;
+	}
+	else {
+		p++;
+		q--;//Make sure the leftmost and the rightmost parentheses are matched
+
+		while(p <= q) {
+			if( tokens[p].type == '(' ) {
+				stack_count++;
+			}
+			else if( tokens[p].type == ')' && stack_count > 0) {
+				stack_count--;
+			}
+			else if( tokens[p].type == ')' && stack_count == 0) {
+				flag = false;//Right parentheses are more than the left
+				break;
+			}
+			p++;
+		}
+		if(stack_count == 0) {
+			flag = false;
+		}
+		else {
+			flag = true;
+		}
+	}
+	return flag;
+}
+
+static int eval(int p, int q) {
+	int result;
+	if(p > q) {
+		printf("Bad expression");
+		assert(0);
+	}
+	else if(p == q) {
+		/*Single token. And it should be a number*/
+		sscanf(tokens[p].str, "%d", &result);
+	}
+	else if(check_parentheses(p, q) == true) {
+		result =  eval(p + 1, q - 1);
+	}
+	else {
+		/*First find out where the dominant operator is*/
+		int i, lparenthese_num = 0, rparenthese_num = 0, var1, var2, op = 0;
+		for(i = p; i <= q; i++) {
+			if(tokens[i].type == '(') {
+				lparenthese_num++;
+			}
+			else if(tokens[i].type == ')') {
+				rparenthese_num++;
+			}
+			else if(tokens[i].type == '+' || tokens[i].type == '-' || tokens[i].type == '*' || tokens[i].type == '/') {
+				if(lparenthese_num == rparenthese_num)
+					op = i;
+			}
+		}
+
+		/*Then divide it into two parts to evaluate*/
+		var1 = eval(p, op - 1);
+		var2 = eval(op + 1, q);
+		
+		switch(tokens[op].type) {
+			case '+': result = var1 + var2;break;
+			case '-': result = var1 - var2;break;
+			case '*': result = var1*var2;break;
+			case '/': result = var1/var2;break;
+			default: assert(0);
+		}
+	}
+	return result;
+}
+
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
 		*success = false;
@@ -114,7 +200,9 @@ uint32_t expr(char *e, bool *success) {
 	}
 
 	/* TODO: Insert codes to evaluate the expression. */
+	int result;
+	result = eval(0, nr_token);
+	printf("%d\n", result);
 	panic("please implement me");
 	return 0;
 }
-

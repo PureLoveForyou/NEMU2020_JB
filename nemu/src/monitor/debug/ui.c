@@ -45,6 +45,8 @@ static int cmd_info(char *args);
 
 static int cmd_x(char *args);
 
+static int cmd_p(char *args);
+
 static struct {
 	char *name;
 	char *description;
@@ -55,7 +57,8 @@ static struct {
 	{ "q", "Exit NEMU", cmd_q },
 	{ "si", "Execute one instruction.Format:si n.Execute n instructions", cmd_si },
 	{ "info", "Print the information of registers or the monitor point", cmd_info },
-	{ "x", "Scan memory",cmd_x },
+	{ "x", "Scan memory", cmd_x },
+	{ "p", "Evaluation", cmd_p },
 
 	/* TODO: Add more commands */
 
@@ -150,6 +153,20 @@ static int cmd_x(char *args)
 			content = swaddr_read(VirtualAddress + i*4, 4);
 			printf("0x%08x:\t0x%08x\n", VirtualAddress + i*4, content);
 		}
+	}
+	return 0;
+}
+
+static int cmd_p(char *args)
+{
+	char *expression = strtok(NULL, " ");
+	if(expression == NULL) {
+		printf( "Expression required."
+			"Usage: p ArithmeticExpression.");
+	}
+	else {
+		bool success = 1;
+		expr(expression, &success);
 	}
 	return 0;
 }
