@@ -166,7 +166,9 @@ static int cmd_p(char *args)
 	}
 	else {
 		bool success = 1;
-		expr(expression, &success);
+		int result;
+		result = expr(expression, &success);
+		printf("%d", result);
 	}
 	return 0;
 }
