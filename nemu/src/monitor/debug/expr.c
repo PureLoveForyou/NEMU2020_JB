@@ -173,7 +173,7 @@ static uint32_t eval(int p, int q) {
 	}
 	else {
 		/*First find out where the dominant operator is*/
-		int i, lparenthese_num = 0, rparenthese_num = 0, var1, var2, op = 1;
+		int i, lparenthese_num = 0, rparenthese_num = 0, var1, var2, op = 0;
 		int lowpriority = 0;
 		for(i = p; i <= q; i++) {
 			if(tokens[i].type == '(') {
@@ -201,7 +201,9 @@ static uint32_t eval(int p, int q) {
 		
 		switch(tokens[op].type) {
 			case '+': result = var1 + var2;break;
-			case '-': result = var1 - var2;break;
+			case '-': //if(op == 0||tokens[op-1].type == '*'||tokens[op-1].type == '/'||tokens[op-1].type == '+'||tokens[op-1].type == )
+				  result = var1 - var2;break;
+				  
 			case '*': result = var1*var2;break;
 			case '/': result = var1/var2;break;
 			default: assert(0);
