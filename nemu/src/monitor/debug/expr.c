@@ -160,7 +160,8 @@ static uint32_t eval(int p, int q) {
 
 	for(m = 0; m < nr_token; m++) {
 		/*Mark out which one is minus sign instead of minus*/
-		if(tokens[m].type == '-'&&(m == 0||tokens[m-1].type == '+'||tokens[m-1].type == '-'||tokens[m-1].type == '*'||tokens[m-1].type == '/'||tokens[m-1].type == '(')) {
+		if(tokens[m].type == '-'&&(m == 0||tokens[m-1].type == '+'||tokens[m-1].type == '-'
+		   ||tokens[m-1].type == '*'||tokens[m-1].type == '/'||tokens[m-1].type == '(')) {
 			tokens[m].type = NEGATIVE;
 		}
 	}
