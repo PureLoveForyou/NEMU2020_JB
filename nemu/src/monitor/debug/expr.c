@@ -156,17 +156,22 @@ static bool check_parentheses(int p, int q)
 
 static uint32_t eval(int p, int q) {
 	uint32_t result;
-	int m, negative_flag = 0;
+	int m, negative_flag = 0;//negative_flag is used to record whether there is a minus sign
+
 	for(m = 0; m < nr_token; m++) {
+		/*Mark out which one is minus sign instead of minus*/
 		if(tokens[m].type == '-'&&(m == 0||tokens[m-1].type == '+'||tokens[m-1].type == '-'||tokens[m-1].type == '*'||tokens[m-1].type == '/'||tokens[m-1].type == '(')) {
 			tokens[m].type = NEGATIVE;
 		}
 	}
+
 	if(p > q) {
+		/*bad expression*/
 		printf("Illegal expression\n");
 		assert(0);
 	}
 	if(p == q-1&&tokens[p].type == NEGATIVE) {
+		/*The number is a negative*/
 		negative_flag = 1;
 		p++;
 	}
@@ -178,13 +183,14 @@ static uint32_t eval(int p, int q) {
 			result = result*10 + (uint32_t)(tokens[p].str[i] - '0');
 		}
 		if(negative_flag == 1)
-			result = -result;
+			result = -result;//if this number is a negative, return -number
 	}
 	else if((tokens[p].type == NEGATIVE)&&(check_parentheses(p + 1, q) == true)) {
+		/*The expression is -(expression), return 0-expression*/
 		result = 0 - eval(p + 2, q - 1);
-		printf("OH NO\n");
 	}
 	else if(check_parentheses(p, q) == true) {
+		/*The expression is (expression). Throw '(' and ')' away*/
 		result =  eval(p + 1, q - 1);
 	}
 	else {
@@ -206,7 +212,7 @@ static uint32_t eval(int p, int q) {
 			}
 			else if(tokens[i].type == '*' || tokens[i].type == '/') {
 				if(lparenthese_num == rparenthese_num && lowpriority == 0) {
-					op = i;
+					op = i;//There has no "+' and "-", so "*" and "/" can be dominant operator
 				}
 			}
 		}
