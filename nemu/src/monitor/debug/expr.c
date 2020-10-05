@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ, NUM
+	NOTYPE = 256, EQ, NUM, NEGATIVE
 
 
 };
@@ -156,17 +156,29 @@ static bool check_parentheses(int p, int q)
 
 static uint32_t eval(int p, int q) {
 	uint32_t result;
+	int m, negative_flag = 0;
+	for(m = 0; m < nr_token; m++) {
+		if(tokens[m].type == '-'&&(m == 0||tokens[m-1].type == '+'||tokens[m-1].type == '-'||tokens[m-1].type == '*'||tokens[m-1].type == '/'||tokens[m-1].type == '(')) {
+			tokens[m].type = NEGATIVE;
+		}
+	}
 	if(p > q) {
 		printf("Illegal expression\n");
 		assert(0);
 	}
-	else if(p == q) {
+	if(p == q-1&&tokens[p].type == NEGATIVE) {
+		negative_flag = 1;
+		p++;
+	}
+	if(p == q) {
 		/*Single token. And it should be a number*/
 		int i;
 		result = 0;
 		for(i = 0; i < 32; i++) {
 			result = result*10 + (uint32_t)(tokens[p].str[i] - '0');
 		}
+		if(negative_flag == 1)
+			result = -result;
 	}
 	else if(check_parentheses(p, q) == true) {
 		result =  eval(p + 1, q - 1);
@@ -204,8 +216,7 @@ static uint32_t eval(int p, int q) {
 		
 		switch(tokens[op].type) {
 			case '+': result = var1 + var2;break;
-			case '-': result = var1 - var2;break;
-				  
+			case '-': result = var1 - var2;break; 
 			case '*': result = var1*var2;break;
 			case '/': result = var1/var2;break;
 			default: assert(0);
