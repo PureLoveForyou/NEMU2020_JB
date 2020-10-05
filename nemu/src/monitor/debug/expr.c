@@ -9,7 +9,6 @@
 enum {
 	NOTYPE = 256, EQ
 
-	/* TODO: Add more token types */
 
 };
 
