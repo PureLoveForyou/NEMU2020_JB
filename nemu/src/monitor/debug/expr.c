@@ -181,7 +181,8 @@ static uint32_t eval(int p, int q) {
 			result = -result;
 	}
 	if(tokens[p].type == NEGATIVE&&check_parentheses(p + 1, q) == true) {
-		result = -eval(p + 2, q - 1);
+		result = eval(p + 2, q - 1);
+		result = -result;
 	}
 	else if(check_parentheses(p, q) == true) {
 		result =  eval(p + 1, q - 1);
