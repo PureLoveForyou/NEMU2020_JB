@@ -196,7 +196,10 @@ static uint32_t eval(int p, int q) {
 		}
 
 		/*Then divide it into two parts to evaluate*/
-		var1 = eval(p, op - 1);
+		if( op == 0)
+			var1 = 0;
+		else
+			var1 = eval(p, op - 1);
 		var2 = eval(op + 1, q);
 		
 		switch(tokens[op].type) {
