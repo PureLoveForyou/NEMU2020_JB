@@ -92,7 +92,7 @@ static bool make_token(char *e) {
 					case ')': tokens[nr_token++].type = rules[i].token_type;break;
 					case EQ: tokens[nr_token++].type = rules[i].token_type;break;
 					case NOTYPE: break;
-					case 258: tokens[nr_token].type = rules[i].token_type;
+					case NUM: tokens[nr_token].type = rules[i].token_type;
 						  int j, i;
 						  for( j = 0; j < 32; j++) {
 							  tokens[nr_token].str[j] = '0';
