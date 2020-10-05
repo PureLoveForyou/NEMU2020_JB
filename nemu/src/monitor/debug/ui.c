@@ -160,8 +160,8 @@ static int cmd_x(char *args)
 static int cmd_p(char *args)
 {
 	if(args == NULL) {
-		printf( "Expression required."
-			"Usage: p ArithmeticExpression.");
+		printf( "Expression required.\n"
+			"Usage: p ArithmeticExpression.\n");
 	}
 	else {
 		bool success = 1;
