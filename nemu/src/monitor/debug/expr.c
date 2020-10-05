@@ -204,11 +204,7 @@ static uint32_t eval(int p, int q) {
 		
 		switch(tokens[op].type) {
 			case '+': result = var1 + var2;break;
-			case '-': if(op == 0||tokens[op-1].type == '*'||tokens[op-1].type == '/'||tokens[op-1].type == '+'||tokens[op-1].type == '-')
-					  result = -var2;
-				  else
-				  	  result = var1 - var2;
-				  break;
+			case '-': result = var1 - var2;break;
 				  
 			case '*': result = var1*var2;break;
 			case '/': result = var1/var2;break;
