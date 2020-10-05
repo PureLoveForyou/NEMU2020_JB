@@ -180,7 +180,7 @@ static uint32_t eval(int p, int q) {
 		if(negative_flag == 1)
 			result = -result;
 	}
-	if((tokens[p].type == NEGATIVE)&&(check_parentheses(p + 1, q) == true)) {
+	else if((tokens[p].type == NEGATIVE)&&(check_parentheses(p + 1, q) == true)) {
 		result = 0 - eval(p + 2, q - 1);
 		printf("OH NO\n");
 	}
