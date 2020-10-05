@@ -154,10 +154,10 @@ static bool check_parentheses(int p, int q)
 	return flag;
 }
 
-static int eval(int p, int q) {
-	int result;
+static uint32_t eval(int p, int q) {
+	uint32_t result;
 	if(p > q) {
-		printf("Bad expression\n");
+		printf("Illegal expression\n");
 		assert(0);
 	}
 	else if(p == q) {
@@ -165,7 +165,7 @@ static int eval(int p, int q) {
 		int i;
 		result = 0;
 		for(i = 0; i < 32; i++) {
-			result = result*10 + (int)(tokens[p].str[i] - '0');
+			result = result*10 + (uint32_t)(tokens[p].str[i] - '0');
 		}
 	}
 	else if(check_parentheses(p, q) == true) {

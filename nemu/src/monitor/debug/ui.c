@@ -165,7 +165,7 @@ static int cmd_p(char *args)
 	}
 	else {
 		bool success = 1;
-		int result;
+		uint32_t result;
 		result = expr(args, &success);
 		printf("%d\n", result);
 	}
