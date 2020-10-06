@@ -98,13 +98,13 @@ static bool make_token(char *e) {
 					case ')': 	tokens[nr_token++].type = rules[i].token_type;break;
 					case EQ: 	tokens[nr_token++].type = rules[i].token_type;break;
 					case NOTYPE: 	break;
-					case HEXNUM: 	tokens[nr_token++].type = rules[i].token_type; 
+					case HEXNUM: 	tokens[nr_token].type = rules[i].token_type; 
 							int k, l;
 							for(k = 0; k < 32; k++)
 								tokens[nr_token].str[k] = '0';
 							for(k = 32 - substr_len +2, l = 2; k < 32; k++, l++)
 								tokens[nr_token].str[k] = substr_start[l];
-							break;
+							nr_token++;break;
 
 					case NUM: 	tokens[nr_token].type = rules[i].token_type;
 						  	int j, i;
@@ -114,10 +114,8 @@ static bool make_token(char *e) {
 						  	for( j = 32 - substr_len, i = 0; j < 32; j++, i++) {
 							  	tokens[nr_token].str[j] = substr_start[i];
 						  	}
-						  //	for( j = 0; j < 32 - substr_len; j++) {
-						//	  	tokens[nr_token].str[j] = '0';
-						  //	}
 						  	nr_token++;break;
+
 					default: 	panic("please implement me");
 				}
 
@@ -185,40 +183,58 @@ static uint32_t eval(int p, int q) {
 		printf("Illegal expression\n");
 		assert(0);
 	}
-	if(p == q-1&&(tokens[p].type == NEGATIVE||tokens[p].type == HEXNUM)) {
+	if(p == q-1&&tokens[p].type == NEGATIVE) {
 		if(tokens[p].type == NEGATIVE) {
 			/*The number is a negative*/
 			negative_flag = 1;
 			p++;
 		}
-//		else {
-			/*The numbe is a hexadecimal number*/
-//			int i;
-//			result = 0;
-//			for(i = 0; i < 32; i++) {
-//				/*Transform hexadecimal number into a decimal number*/
-//				if(tokens[p].str[i] >= '0'&&tokens[p].str[i] <= '9')
-//					result = result*16 + (uint32_t)(tokens[p].str[i] - '0');
-//				else if(tokens[p].str[i] >= 'a'&&tokens[p].str[i] <= 'f')
-//					result = result*16 + (uint32_t)(tokens[p].str[i] - 'a') + 10;
-//				else if(tokens[p].str[i] >= 'A'&&tokens[p].str[i] <= 'F')
-//					result = result*16 + (uint32_t)(tokens[p].str[i] - 'A') + 10;
-//				else {
-//					printf("Illegal hexadecimal number\n");//Illegal hexadecimal number
-//					assert(0);
-//				}
-//			}
-//		}
+	/*	else {
+			int i;
+			result = 0;
+			for(i = 0; i < 32; i++) {
+				
+				if(tokens[p].str[i] >= '0'&&tokens[p].str[i] <= '9')
+					result = result*16 + (uint32_t)(tokens[p].str[i] - '0');
+				else if(tokens[p].str[i] >= 'a'&&tokens[p].str[i] <= 'f')
+					result = result*16 + (uint32_t)(tokens[p].str[i] - 'a') + 10;
+				else if(tokens[p].str[i] >= 'A'&&tokens[p].str[i] <= 'F')
+					result = result*16 + (uint32_t)(tokens[p].str[i] - 'A') + 10;
+				else {
+					printf("Illegal hexadecimal number\n");
+					assert(0);
+				}
+			}
+		}*/
 	}
 	if(p == q) {
 		/*Single token. And it should be a number*/
 		int i;
-		result = 0;
-		for(i = 0; i < 32; i++) {
-			result = result*10 + (uint32_t)(tokens[p].str[i] - '0');
+		if(tokens[p].type == NUM) {
+			result = 0;
+			for(i = 0; i < 32; i++) {
+				result = result*10 + (uint32_t)(tokens[p].str[i] - '0');
+			}
+			if(negative_flag == 1)
+				result = -result;//if this number is a negative, return -number
+		}	
+		else {
+			/*The number is a hexadecimal number*/
+			result = 0;
+			for(i = 0; i < 32; i++) {
+				/*Transform hexadecimal number into a decaimal number*/
+				if(tokens[p].str[i] >= '0'&&tokens[p].str[i] <= '9')
+					result = result*16 + (uint32_t)(tokens[p].str[i] - '0');
+				else if(tokens[p].str[i] >= 'a'&&tokens[p].str[i] <= 'f')
+					result = result*16 + (uint32_t)(tokens[p].str[i] - 'a') + 10;
+				else if(tokens[p].str[i] >= 'A'&&tokens[p].str[i] <= 'F')
+					result = result*16 + (uint32_t)(tokens[p].str[i] - 'A') + 10;
+				else {
+					printf("Illegal hexadecimal number\n");
+					assert(0);
+				}
+			}
 		}
-		if(negative_flag == 1)
-			result = -result;//if this number is a negative, return -number
 	}
 	else if((tokens[p].type == NEGATIVE)&&(check_parentheses(p + 1, q) == true)) {
 		/*The expression is -(expression), return 0-expression*/
