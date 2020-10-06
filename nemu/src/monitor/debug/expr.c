@@ -33,7 +33,7 @@ static struct rule {
 	{"\\)", ')'},					//right bracket
 
 	{"[0][x|X]", HEXNUMSIGN},			//hexadecimal number sign
-	{"[0-9a-fA-F]*", HEXNUMBER},	//hexadecimal number
+//	{"[0-9a-fA-F]*", HEXNUMBER},	//hexadecimal number
 
 	{"0|[1-9][0-9]*", NUM}				//number
 };
