@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ, NUM, NEGATIVE, HEXNUMBER
+	NOTYPE = 256, EQ, NUM, NEGATIVE, HEXNUMSIGN, HEXNUMBER
 
 
 };
@@ -32,7 +32,8 @@ static struct rule {
 	{"\\(", '('},					//left bracket
 	{"\\)", ')'},					//right bracket
 
-	{"[0][x|X]", HEXNUMBER},			//hexadecimal number
+	{"[0][x|X]", HEXNUMSIGN},			//hexadecimal number sign
+	{"[0-9a-fA-F]*", HEXNUMBER},	//hexadecimal number
 
 	{"0|[1-9][0-9]*", NUM}				//number
 };
@@ -98,7 +99,7 @@ static bool make_token(char *e) {
 					case ')': tokens[nr_token++].type = rules[i].token_type;break;
 					case EQ: tokens[nr_token++].type = rules[i].token_type;break;
 					case NOTYPE: break;
-					case HEXNUMBER: tokens[nr_token++].type = rules[i].token_type; 
+					case HEXNUMSIGN: tokens[nr_token++].type = rules[i].token_type; 
 							hexnum_flag = 1;//Record type and let it fall through
 					case NUM: if(hexnum_flag == 0)//not a hexadecimal number
 							  tokens[nr_token].type = rules[i].token_type;
@@ -180,7 +181,7 @@ static uint32_t eval(int p, int q) {
 		printf("Illegal expression\n");
 		assert(0);
 	}
-	if(p == q-1&&(tokens[p].type == NEGATIVE||tokens[p].type == HEXNUMBER)) {
+	if(p == q-1&&(tokens[p].type == NEGATIVE||tokens[p].type == HEXNUMSIGN)) {
 		if(tokens[p].type == NEGATIVE) {
 			/*The number is a negative*/
 			negative_flag = 1;
