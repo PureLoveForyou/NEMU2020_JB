@@ -212,7 +212,6 @@ static uint32_t eval(int p, int q) {
 		result = 0;
 		for(i = 0; i < 32; i++) {
 			result = result*10 + (uint32_t)(tokens[p].str[i] - '0');
-			printf("%d", result);
 		}
 		if(negative_flag == 1)
 			result = -result;//if this number is a negative, return -number
