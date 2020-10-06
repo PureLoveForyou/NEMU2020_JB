@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ, NUM, NEGATIVE
+	NOTYPE = 256, EQ, NUM, NEGATIVE, HEXNUMBER
 
 
 };
@@ -25,10 +25,15 @@ static struct rule {
 	{"\\+", '+'},					// plus
 	{"==", EQ},					// equal
 	{"-", '-'},					//minus
+
 	{"\\*", '*'},					//multiply
 	{"/", '/'},					//divide
+
 	{"\\(", '('},					//left bracket
 	{"\\)", ')'},					//right bracket
+
+	{"[0][x|X]", HEXNUMBER},			//hexadecimal number
+
 	{"0|[1-9][0-9]*", NUM}				//number
 };
 
@@ -83,6 +88,7 @@ static bool make_token(char *e) {
 				 * of tokens, some extra actions should be performed.
 				 */
 
+				int hexnum_flag = 0;//judge whether the number is a hexadecimal number
 				switch(rules[i].token_type) {
 					case '+': tokens[nr_token++].type = rules[i].token_type;break;
 					case '-': tokens[nr_token++].type = rules[i].token_type;break;
@@ -92,7 +98,10 @@ static bool make_token(char *e) {
 					case ')': tokens[nr_token++].type = rules[i].token_type;break;
 					case EQ: tokens[nr_token++].type = rules[i].token_type;break;
 					case NOTYPE: break;
-					case NUM: tokens[nr_token].type = rules[i].token_type;
+					case HEXNUMBER: tokens[nr_token++].type = rules[i].token_type; 
+							hexnum_flag = 1;//Record type and let it fall through
+					case NUM: if(hexnum_flag == 0)//not a hexadecimal number
+							  tokens[nr_token].type = rules[i].token_type;
 						  int j, i;
 						  for( j = 0; j < 32; j++) {
 							  tokens[nr_token].str[j] = '0';
@@ -171,10 +180,30 @@ static uint32_t eval(int p, int q) {
 		printf("Illegal expression\n");
 		assert(0);
 	}
-	if(p == q-1&&tokens[p].type == NEGATIVE) {
-		/*The number is a negative*/
-		negative_flag = 1;
-		p++;
+	if(p == q-1&&(tokens[p].type == NEGATIVE||tokens[p].type == HEXNUMBER)) {
+		if(tokens[p].type == NEGATIVE) {
+			/*The number is a negative*/
+			negative_flag = 1;
+			p++;
+		}
+		else {
+			/*The numbe is a hexadecimal number*/
+			int i;
+			result = 0;
+			for(i = 0; i < 32; i++) {
+				/*Transform hexadecimal number into a decimal number*/
+				if(tokens[p].str[i] >= '0'&&tokens[p].str[i] <= '9')
+					result = result*16 + (uint32_t)(tokens[p].str[i] - '0');
+				else if(tokens[p].str[i] >= 'a'&&tokens[p].str[i] <= 'f')
+					result = result*16 + (uint32_t)(tokens[p].str[i] - 'a') + 10;
+				else if(tokens[p].str[i] >= 'A'&&tokens[p].str[i] <= 'F')
+					result = result*16 + (uint32_t)(tokens[p].str[i] - 'A') + 10;
+				else {
+					printf("Illegal hexadecimal number\n");//Illegal hexadecimal number
+					assert(0);
+				}
+			}
+		}
 	}
 	if(p == q) {
 		/*Single token. And it should be a number*/
