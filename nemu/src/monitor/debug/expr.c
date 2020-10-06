@@ -35,7 +35,7 @@ static struct rule {
 	{"[0][x|X]", HEXNUMSIGN},			//hexadecimal number sign
 //	{"[0-9a-fA-F]*", HEXNUMBER},	//hexadecimal number
 
-	{"[0-9]*", NUM}				//number
+	{"[0-9][0-9]*", NUM}				//number
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
