@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ, NUM, NEGATIVE, HEXNUMSIGN, HEXNUMBER
+	NOTYPE = 256, EQ, NUM, NEGATIVE, HEXNUM
 
 
 };
@@ -32,7 +32,7 @@ static struct rule {
 	{"\\(", '('},					//left bracket
 	{"\\)", ')'},					//right bracket
 
-	{"[0][x|X]", HEXNUMSIGN},			//hexadecimal number sign
+	{"[0][x|X][0-9a-fA-F][0-9a-fA-F]*", HEXNUM},	//hexadecimal number
 //	{"[0-9a-fA-F]*", HEXNUMBER},	//hexadecimal number
 
 	{"[0-9][0-9]*", NUM}				//number
@@ -89,32 +89,36 @@ static bool make_token(char *e) {
 				 * of tokens, some extra actions should be performed.
 				 */
 
-				int hexnum_flag = 0;//judge whether the number is a hexadecimal number
 				switch(rules[i].token_type) {
-					case '+': tokens[nr_token++].type = rules[i].token_type;break;
-					case '-': tokens[nr_token++].type = rules[i].token_type;break;
-					case '*': tokens[nr_token++].type = rules[i].token_type;break;
-					case '/': tokens[nr_token++].type = rules[i].token_type;break;
-					case '(': tokens[nr_token++].type = rules[i].token_type;break;
-					case ')': tokens[nr_token++].type = rules[i].token_type;break;
-					case EQ: tokens[nr_token++].type = rules[i].token_type;break;
-					case NOTYPE: break;
-//					case HEXNUMSIGN: tokens[nr_token++].type = rules[i].token_type; 
-//							hexnum_flag = 1;//Record type and let it fall through
-					case NUM: if(hexnum_flag == 0)//not a hexadecimal number
-							  tokens[nr_token].type = rules[i].token_type;
-						  int j, i;
-						  for( j = 0; j < 32; j++) {
-							  tokens[nr_token].str[j] = '0';
-						  }
-						  for( j = 32 - substr_len, i = 0; j < 32; j++, i++) {
-							  tokens[nr_token].str[j] = substr_start[i];
-						  }
-						  for( j = 0; j < 32 - substr_len; j++) {
-							  tokens[nr_token].str[j] = '0';
-						  }
-						  nr_token++;break;
-					default: panic("please implement me");
+					case '+': 	tokens[nr_token++].type = rules[i].token_type;break;
+					case '-': 	tokens[nr_token++].type = rules[i].token_type;break;
+					case '*': 	tokens[nr_token++].type = rules[i].token_type;break;
+					case '/': 	tokens[nr_token++].type = rules[i].token_type;break;
+					case '(': 	tokens[nr_token++].type = rules[i].token_type;break;
+					case ')': 	tokens[nr_token++].type = rules[i].token_type;break;
+					case EQ: 	tokens[nr_token++].type = rules[i].token_type;break;
+					case NOTYPE: 	break;
+					case HEXNUM: 	tokens[nr_token++].type = rules[i].token_type; 
+							int k, l;
+							for(k = 0; k < 32; k++)
+								tokens[nr_token].str[k] = '0';
+							for(k = 32 - substr_len +2, l = 2; k < 32; k++, l++)
+								tokens[nr_token].str[k] = substr_start[l];
+							break;
+
+					case NUM: 	tokens[nr_token].type = rules[i].token_type;
+						  	int j, i;
+						  	for( j = 0; j < 32; j++) {
+							  	tokens[nr_token].str[j] = '0';
+						  	}
+						  	for( j = 32 - substr_len, i = 0; j < 32; j++, i++) {
+							  	tokens[nr_token].str[j] = substr_start[i];
+						  	}
+						  //	for( j = 0; j < 32 - substr_len; j++) {
+						//	  	tokens[nr_token].str[j] = '0';
+						  //	}
+						  	nr_token++;break;
+					default: 	panic("please implement me");
 				}
 
 				break;
@@ -181,7 +185,7 @@ static uint32_t eval(int p, int q) {
 		printf("Illegal expression\n");
 		assert(0);
 	}
-	if(p == q-1&&(tokens[p].type == NEGATIVE||tokens[p].type == HEXNUMSIGN)) {
+	if(p == q-1&&(tokens[p].type == NEGATIVE||tokens[p].type == HEXNUM)) {
 		if(tokens[p].type == NEGATIVE) {
 			/*The number is a negative*/
 			negative_flag = 1;
