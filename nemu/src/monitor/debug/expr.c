@@ -99,8 +99,8 @@ static bool make_token(char *e) {
 					case ')': tokens[nr_token++].type = rules[i].token_type;break;
 					case EQ: tokens[nr_token++].type = rules[i].token_type;break;
 					case NOTYPE: break;
-					case HEXNUMSIGN: tokens[nr_token++].type = rules[i].token_type; 
-							hexnum_flag = 1;//Record type and let it fall through
+//					case HEXNUMSIGN: tokens[nr_token++].type = rules[i].token_type; 
+//							hexnum_flag = 1;//Record type and let it fall through
 					case NUM: if(hexnum_flag == 0)//not a hexadecimal number
 							  tokens[nr_token].type = rules[i].token_type;
 						  int j, i;
@@ -187,24 +187,24 @@ static uint32_t eval(int p, int q) {
 			negative_flag = 1;
 			p++;
 		}
-		else {
+//		else {
 			/*The numbe is a hexadecimal number*/
-			int i;
-			result = 0;
-			for(i = 0; i < 32; i++) {
-				/*Transform hexadecimal number into a decimal number*/
-				if(tokens[p].str[i] >= '0'&&tokens[p].str[i] <= '9')
-					result = result*16 + (uint32_t)(tokens[p].str[i] - '0');
-				else if(tokens[p].str[i] >= 'a'&&tokens[p].str[i] <= 'f')
-					result = result*16 + (uint32_t)(tokens[p].str[i] - 'a') + 10;
-				else if(tokens[p].str[i] >= 'A'&&tokens[p].str[i] <= 'F')
-					result = result*16 + (uint32_t)(tokens[p].str[i] - 'A') + 10;
-				else {
-					printf("Illegal hexadecimal number\n");//Illegal hexadecimal number
-					assert(0);
-				}
-			}
-		}
+//			int i;
+//			result = 0;
+//			for(i = 0; i < 32; i++) {
+//				/*Transform hexadecimal number into a decimal number*/
+//				if(tokens[p].str[i] >= '0'&&tokens[p].str[i] <= '9')
+//					result = result*16 + (uint32_t)(tokens[p].str[i] - '0');
+//				else if(tokens[p].str[i] >= 'a'&&tokens[p].str[i] <= 'f')
+//					result = result*16 + (uint32_t)(tokens[p].str[i] - 'a') + 10;
+//				else if(tokens[p].str[i] >= 'A'&&tokens[p].str[i] <= 'F')
+//					result = result*16 + (uint32_t)(tokens[p].str[i] - 'A') + 10;
+//				else {
+//					printf("Illegal hexadecimal number\n");//Illegal hexadecimal number
+//					assert(0);
+//				}
+//			}
+//		}
 	}
 	if(p == q) {
 		/*Single token. And it should be a number*/
