@@ -192,10 +192,11 @@ static uint32_t eval(int p, int q) {
 		if(tokens[p].type == NEGATIVE) {
 			/*The number is a negative*/
 			printf("%d %d\n", p, q);
-	        	result = -eval(p + 1, q);
+	        	result = 0 - eval(p + 1, q);
 		}
 		else {
-                	result = !eval(p + 1, q);
+                	result = eval(p + 1, q);
+			result = !result;
 		}
 	}
 	if(p == q) {
