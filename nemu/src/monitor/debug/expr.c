@@ -200,7 +200,7 @@ static uint32_t eval(int p, int q) {
 		printf("Illegal expression\n");
 		assert(0);
 	}
-	if((tokens[p].type == NEGATIVE||tokens[p].type == DEREFERENCE||tokens[p].type == NOT)&&p < q) {
+	if(tokens[p].type == NEGATIVE||tokens[p].type == DEREFERENCE||tokens[p].type == NOT) {
 		printf("%d\n%d\n", p, q);
 		p++;
 		if(tokens[p].type == NEGATIVE) {
