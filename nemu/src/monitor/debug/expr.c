@@ -269,7 +269,7 @@ static uint32_t eval(int p, int q) {
 		else
 			var1 = eval(p, op - 1);
 		var2 = eval(op + 1, q);
-		
+		printf("op: %d\n",op);
 		switch(tokens[op].type) {
 			case '+': result = var1 + var2;break;
 			case '-': result = var1 - var2;break; 
