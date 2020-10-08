@@ -104,7 +104,11 @@ static bool make_token(char *e) {
 					case '/': 	tokens[nr_token++].type = rules[i].token_type;break;
 					case '(': 	tokens[nr_token++].type = rules[i].token_type;break;
 					case ')': 	tokens[nr_token++].type = rules[i].token_type;break;
+					
 					case EQ: 	tokens[nr_token++].type = rules[i].token_type;break;
+					case NOTEQ: 	tokens[nr_token++].type = rules[i].token_type;break;
+					case AND: 	tokens[nr_token++].type = rules[i].token_type;break;
+					case OR: 	tokens[nr_token++].type = rules[i].token_type;break;
 					case '$':	tokens[nr_token++].type = rules[i].token_type;break;
 					case NOT:       tokens[nr_token++].type = rules[i].token_type;break;
 					case NOTYPE: 	break;
