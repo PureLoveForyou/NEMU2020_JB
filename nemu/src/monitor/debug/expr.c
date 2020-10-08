@@ -204,7 +204,7 @@ static uint32_t eval(int p, int q) {
 		printf("%d\n%d\n", p, q);
 		if(tokens[p].type == NEGATIVE) {
 			/*The number is a negative*/
-		printf("%d\n%d\n", p, q);
+			printf("%d\n%d\n", p, q);
 	        	result = -eval(p + 1, q);
 		}
 		else if(tokens[p].type == NOT) {
