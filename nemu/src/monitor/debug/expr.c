@@ -226,7 +226,7 @@ static uint32_t eval(int p, int q) {
 	else {
 		/*First find out where the dominant operator is*/
 		int i, lparenthese_num = 0, rparenthese_num = 0, var1, var2, op = 0;
-		int lowpriority = 0;
+		int priority1 = 0, priority2 = 0, priority3 = 0, priority4 = 0;
 		for(i = p; i <= q; i++) {
 			if(tokens[i].type == '(') {
 				lparenthese_num++;
@@ -234,17 +234,37 @@ static uint32_t eval(int p, int q) {
 			else if(tokens[i].type == ')') {
 				rparenthese_num++;
 			}
+			else if(tokens[i].type == AND || tokens[i].type == OR) {
+                                if(lparenthese_num == rparenthese_num) {
+                                        priority1 = 1;
+                                        op = i;
+                                }
+                        }
+			else if(tokens[i].type == EQ || tokens[i].type == NOTEQ) {
+                                if(lparenthese_num == rparenthese_num && priority1 == 0) {
+                                        priority2 = 1;
+                                        op = i;
+                                }
+                        }
 			else if(tokens[i].type == '+' || tokens[i].type == '-') {
-				if(lparenthese_num == rparenthese_num) {
-					lowpriority++;
-					op = i;
-				}
-			}
+                                if(lparenthese_num == rparenthese_num&&priority2 == 0&&priority1 == 0) {
+                                        priority3 = 1;
+                                        op = i;
+                                }
+                        }
 			else if(tokens[i].type == '*' || tokens[i].type == '/') {
-				if(lparenthese_num == rparenthese_num && lowpriority == 0) {
+				if(lparenthese_num == rparenthese_num && priority1 == 0&&priority2 == 0&&priority3 == 0) {
 					op = i;//There has no "+' and "-", so "*" and "/" can be dominant operator
+					priority4 = 1;
 				}
 			}
+		}
+
+		if(priority1 == 0&&priority2 == 0&&priority3 == 0&&priority4 == 0) {
+			if(tokens[p].type == NOT)
+				result = !eval(p + 1, q);
+			else if(tokens[p].type == NEGATIVE)
+				result = -eval(p + 1, q);
 		}
 
 		/*Then divide it into two parts to evaluate*/
@@ -257,8 +277,12 @@ static uint32_t eval(int p, int q) {
 		switch(tokens[op].type) {
 			case '+': result = var1 + var2;break;
 			case '-': result = var1 - var2;break; 
-			case '*': result = var1*var2;break;
+			case '*': result = var1*var2;break;	
 			case '/': result = var1/var2;break;
+			case OR: result = (var1||var2);break;
+			case AND: result = (var1&&var2);break;
+			case EQ: result = (var1==var2);break;
+			case NOTEQ: result = (var1!=var2);break;
 			default: assert(0);
 		}
 	}
