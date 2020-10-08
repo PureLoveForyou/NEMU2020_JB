@@ -189,7 +189,7 @@ static uint32_t eval(int p, int q) {
 	if((tokens[p].type == NEGATIVE||tokens[p].type == DEREFERENCE||tokens[p].type == NOT)&&p < q) {
 		if(tokens[p].type == NEGATIVE) {
 			/*The number is a negative*/
-	        	return eval(p + 1, q);
+	        	return -eval(p + 1, q);
 		}
 		else if(tokens[p].type == NOT) {
                 	return !eval(p + 1, q);;
