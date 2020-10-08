@@ -33,7 +33,8 @@ static struct rule {
 	{"\\)", ')'},					//right bracket
 
 	{"[0][x|X][0-9a-fA-F][0-9a-fA-F]*", HEXNUM},	//hexadecimal number
-//	{"[0-9a-fA-F]*", HEXNUMBER},	//hexadecimal number
+
+	{"\\$", '$'},					//Access registers
 
 	{"[0-9][0-9]*", NUM}				//number
 };
@@ -97,6 +98,7 @@ static bool make_token(char *e) {
 					case '(': 	tokens[nr_token++].type = rules[i].token_type;break;
 					case ')': 	tokens[nr_token++].type = rules[i].token_type;break;
 					case EQ: 	tokens[nr_token++].type = rules[i].token_type;break;
+					case '$':	tokens[nr_token++].type = rules[i].token_type;break;
 					case NOTYPE: 	break;
 					case HEXNUM: 	tokens[nr_token].type = rules[i].token_type; 
 							int k, l;
@@ -184,28 +186,9 @@ static uint32_t eval(int p, int q) {
 		assert(0);
 	}
 	if(p == q-1&&tokens[p].type == NEGATIVE) {
-		if(tokens[p].type == NEGATIVE) {
-			/*The number is a negative*/
-			negative_flag = 1;
-			p++;
-		}
-	/*	else {
-			int i;
-			result = 0;
-			for(i = 0; i < 32; i++) {
-				
-				if(tokens[p].str[i] >= '0'&&tokens[p].str[i] <= '9')
-					result = result*16 + (uint32_t)(tokens[p].str[i] - '0');
-				else if(tokens[p].str[i] >= 'a'&&tokens[p].str[i] <= 'f')
-					result = result*16 + (uint32_t)(tokens[p].str[i] - 'a') + 10;
-				else if(tokens[p].str[i] >= 'A'&&tokens[p].str[i] <= 'F')
-					result = result*16 + (uint32_t)(tokens[p].str[i] - 'A') + 10;
-				else {
-					printf("Illegal hexadecimal number\n");
-					assert(0);
-				}
-			}
-		}*/
+		/*The number is a negative*/
+		negative_flag = 1;
+		p++;
 	}
 	if(p == q) {
 		/*Single token. And it should be a number*/
