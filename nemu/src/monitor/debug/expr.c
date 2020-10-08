@@ -194,11 +194,11 @@ static uint32_t eval(int p, int q) {
 		else if(tokens[p].type == NOT) {
                 	return !eval(p + 1, q);;
 		}
-		else if(tokens[p].type == DEREFERENCE) {
-                        /* Sign dereference '*' */
-                        dereference_flag = 1;   
-                        p++;
-                }
+//		else if(tokens[p].type == DEREFERENCE) {
+//                      /* Sign dereference '*' */
+//                        dereference_flag = 1;   
+//                        p++;
+//                }
 	}
 	if(p == q) {
 		/*Single token. And it should be a number*/
