@@ -189,10 +189,10 @@ static uint32_t eval(int p, int q) {
 	if((tokens[p].type == NEGATIVE||tokens[p].type == DEREFERENCE||tokens[p].type == NOT)&&p < q) {
 		if(tokens[p].type == NEGATIVE) {
 			/*The number is a negative*/
-	        	return -eval(p + 1, q);
+	        	result = -eval(p + 1, q);
 		}
 		else if(tokens[p].type == NOT) {
-                	return !eval(p + 1, q);;
+                	result = !eval(p + 1, q);;
 		}
 //		else if(tokens[p].type == DEREFERENCE) {
 //                      /* Sign dereference '*' */
@@ -213,9 +213,6 @@ static uint32_t eval(int p, int q) {
 			else if(not_flag == 1)
 				result = !result;
 			else if(dereference_flag == 1) {
-			//	char *address;
-			//	address = result;
-			//	result = *address;
 				printf("NO\n");
 				assert(0);
 			}
