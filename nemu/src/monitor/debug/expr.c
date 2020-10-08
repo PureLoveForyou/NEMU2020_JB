@@ -202,20 +202,14 @@ static uint32_t eval(int p, int q) {
 	}
 	if(tokens[p].type == NEGATIVE||tokens[p].type == DEREFERENCE||tokens[p].type == NOT) {
 		printf("%d\n%d\n", p, q);
-		p++;
 		if(tokens[p].type == NEGATIVE) {
 			/*The number is a negative*/
 			printf("%d\n%d\n", p, q);
-	        	result = -eval(p, q);
+	        	result = -eval(p + 1, q);
 		}
 		else if(tokens[p].type == NOT) {
-                	result = !eval(p, q);;
+                	result = !eval(p + 1, q);
 		}
-//		else if(tokens[p].type == DEREFERENCE) {
-//                      /* Sign dereference '*' */
-//                        dereference_flag = 1;   
-//                        p++;
-//                }
 	}
 	if(p == q) {
 		/*Single token. And it should be a number*/
