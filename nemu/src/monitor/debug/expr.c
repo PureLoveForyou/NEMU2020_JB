@@ -181,6 +181,20 @@ static uint32_t eval(int p, int q) {
 	int negative_flag = 0;//negative_flag is used to record whether there is a minus sign
 	int dereference_flag = 0, not_flag = 0;
 
+	int m;
+        for(m = 0; m < nr_token; m++) {
+                /* Mark out which one is minus sign instead of minus, so does "*" */
+                if(tokens[m].type == '-'&&(m == 0||tokens[m-1].type == '+'||tokens[m-1].type == '-'
+                   ||tokens[m-1].type == '*'||tokens[m-1].type == '/'||tokens[m-1].type == '(')) {
+                        tokens[m].type = NEGATIVE;
+                }
+                else if(tokens[m].type == '*'&&(m == 0||tokens[m-1].type == '+'||tokens[m-1].type == '-'
+                        ||tokens[m-1].type == '*'||tokens[m-1].type == '/'||tokens[m-1].type == '(')) {
+                        tokens[m].type = DEREFERENCE;
+                }
+        }
+
+
 	if(p > q) {
 		/*bad expression*/
 		printf("Illegal expression\n");
@@ -294,18 +308,6 @@ uint32_t expr(char *e, bool *success) {
 	}
 
 	/* TODO: Insert codes to evaluate the expression. */
-	int m;
-	for(m = 0; m < nr_token; m++) {
-                /* Mark out which one is minus sign instead of minus, so does "*" */
-                if(tokens[m].type == '-'&&(m == 0||tokens[m-1].type == '+'||tokens[m-1].type == '-'
-                   ||tokens[m-1].type == '*'||tokens[m-1].type == '/'||tokens[m-1].type == '(')) {
-                        tokens[m].type = NEGATIVE;
-                }
-                else if(tokens[m].type == '*'&&(m == 0||tokens[m-1].type == '+'||tokens[m-1].type == '-'
-                        ||tokens[m-1].type == '*'||tokens[m-1].type == '/'||tokens[m-1].type == '(')) {
-                        tokens[m].type = DEREFERENCE;
-                }
-        }
 
 	return eval(0, nr_token - 1);
 	panic("please implement me");
