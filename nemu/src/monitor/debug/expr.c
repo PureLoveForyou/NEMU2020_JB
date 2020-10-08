@@ -40,7 +40,7 @@ static struct rule {
 	{"!=", NOTEQ},					//not equal
 
 	{"&&", AND},					// equal
-//	{"||", OR},					// equal
+	{"\\|\\|", OR},					// equal
 	{"!", NOT},					//NOT
 
 	{"[0-9][0-9]*", NUM}				//number
