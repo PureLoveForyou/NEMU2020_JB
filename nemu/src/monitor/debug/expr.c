@@ -295,8 +295,8 @@ uint32_t expr(char *e, bool *success) {
 	int m;
         for(m = 0; m < nr_token; m++) {
                 /* Mark out which one is minus sign instead of minus, so does "*" */
-                if(tokens[m].type == '-'&&(m == 0||tokens[m-1].type != NUM||tokens[m-1].type != HEXNUM
-                   ||tokens[m-1].type != REG||tokens[m-1].type != ')')) {
+                if(tokens[m].type == '-'&&(m == 0||(tokens[m-1].type != NUM && tokens[m-1].type != HEXNUM
+                   && tokens[m-1].type != REG && tokens[m-1].type != ')'))) {
                         tokens[m].type = NEGATIVE;
                 }
                 else if(tokens[m].type == '*'&&(m == 0||tokens[m-1].type != NUM||tokens[m-1].type != HEXNUM
