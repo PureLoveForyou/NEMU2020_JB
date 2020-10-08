@@ -178,10 +178,7 @@ static bool check_parentheses(int p, int q)
 
 static uint32_t eval(int p, int q) {
 	uint32_t result;
-//	int negative_flag = 0;//negative_flag is used to record whether there is a minus sign
-//	int dereference_flag = 0, not_flag = 0;
 
-	printf("p:%d q:%d\n",p , q);
 	if(p > q) {
 		/*bad expression*/
 		printf("Illegal expression\n");
@@ -190,13 +187,10 @@ static uint32_t eval(int p, int q) {
 	else if(tokens[p].type == NEGATIVE||tokens[p].type == NOT) {
 		if(tokens[p].type == NEGATIVE) {
 			/*The number is a negative*/
-			printf("p:%d q:%d\n", p, q);
-	        	result = 0 - eval(p + 1, q);
+	        	result = - eval(p + 1, q);
 		}
-		else {
+		else
                 	result = eval(p + 1, q);
-			result = !result;
-		}
 	}
 	else if(p == q) {
 		/*Single token. And it should be a number*/
@@ -229,10 +223,6 @@ static uint32_t eval(int p, int q) {
 				}
 			}
 		}
-	}
-	else if((tokens[p].type == NEGATIVE)&&(check_parentheses(p + 1, q) == true)) {
-		/*The expression is -(expression), return 0-expression*/
-		result = 0 - eval(p + 2, q - 1);
 	}
 	else if(check_parentheses(p, q) == true) {
 		/*The expression is (expression). Throw '(' and ')' away*/
