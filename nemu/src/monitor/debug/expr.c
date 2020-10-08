@@ -269,7 +269,6 @@ static uint32_t eval(int p, int q) {
 		else
 			var1 = eval(p, op - 1);
 		var2 = eval(op + 1, q);
-		printf("op: %d\n",op);
 		switch(tokens[op].type) {
 			case '+': result = var1 + var2;break;
 			case '-': result = var1 - var2;break; 
@@ -299,8 +298,8 @@ uint32_t expr(char *e, bool *success) {
                    && tokens[m-1].type != REG && tokens[m-1].type != ')'))) {
                         tokens[m].type = NEGATIVE;
                 }
-                else if(tokens[m].type == '*'&&(m == 0||tokens[m-1].type != NUM||tokens[m-1].type != HEXNUM
-                   ||tokens[m-1].type != REG||tokens[m-1].type != ')')) {
+		else if(tokens[m].type == '*'&&(m == 0||(tokens[m-1].type != NUM && tokens[m-1].type != HEXNUM
+                   && tokens[m-1].type != REG && tokens[m-1].type != ')'))) {
                         tokens[m].type = DEREFERENCE;
                 }
         }
