@@ -184,14 +184,6 @@ static uint32_t eval(int p, int q) {
 		printf("Illegal expression\n");
 		assert(0);
 	}
-	else if(tokens[p].type == NEGATIVE||tokens[p].type == NOT) {
-		if(tokens[p].type == NEGATIVE) {
-			/*The number is a negative*/
-	        	result = -eval(p + 1, q);
-		}
-		else
-                	result = !eval(p + 1, q);
-	}
 	else if(p == q) {
 		/*Single token. And it should be a number*/
 		int i;
