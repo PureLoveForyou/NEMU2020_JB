@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ, NUM, NEGATIVE, HEXNUM, NOT
+	NOTYPE = 256, EQ, NUM, NEGATIVE, HEXNUM, NOT, DEREFERENCE
 
 
 };
@@ -35,6 +35,8 @@ static struct rule {
 	{"[0][x|X][0-9a-fA-F][0-9a-fA-F]*", HEXNUM},	//hexadecimal number
 
 	{"\\$", '$'},					//Access registers
+
+	{"!", NOT},					//NOT
 
 	{"[0-9][0-9]*", NUM}				//number
 };
@@ -99,6 +101,7 @@ static bool make_token(char *e) {
 					case ')': 	tokens[nr_token++].type = rules[i].token_type;break;
 					case EQ: 	tokens[nr_token++].type = rules[i].token_type;break;
 					case '$':	tokens[nr_token++].type = rules[i].token_type;break;
+					case NOT:       tokens[nr_token++].type = rules[i].token_type;break;
 					case NOTYPE: 	break;
 					case HEXNUM: 	tokens[nr_token].type = rules[i].token_type; 
 							int k, l;
@@ -171,17 +174,17 @@ static bool check_parentheses(int p, int q)
 static uint32_t eval(int p, int q) {
 	uint32_t result;
 	int m, negative_flag = 0;//negative_flag is used to record whether there is a minus sign
-	int not_sign = 0;
+	int dereference_flag = 0, not_flag = 0;
 
 	for(m = 0; m < nr_token; m++) {
-		/* Mark out which one is minus sign instead of minus, so does "!" */
+		/* Mark out which one is minus sign instead of minus, so does "*" */
 		if(tokens[m].type == '-'&&(m == 0||tokens[m-1].type == '+'||tokens[m-1].type == '-'
 		   ||tokens[m-1].type == '*'||tokens[m-1].type == '/'||tokens[m-1].type == '(')) {
 			tokens[m].type = NEGATIVE;
 		}
 		else if(tokens[m].type == '*'&&(m == 0||tokens[m-1].type == '+'||tokens[m-1].type == '-'
                    	||tokens[m-1].type == '*'||tokens[m-1].type == '/'||tokens[m-1].type == '(')) {
-			tokens[m].type = NOT;
+			tokens[m].type = DEREFERENCE;
 		}
 	}
 
@@ -190,14 +193,17 @@ static uint32_t eval(int p, int q) {
 		printf("Illegal expression\n");
 		assert(0);
 	}
-	if(p == q-1&&(tokens[p].type == NEGATIVE||tokens[p].type == NOT)) {
+	if(p == q-1&&(tokens[p].type == NEGATIVE||tokens[p].type == DEREFERENCE||tokens[p].type == NOT)) {
 		if(tokens[p].type == NEGATIVE) {
 			/*The number is a negative*/
 			negative_flag = 1;
 		}
+		else if(tokens[p].type == DEREFERENCE) {
+			/* Sign dereference '*' */
+			dereference_flag = 1;
+		}
 		else if(tokens[p].type == NOT) {
-			/* Sign NOT '!' */
-			not_sign = 1;
+			not_flag = 1;
 		}
 		p++;
 	}
@@ -211,8 +217,15 @@ static uint32_t eval(int p, int q) {
 			}
 			if(negative_flag == 1)
 				result = -result;//if this number is a negative, return -number
-			else if(not_sign == 1)
+			else if(not_flag == 1)
 				result = !result;
+			else if(dereference_flag == 1) {
+			//	char *address;
+			//	address = result;
+			//	result = *address;
+				printf("NO\n");
+				assert(0);
+			}
 		}	
 		else {
 			/*The number is a hexadecimal number*/
