@@ -187,6 +187,7 @@ static uint32_t eval(int p, int q) {
 		assert(0);
 	}
 	if((tokens[p].type == NEGATIVE||tokens[p].type == DEREFERENCE||tokens[p].type == NOT)&&p < q) {
+		printf("%d\n%d\n", p, q);
 		if(tokens[p].type == NEGATIVE) {
 			/*The number is a negative*/
 	        	result = -eval(p + 1, q);
