@@ -181,33 +181,19 @@ static uint32_t eval(int p, int q) {
 //	int negative_flag = 0;//negative_flag is used to record whether there is a minus sign
 //	int dereference_flag = 0, not_flag = 0;
 
-	int m;
-        for(m = 0; m < nr_token; m++) {
-                /* Mark out which one is minus sign instead of minus, so does "*" */
-                if(tokens[m].type == '-'&&(m == 0||tokens[m-1].type == '+'||tokens[m-1].type == '-'
-                   ||tokens[m-1].type == '*'||tokens[m-1].type == '/'||tokens[m-1].type == '(')) {
-                        tokens[m].type = NEGATIVE;
-                }
-                else if(tokens[m].type == '*'&&(m == 0||tokens[m-1].type == '+'||tokens[m-1].type == '-'
-                        ||tokens[m-1].type == '*'||tokens[m-1].type == '/'||tokens[m-1].type == '(')) {
-                        tokens[m].type = DEREFERENCE;
-                }
-        }
-
-
 	if(p > q) {
 		/*bad expression*/
 		printf("Illegal expression\n");
 		assert(0);
 	}
-	if(tokens[p].type == NEGATIVE||tokens[p].type == DEREFERENCE||tokens[p].type == NOT) {
+	if(tokens[p].type == NEGATIVE||tokens[p].type == NOT) {
 		printf("%d\n%d\n", p, q);
 		if(tokens[p].type == NEGATIVE) {
 			/*The number is a negative*/
 			printf("%d\n%d\n", p, q);
 	        	result = -eval(p + 1, q);
 		}
-		else if(tokens[p].type == NOT) {
+		else {
                 	result = !eval(p + 1, q);
 		}
 	}
@@ -221,12 +207,9 @@ static uint32_t eval(int p, int q) {
 			}
 			if(tokens[p-1].type == NEGATIVE)
 				result = -result;//if this number is a negative, return -number
-			else if(tokens[p-1].type == NOT)
+			else if(tokens[p-1].type == NOT) {
 				result = !result;
-//			else if(dereference_flag == 1) {
-//				printf("NO\n");
-//				assert(0);
-//			}
+			}
 		}	
 		else {
 			/*The number is a hexadecimal number*/
@@ -303,6 +286,18 @@ uint32_t expr(char *e, bool *success) {
 	}
 
 	/* TODO: Insert codes to evaluate the expression. */
+	int m;
+        for(m = 0; m < nr_token; m++) {
+                /* Mark out which one is minus sign instead of minus, so does "*" */
+                if(tokens[m].type == '-'&&(m == 0||tokens[m-1].type == '+'||tokens[m-1].type == '-'
+                   ||tokens[m-1].type == '*'||tokens[m-1].type == '/'||tokens[m-1].type == '(')) {
+                        tokens[m].type = NEGATIVE;
+                }
+                else if(tokens[m].type == '*'&&(m == 0||tokens[m-1].type == '+'||tokens[m-1].type == '-'
+                        ||tokens[m-1].type == '*'||tokens[m-1].type == '/'||tokens[m-1].type == '(')) {
+                        tokens[m].type = DEREFERENCE;
+                }
+        }
 
 	return eval(0, nr_token - 1);
 	panic("please implement me");
