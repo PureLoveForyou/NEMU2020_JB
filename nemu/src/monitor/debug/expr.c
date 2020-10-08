@@ -258,9 +258,9 @@ static uint32_t eval(int p, int q) {
 
 		if(priority1 == 0&&priority2 == 0&&priority3 == 0&&priority4 == 0) {
 			if(tokens[p].type == NOT)
-				result = !eval(p + 1, q);
+				return !eval(p + 1, q);
 			else if(tokens[p].type == NEGATIVE)
-				result = -eval(p + 1, q);
+				return -eval(p + 1, q);
 		}
 
 		/*Then divide it into two parts to evaluate*/
