@@ -178,8 +178,8 @@ static bool check_parentheses(int p, int q)
 
 static uint32_t eval(int p, int q) {
 	uint32_t result;
-	int negative_flag = 0;//negative_flag is used to record whether there is a minus sign
-	int dereference_flag = 0, not_flag = 0;
+//	int negative_flag = 0;//negative_flag is used to record whether there is a minus sign
+//	int dereference_flag = 0, not_flag = 0;
 
 	int m;
         for(m = 0; m < nr_token; m++) {
@@ -225,14 +225,14 @@ static uint32_t eval(int p, int q) {
 			for(i = 0; i < 32; i++) {
 				result = result*10 + (uint32_t)(tokens[p].str[i] - '0');
 			}
-			if(negative_flag == 1)
+			if(tokens[p-1].type == NEGATIVE)
 				result = -result;//if this number is a negative, return -number
-			else if(not_flag == 1)
+			else if(tokens[p-1].type == NOT)
 				result = !result;
-			else if(dereference_flag == 1) {
-				printf("NO\n");
-				assert(0);
-			}
+//			else if(dereference_flag == 1) {
+//				printf("NO\n");
+//				assert(0);
+//			}
 		}	
 		else {
 			/*The number is a hexadecimal number*/
