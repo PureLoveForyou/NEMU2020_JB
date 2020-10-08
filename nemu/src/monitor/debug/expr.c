@@ -7,7 +7,8 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ, NUM, NEGATIVE, HEXNUM, NOT, DEREFERENCE
+	NOTYPE = 256, EQ, NUM, NEGATIVE, HEXNUM, DEREFERENCE,
+	NOTEQ, AND, OR, NOT
 
 
 };
@@ -22,10 +23,9 @@ static struct rule {
 	 */
 
 	{" +",	NOTYPE},				// spaces
-	{"\\+", '+'},					// plus
-	{"==", EQ},					// equal
-	{"-", '-'},					//minus
 
+	{"\\+", '+'},					// plus
+	{"-", '-'},					//minus
 	{"\\*", '*'},					//multiply
 	{"/", '/'},					//divide
 
@@ -36,6 +36,11 @@ static struct rule {
 
 	{"\\$", '$'},					//Access registers
 
+	{"==", EQ},					//equal
+	{"!=", NOTEQ},					//not equal
+
+	{"&&", AND},					// equal
+	{"||", OR},					// equal
 	{"!", NOT},					//NOT
 
 	{"[0-9][0-9]*", NUM}				//number
@@ -173,39 +178,27 @@ static bool check_parentheses(int p, int q)
 
 static uint32_t eval(int p, int q) {
 	uint32_t result;
-	int m, negative_flag = 0;//negative_flag is used to record whether there is a minus sign
+	int negative_flag = 0;//negative_flag is used to record whether there is a minus sign
 	int dereference_flag = 0, not_flag = 0;
-
-	for(m = 0; m < nr_token; m++) {
-		/* Mark out which one is minus sign instead of minus, so does "*" */
-		if(tokens[m].type == '-'&&(m == 0||tokens[m-1].type == '+'||tokens[m-1].type == '-'
-		   ||tokens[m-1].type == '*'||tokens[m-1].type == '/'||tokens[m-1].type == '(')) {
-			tokens[m].type = NEGATIVE;
-		}
-		else if(tokens[m].type == '*'&&(m == 0||tokens[m-1].type == '+'||tokens[m-1].type == '-'
-                   	||tokens[m-1].type == '*'||tokens[m-1].type == '/'||tokens[m-1].type == '(')) {
-			tokens[m].type = DEREFERENCE;
-		}
-	}
 
 	if(p > q) {
 		/*bad expression*/
 		printf("Illegal expression\n");
 		assert(0);
 	}
-	if(p == q-1&&(tokens[p].type == NEGATIVE||tokens[p].type == DEREFERENCE||tokens[p].type == NOT)) {
+	if(tokens[p].type == NEGATIVE||tokens[p].type == DEREFERENCE||tokens[p].type == NOT) {
 		if(tokens[p].type == NEGATIVE) {
 			/*The number is a negative*/
-			negative_flag = 1;
-		}
-		else if(tokens[p].type == DEREFERENCE) {
-			/* Sign dereference '*' */
-			dereference_flag = 1;
+	        	return eval(p + 1, q);
 		}
 		else if(tokens[p].type == NOT) {
-			not_flag = 1;
+                	return !eval(p + 1, q);;
 		}
-		p++;
+		else if(tokens[p].type == DEREFERENCE) {
+                        /* Sign dereference '*' */
+                        dereference_flag = 1;   
+                        p++;
+                }
 	}
 	if(p == q) {
 		/*Single token. And it should be a number*/
@@ -302,6 +295,19 @@ uint32_t expr(char *e, bool *success) {
 	}
 
 	/* TODO: Insert codes to evaluate the expression. */
+	int m;
+	for(m = 0; m < nr_token; m++) {
+                /* Mark out which one is minus sign instead of minus, so does "*" */
+                if(tokens[m].type == '-'&&(m == 0||tokens[m-1].type == '+'||tokens[m-1].type == '-'
+                   ||tokens[m-1].type == '*'||tokens[m-1].type == '/'||tokens[m-1].type == '(')) {
+                        tokens[m].type = NEGATIVE;
+                }
+                else if(tokens[m].type == '*'&&(m == 0||tokens[m-1].type == '+'||tokens[m-1].type == '-'
+                        ||tokens[m-1].type == '*'||tokens[m-1].type == '/'||tokens[m-1].type == '(')) {
+                        tokens[m].type = DEREFERENCE;
+                }
+        }
+
 	return eval(0, nr_token - 1);
 	panic("please implement me");
 	return 0;
