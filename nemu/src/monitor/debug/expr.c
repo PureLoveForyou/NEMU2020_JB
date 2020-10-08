@@ -200,11 +200,6 @@ static uint32_t eval(int p, int q) {
 			for(i = 0; i < 32; i++) {
 				result = result*10 + (uint32_t)(tokens[p].str[i] - '0');
 			}
-			if(tokens[p-1].type == NEGATIVE)
-				result = -result;//if this number is a negative, return -number
-			else if(tokens[p-1].type == NOT) {
-				result = !result;
-			}
 		}	
 		else {
 			/*The number is a hexadecimal number*/
