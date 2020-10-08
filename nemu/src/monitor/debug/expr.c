@@ -180,17 +180,16 @@ static uint32_t eval(int p, int q) {
 //	int negative_flag = 0;//negative_flag is used to record whether there is a minus sign
 //	int dereference_flag = 0, not_flag = 0;
 
-	printf("%d %d\n",p , q);
+	printf("p:%d q:%d\n",p , q);
 	if(p > q) {
 		/*bad expression*/
 		printf("Illegal expression\n");
 		assert(0);
 	}
 	else if(tokens[p].type == NEGATIVE||tokens[p].type == NOT) {
-		printf("%d %d\n", p, q);
 		if(tokens[p].type == NEGATIVE) {
 			/*The number is a negative*/
-			printf("%d %d\n", p, q);
+			printf("p:%d q:%d\n", p, q);
 	        	result = 0 - eval(p + 1, q);
 		}
 		else {
