@@ -138,7 +138,7 @@ static int cmd_info(char *args)
 static int cmd_x(char *args)
 {
 	char *arg1 = strtok(NULL, " ");
-	char *arg2 = strtok(NULL, " ");
+	char *arg2 = strtok(NULL, "");
 	int num, i;
 	int VirtualAddress,content;
 	if(arg1 == NULL || arg2 == NULL) {
