@@ -204,7 +204,14 @@ static uint32_t eval(int p, int q) {
 			for(i = 0; i < 32; i++) {
 				result = result*10 + (uint32_t)(tokens[p].str[i] - '0');
 			}
-		}	
+		}
+		else if(tokens[p].type == DOLREG) {
+                                int i;
+                                for(i = 0; i < 8 && tokens[p].str != regsl[i] && tokens[p].str != regsw[i] && tokens[p].str != regsb[i]; i++);
+                                if(tokens[p].str == regsl[i-1])
+                                        printf("%s\n", regsl[i-1]);
+                                assert(0);
+                        }	
 		else {
 			/*The number is a hexadecimal number*/
 			result = 0;
@@ -275,13 +282,6 @@ static uint32_t eval(int p, int q) {
 			else if(tokens[p].type == NEGATIVE)
 				return -eval(p + 1, q);
 			else if(tokens[p].type == DEREFERENCE) {
-				assert(0);
-			}
-			else if(tokens[p].type == DOLREG) {
-				int i;
-				for(i = 0; i < 8 && tokens[p].str != regsl[i] && tokens[p].str != regsw[i] && tokens[p].str != regsb[i]; i++);
-				if(tokens[p].str == regsl[i-1])
-					printf("%s\n", regsl[i-1]);
 				assert(0);
 			}
 		}
