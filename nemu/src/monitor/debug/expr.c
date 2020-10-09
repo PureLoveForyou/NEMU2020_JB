@@ -207,7 +207,7 @@ static uint32_t eval(int p, int q) {
 		}
 		else if(tokens[p].type == DOLREG) {
 				int size = (int)strlen(tokens[p].str);
-				printf("size:%d str:%s\n", size, tokens[p].str);
+				printf("size:%d str:%s reg:%s\n", size, tokens[p].str, regsl[0]);
                                 assert(0);
                         }	
 		else {
