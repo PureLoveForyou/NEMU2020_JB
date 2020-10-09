@@ -8,7 +8,7 @@
 
 enum {
 	NOTYPE = 256, EQ, NUM, NEGATIVE, HEXNUM, 
-	DEREFERENCE, NOTEQ, AND, OR, NOT, REG
+	DEREFERENCE, NOTEQ, AND, OR, NOT, DOLREG
 
 
 };
@@ -34,7 +34,7 @@ static struct rule {
 
 	{"[0][x|X][0-9a-fA-F][0-9a-fA-F]*", HEXNUM},	//hexadecimal number
 
-	{"\\$", REG},					//Access registers
+	{"\\$[a-z][a-z]*", DOLREG},			//Access registers
 
 	{"==", EQ},					//equal
 	{"!=", NOTEQ},					//not equal
@@ -109,14 +109,22 @@ static bool make_token(char *e) {
 					case NOTEQ: 	tokens[nr_token++].type = rules[i].token_type;break;
 					case AND: 	tokens[nr_token++].type = rules[i].token_type;break;
 					case OR: 	tokens[nr_token++].type = rules[i].token_type;break;
-					case '$':	tokens[nr_token++].type = rules[i].token_type;break;
 					case NOT:       tokens[nr_token++].type = rules[i].token_type;break;
 					case NOTYPE: 	break;
+					case DOLREG:	tokens[nr_token].type = rules[i].token_type;
+							int y;
+							for(y = 0; y < 32; y++) {
+								tokens[nr_token].str[y] = ' ';
+								if(i <= substr_len -2)
+									tokens[nr_token].str[y] = substr_start[y];
+							}
+							tokens[nr_token].str[substr_len - 1] = '\0';
+							nr_token++;break;
 					case HEXNUM: 	tokens[nr_token].type = rules[i].token_type; 
 							int k, l;
 							for(k = 0; k < 32; k++)
 								tokens[nr_token].str[k] = '0';
-							for(k = 32 - substr_len +2, l = 2; k < 32; k++, l++)
+							for(k = 32 - substr_len + 2, l = 2; k < 32; k++, l++)
 								tokens[nr_token].str[k] = substr_start[l];
 							nr_token++;break;
 
@@ -266,6 +274,16 @@ static uint32_t eval(int p, int q) {
 				return !eval(p + 1, q);
 			else if(tokens[p].type == NEGATIVE)
 				return -eval(p + 1, q);
+			else if(tokens[p].type == DEREFERENCE) {
+				assert(0);
+			}
+			else if(tokens[p].type == DOLREG) {
+				int i;
+				for(i = 0; i < 8 && tokens[p].str != regsl[i] && tokens[p].str != regsw[i] && tokens[p].str != regsb[i]; i++);
+				if(tokens[p].str == regsl[i-1])
+					printf("%s\n", regsl[i-1]);
+				assert(0);
+			}
 		}
 
 		/*Then divide it into two parts to evaluate*/
@@ -300,11 +318,11 @@ uint32_t expr(char *e, bool *success) {
         for(m = 0; m < nr_token; m++) {
                 /* Mark out which one is minus sign instead of minus, so does dereference operation "*" */
                 if(tokens[m].type == '-'&&(m == 0||(tokens[m-1].type != NUM && tokens[m-1].type != HEXNUM
-                   && tokens[m-1].type != REG && tokens[m-1].type != ')'))) {
+                   && tokens[m-1].type != DOLREG && tokens[m-1].type != ')'))) {
                         tokens[m].type = NEGATIVE;
                 }
 		else if(tokens[m].type == '*'&&(m == 0||(tokens[m-1].type != NUM && tokens[m-1].type != HEXNUM
-                   && tokens[m-1].type != REG && tokens[m-1].type != ')'))) {
+                   && tokens[m-1].type != DOLREG && tokens[m-1].type != ')'))) {
                         tokens[m].type = DEREFERENCE;
                 }
         }
