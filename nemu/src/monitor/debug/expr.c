@@ -225,6 +225,7 @@ static uint32_t eval(int p, int q) {
 			int index;
 			for(i = 4; i < 8 && tokens[p].str[i] != '\0'; i++);
 			index = tokens[p].str[i];
+			printf("index: %d\n", index);
 			switch(i) {
 				case 4:	return reg_l(index);
 				case 5: return reg_w(index);
