@@ -119,7 +119,6 @@ static bool make_token(char *e) {
 									tokens[nr_token].str[y] = substr_start[y+1];
 							}
 							tokens[nr_token].str[substr_len - 1] = '\0';
-							printf("%s\n", tokens[nr_token].str);
 							nr_token++;break;
 					case HEXNUM: 	tokens[nr_token].type = rules[i].token_type; 
 							int k, l;
@@ -208,9 +207,12 @@ static uint32_t eval(int p, int q) {
 		}
 		else if(tokens[p].type == DOLREG) {
                                 int i;
-				printf("%s", tokens[p].str);
-                                for(i = 0; i < 8 && tokens[p].str != regsl[i] && tokens[p].str != regsw[i] && tokens[p].str != regsb[i]; i++);
-                                if(tokens[p].str == regsl[i])
+				char* reg = tokens[p].str;
+				for(i = 0; i < 32 && i != '\0'; i++)
+					reg[i] = tokens[p].str[i];
+				reg[i] = '\0';
+                                for(i = 0; i < 8 && reg != regsl[i] && reg != regsw[i] && reg != regsb[i]; i++);
+                                if(reg == regsl[i])
                                         printf("%s\n", regsl[i]);
                                 assert(0);
                         }	
