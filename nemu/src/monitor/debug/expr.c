@@ -114,11 +114,13 @@ static bool make_token(char *e) {
 					case DOLREG:	tokens[nr_token].type = rules[i].token_type;
 							int y;
 							for(y = 0; y < 32; y++) {
+								/*Initialization and record the name of the register*/
 								tokens[nr_token].str[y] = '\0';
 								if(y <= substr_len -2)
 									tokens[nr_token].str[y] = substr_start[y+1];
 							}
 							for(y = 0; y < 8; y++) {
+								/*Find out which register it is and record it's position*/
 								if(strcmp(tokens[nr_token].str, regsl[y]) == 0) {
 									tokens[nr_token].str[4] = y;break;
 								}
@@ -219,6 +221,7 @@ static uint32_t eval(int p, int q) {
 			}
 		}
 		else if(tokens[p].type == DOLREG) {
+			/*Access registers*/
 			int index;
 			for(i = 4; i < 8 && tokens[p].str[i] != '\0'; i++);
 			index = tokens[p].str[i];
@@ -227,7 +230,7 @@ static uint32_t eval(int p, int q) {
 				case 5: return reg_w(index);
 				case 6: return reg_b(index);
 				case 7: return cpu.eip;
-				default:assert(0);
+				default:printf("Register doesn't exist\n");assert(0);
 			}
 		}	
 		else {
