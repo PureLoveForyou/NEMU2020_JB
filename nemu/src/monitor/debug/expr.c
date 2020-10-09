@@ -226,7 +226,7 @@ static uint32_t eval(int p, int q) {
 				case 4:	return reg_l(index);
 				case 5: return reg_w(index);
 				case 6: return reg_b(index);
-				case 7: return reg_l(index);
+				case 7: return cpu.eip;
 				default:assert(0);
 			}
 		}	
