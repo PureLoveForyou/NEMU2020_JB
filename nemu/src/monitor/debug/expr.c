@@ -119,6 +119,7 @@ static bool make_token(char *e) {
 									tokens[nr_token].str[y] = substr_start[y];
 							}
 							tokens[nr_token].str[substr_len - 1] = '\0';
+							printf("%s\n", tokens[nr_token].str);
 							nr_token++;break;
 					case HEXNUM: 	tokens[nr_token].type = rules[i].token_type; 
 							int k, l;
