@@ -116,7 +116,7 @@ static bool make_token(char *e) {
 							for(y = 0; y < 32; y++) {
 								tokens[nr_token].str[y] = ' ';
 								if(i <= substr_len -2)
-									tokens[nr_token].str[y] = substr_start[y];
+									tokens[nr_token].str[y] = substr_start[y+1];
 							}
 							tokens[nr_token].str[substr_len - 1] = '\0';
 							printf("%s\n", tokens[nr_token].str);
