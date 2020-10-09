@@ -129,6 +129,7 @@ static int cmd_info(char *args)
 		for(i = 0; i < 8; i++) {
 			printf("%s[1]\t0x%08x\t%d\n", regsb[i], cpu.gpr[i]._8[1], cpu.gpr[i]._8[1]);
 		}
+		printf("eip\t0x%08x\t%d\n", cpu.eip, cpu.eip);
 	}
 	else {
 		printf("Unknow command\nUsage: info r/w\n");
