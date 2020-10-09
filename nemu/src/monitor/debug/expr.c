@@ -216,7 +216,7 @@ static uint32_t eval(int p, int q) {
 		}
 	}
 	else if(check_parentheses(p, q) == true) {
-		/*The expression is (expression). Throw '(' and ')' away*/
+		/*The expression is "(expression)". Throw '(' and ')' away*/
 		result =  eval(p + 1, q - 1);
 	}
 	else {
@@ -232,31 +232,36 @@ static uint32_t eval(int p, int q) {
 			}
 			else if(tokens[i].type == AND || tokens[i].type == OR) {
                                 if(lparenthese_num == rparenthese_num) {
+				/*The left and right parentheses must be equal*/
                                         priority1 = 1;
                                         op = i;
                                 }
                         }
 			else if(tokens[i].type == EQ || tokens[i].type == NOTEQ) {
                                 if(lparenthese_num == rparenthese_num && priority1 == 0) {
+					/*parentheses are equal and there is no 'OR', 'AND' */
                                         priority2 = 1;
                                         op = i;
                                 }
                         }
 			else if(tokens[i].type == '+' || tokens[i].type == '-') {
                                 if(lparenthese_num == rparenthese_num&&priority2 == 0&&priority1 == 0) {
+					//There isn't  any other lower priority operation, so "+" and "-" can be dominant operator
                                         priority3 = 1;
                                         op = i;
                                 }
                         }
 			else if(tokens[i].type == '*' || tokens[i].type == '/') {
 				if(lparenthese_num == rparenthese_num && priority1 == 0&&priority2 == 0&&priority3 == 0) {
-					op = i;//There has no "+' and "-", so "*" and "/" can be dominant operator
+					//There is no "+', "-" or any other lower priority operation, so "*" and "/" can be dominant operator
+					op = i;
 					priority4 = 1;
 				}
 			}
 		}
 
 		if(priority1 == 0&&priority2 == 0&&priority3 == 0&&priority4 == 0) {
+			/*No binary operation, calculate unary operation*/
 			if(tokens[p].type == NOT)
 				return !eval(p + 1, q);
 			else if(tokens[p].type == NEGATIVE)
@@ -293,7 +298,7 @@ uint32_t expr(char *e, bool *success) {
 	/* TODO: Insert codes to evaluate the expression. */
 	int m;
         for(m = 0; m < nr_token; m++) {
-                /* Mark out which one is minus sign instead of minus, so does "*" */
+                /* Mark out which one is minus sign instead of minus, so does dereference operation "*" */
                 if(tokens[m].type == '-'&&(m == 0||(tokens[m-1].type != NUM && tokens[m-1].type != HEXNUM
                    && tokens[m-1].type != REG && tokens[m-1].type != ')'))) {
                         tokens[m].type = NEGATIVE;
