@@ -57,10 +57,10 @@ void free_wp(WP *wp)
 		assert(0);
 	}
 	else {
-		while(p->next != NULL && p->next != wp) {
+		while(p != NULL && p != wp) {
 			p = p->next;
 		}
-		if(p->next == wp)
+		if(p == wp)
 			p->next = p->next->next;
 		else
 			assert(0);
