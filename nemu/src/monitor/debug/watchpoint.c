@@ -137,6 +137,7 @@ void delete_wp(uint32_t n)
 				printf("n: %u\n", n);
 			}
 			if(p->next->NO == n) {
+				printf("p->next->NO: %u", p->next->NO);
 				free_wp(p->next);
 			}
 			else {
