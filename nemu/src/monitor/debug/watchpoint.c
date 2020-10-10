@@ -73,9 +73,28 @@ void free_wp(WP *wp)
 		free_->next = p;
 	}
 	free_->NO = 0;
-	free_->var = 0;
+	free_->value = 0;
 	int i;
 	for(i = 0; i < 32; i++)
 		free_->str[i] = '\0';
 }
 
+bool check_var()
+{
+	WP *p;
+	uint32_t new_value;
+	bool success = true, flag = true;
+	p = head;
+	while(p != NULL) {
+		new_value = expr(p->str, &success);
+		if(!success)
+			assert(0);
+		if(new_value != p->value) {
+			flag = false;
+			printf("watchpoint %d: %s changed\n", p->NO, p->str);
+			printf("Old value: %u\nNew value: %u\n", p->value, new_value);
+			p->value = new_value;
+		}
+	}
+	return flag;
+}

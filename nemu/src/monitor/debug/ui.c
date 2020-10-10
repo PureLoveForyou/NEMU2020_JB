@@ -193,17 +193,17 @@ static int cmd_p(char *args)
 
 static int cmp_w(char *args)
 {
-	uint32_t var;
+	uint32_t value;
 	WP *p;
 	bool success = 1;
 	if(args == NULL) {
 		printf("Argument required\nUsage: w expression\n");
 	}
 	else {
-		var = expr(args, &success);
+		value = expr(args, &success);
 		if(success) {
 			p = new_wp();
-			p->var = var;
+			p->value = value;
 			strcpy(p->str, args);
 		}
 		else
