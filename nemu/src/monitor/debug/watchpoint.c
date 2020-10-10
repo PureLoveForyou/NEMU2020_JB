@@ -129,8 +129,10 @@ void delete_wp(uint32_t n)
 		while(p->NO != n && p != NULL) {
 			p = p->next;
 		}
-		if(p->NO == n)
+		if(p->NO == n) {
 			free_wp(p);
+			printf("n: %u", n);
+		}
 		else
 			printf("Watchpoint %u doesn't exist\n", n);
 	}
