@@ -205,6 +205,7 @@ static int cmp_w(char *args)
 			p = new_wp();
 			p->value = value;
 			strcpy(p->str, args);
+			printf("Watchpoint %d %s: %u\n", p->NO, p->str, p->value);
 		}
 		else
 			assert(0);
