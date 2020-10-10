@@ -119,3 +119,20 @@ void info_wp()
 		}
 	}
 }
+
+void delete_wp(uint32_t n)
+{
+	WP *p = head;
+	if(p == NULL)
+		printf("No watchpoint\n");
+	else {
+		while(p->NO != n && p != NULL) {
+			p = p->next;
+		}
+		if(p->NO == n)
+			free_wp(p);
+		else
+			printf("Watchpoint %u doesn't exist\n", n);
+	}
+}
+

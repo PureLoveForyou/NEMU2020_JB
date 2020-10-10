@@ -49,7 +49,7 @@ static int cmd_p(char *args);
 
 static int cmp_w(char *args);
 
-//static int cmp_d(char *args);
+static int cmp_d(char *args);
 
 //static int cmp_bt(char *args);
 
@@ -66,7 +66,7 @@ static struct {
 	{ "x", "Scan memory", cmd_x },
 	{ "p", "Evaluation", cmd_p },
 	{ "w", "Set a watchpoint", cmp_w },
-//	{ "d", "Delete a watchpoint", cmp_d },
+	{ "d", "Delete a watchpoint", cmp_d },
 //	{ "bt", "Print stack frame chain", cmp_bt },
 
 	/* TODO: Add more commands */
@@ -212,6 +212,20 @@ static int cmp_w(char *args)
 		}
 		else
 			assert(0);
+	}
+	return 0;
+}
+
+static int cmp_d(char *args)
+{
+	char *arg = strtok(NULL, " ");
+	if(arg == NULL) {
+		printf("Argument required\nUsage: d N\n");
+	}
+	else {
+		uint32_t num;
+		sscanf(arg, "%u", &num);
+		delete_wp(num);
 	}
 	return 0;
 }
