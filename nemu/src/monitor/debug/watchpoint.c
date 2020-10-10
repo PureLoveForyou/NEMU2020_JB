@@ -106,6 +106,7 @@ void info_wp()
 			value = expr(p->str, &success);
 			if(success)
 				printf("Watchpoint %d %s: %u\n", p->NO, p->str, p->value);
+			p = p->next;
 		}
 	}
 }
