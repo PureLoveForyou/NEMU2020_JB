@@ -98,3 +98,21 @@ bool check_wp()
 	}
 	return flag;
 }
+
+void info_wp()
+{
+	WP *p;
+	uint32_t value;
+	bool success = true;
+	p = head;
+	if(p == NULL) {
+		printf("NO watchpoint\n");
+	}
+	else {
+		while(p != NULL) {
+			value = expr(p->str, &success);
+			if(success)
+				printf("Watchpoint %d %s: %u\n", p->NO, p->str, p->value);
+		}
+	}
+}

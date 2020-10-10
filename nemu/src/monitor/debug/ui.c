@@ -140,6 +140,9 @@ static int cmd_info(char *args)
 		}
 		printf("\neip\t0x%08x\t%d\n", cpu.eip, cpu.eip);
 	}
+	else if(*arg == 'w') {
+		info_wp();
+	}
 	else {
 		printf("Unknow command\nUsage: info r/w\n");
 	}
