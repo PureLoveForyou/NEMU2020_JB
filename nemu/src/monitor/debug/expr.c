@@ -224,7 +224,7 @@ static uint32_t eval(int p, int q) {
 			/*Access registers*/
 			int index = 0;
 			for(i = 4; i < 8; i++) {
-				if(tokens[p].str[i] > '0'&&tokens[p].str[i] < '8') {
+				if(tokens[p].str[i] >= '0'&&tokens[p].str[i] < '8') {
 					index = tokens[p].str[i] - '0';
 					break;
 				}
