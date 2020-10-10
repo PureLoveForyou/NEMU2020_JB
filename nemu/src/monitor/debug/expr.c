@@ -226,8 +226,10 @@ static uint32_t eval(int p, int q) {
 			int index = 0;
 			for(i = 4; i < 8; i++) {
 				printf("str[%d]%c\n", i, tokens[p].str[i]);
-				if(tokens[p].str[i] > '0'&&tokens[p].str[i] < '8')
+				if(tokens[p].str[i] > '0'&&tokens[p].str[i] < '8') {
 					index = tokens[p].str[i] - '0';
+					break;
+				}
 			}
 			index = tokens[p].str[i] - '0';
 			printf("index: %d\n", index);
