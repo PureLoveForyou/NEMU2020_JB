@@ -142,15 +142,17 @@ static int cmd_x(char *args)
 	char *arg1 = strtok(NULL, " ");
 	char *arg2 = strtok(NULL, "");
 	int num, i;
+	bool success = 1;
 	int VirtualAddress,content;
 	if(arg1 == NULL || arg2 == NULL) {
 		printf( "Arguments required.\n"
-			"Usage: x number address\n"
+			"Usage: x number expression/address\n"
 			"Example: x 10 0x100000\n");
 	}
 	else {
 		sscanf(arg1, "%d", &num);
-		sscanf(arg2, "%x", &VirtualAddress);
+		VirtualAddress = expr(arg2, &success);
+//		sscanf(arg2, "%x", &VirtualAddress);
 		for(i = 0; i < num; i++) {
 			content = swaddr_read(VirtualAddress + i*4, 4);
 			printf("0x%08x:\t0x%08x\n", VirtualAddress + i*4, content);
