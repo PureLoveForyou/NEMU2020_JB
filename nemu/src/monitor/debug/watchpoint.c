@@ -114,7 +114,7 @@ void info_wp()
 	else {
 		while(p != NULL) {
 			if(success)
-				printf("Watchpoint %d %s: %u\n", p->NO, p->str, p->value);
+				printf("Watchpoint %d %s: \t%u\n", p->NO, p->str, p->value);
 			p = p->next;
 		}
 	}
