@@ -199,14 +199,16 @@ static int cmp_w(char *args)
 	if(args == NULL) {
 		printf("Argument required\nUsage: w expression\n");
 	}
-	var = expr(args, &success);
-	if(success) {
-		p = new_wp();
-		p->var = var;
-		strcpy(p->str, args);
+	else {
+		var = expr(args, &success);
+		if(success) {
+			p = new_wp();
+			p->var = var;
+			strcpy(p->str, args);
+		}
+		else
+			assert(0);
 	}
-	else
-		assert(0);
 	return 0;
 }
 
