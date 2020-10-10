@@ -300,7 +300,7 @@ static uint32_t eval(int p, int q) {
 				}
 			}
 		}
-
+		printf("op:%d\n", op);
 		if(priority1 == 0&&priority2 == 0&&priority3 == 0&&priority4 == 0) {
 			/*No binary operation, calculate unary operation*/
 			if(tokens[p].type == NOT)
