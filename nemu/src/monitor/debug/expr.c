@@ -131,7 +131,7 @@ static bool make_token(char *e) {
                                                                         tokens[nr_token].str[6] = y + '0';break;
                                                                 }
 								else if(strcmp(tokens[nr_token].str, "eip") ==0) {
-                                                                        tokens[nr_token].str[7] = y + '0';break;
+                                                                        tokens[nr_token].str[7] = '1';break;
                                                                 }
 							}
 							nr_token++;break;
