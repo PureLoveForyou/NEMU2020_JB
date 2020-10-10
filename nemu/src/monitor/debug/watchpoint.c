@@ -79,7 +79,7 @@ void free_wp(WP *wp)
 		free_->str[i] = '\0';
 }
 
-bool check_var()
+bool check_wp()
 {
 	WP *p;
 	uint32_t new_value;
