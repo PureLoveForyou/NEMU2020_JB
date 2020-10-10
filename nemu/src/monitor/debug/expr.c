@@ -223,8 +223,11 @@ static uint32_t eval(int p, int q) {
 		}
 		else if(tokens[p].type == DOLREG) {
 			/*Access registers*/
-			int index;
-			for(i = 4; i < 8 && tokens[p].str[i] != '\0'; i++);
+			int index = 0;
+			for(i = 4; i < 8; i++) {
+				if(tokens[p].str[i] > '0'&&tokens[p].str[i] < '8')
+					index = tokens[p].str[i] - '0';
+			}
 			index = tokens[p].str[i] - '0';
 			printf("index: %d\n", index);
 			switch(i) {
