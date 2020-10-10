@@ -47,6 +47,12 @@ static int cmd_x(char *args);
 
 static int cmd_p(char *args);
 
+//static int cmp_w(char *args);
+
+//static int cmp_d(char *args);
+
+//static int cmp_bt(char *args);
+
 static struct {
 	char *name;
 	char *description;
@@ -59,6 +65,9 @@ static struct {
 	{ "info", "Print the information of registers or the monitor point", cmd_info },
 	{ "x", "Scan memory", cmd_x },
 	{ "p", "Evaluation", cmd_p },
+//	{ "w", "Set a watchpoint", cmp_w },
+//	{ "d", "Delete a watchpoint", cmp_d },
+//	{ "bt", "Print stack frame chain", cmp_bt },
 
 	/* TODO: Add more commands */
 
@@ -176,7 +185,12 @@ static int cmd_p(char *args)
 	}
 	return 0;
 }
-
+/*
+static int cmp_w(char *args)
+{
+	
+}
+*/
 void ui_mainloop() {
 	while(1) {
 		char *str = rl_gets();
