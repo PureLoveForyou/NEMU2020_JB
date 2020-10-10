@@ -126,7 +126,6 @@ void info_wp()
 void delete_wp(uint32_t n)
 {
 	WP *p = head;
-	printf("n: %u\n", n);
 	if(p == NULL)
 		printf("No watchpoint\n");
 	else {
@@ -134,7 +133,6 @@ void delete_wp(uint32_t n)
 			p = p->next;
 		}
 		if(p->NO == n) {
-			printf("n: %u", n);
 			free_wp(p);
 		}
 		else
