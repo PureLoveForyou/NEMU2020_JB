@@ -72,5 +72,10 @@ void free_wp(WP *wp)
 		free_ = wp;
 		free_->next = p;
 	}
+	free_->NO = 0;
+	free_->var = 0;
+	int i;
+	for(i = 0; i < 32; i++)
+		free_->str[i] = '\0';
 }
 

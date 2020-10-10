@@ -3,13 +3,19 @@
 
 #include "common.h"
 
+
 typedef struct watchpoint {
 	int NO;
 	struct watchpoint *next;
+	uint32_t var;
+	char str[32];
 
 	/* TODO: Add more members if necessary */
 
 
 } WP;
+
+WP* new_wp();
+void free_wp();
 
 #endif

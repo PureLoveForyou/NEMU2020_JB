@@ -47,7 +47,7 @@ static int cmd_x(char *args);
 
 static int cmd_p(char *args);
 
-//static int cmp_w(char *args);
+static int cmp_w(char *args);
 
 //static int cmp_d(char *args);
 
@@ -65,7 +65,7 @@ static struct {
 	{ "info", "Print the information of registers or the monitor point", cmd_info },
 	{ "x", "Scan memory", cmd_x },
 	{ "p", "Evaluation", cmd_p },
-//	{ "w", "Set a watchpoint", cmp_w },
+	{ "w", "Set a watchpoint", cmp_w },
 //	{ "d", "Delete a watchpoint", cmp_d },
 //	{ "bt", "Print stack frame chain", cmp_bt },
 
@@ -161,11 +161,14 @@ static int cmd_x(char *args)
 	else {
 		sscanf(arg1, "%d", &num);
 		VirtualAddress = expr(arg2, &success);
-//		sscanf(arg2, "%x", &VirtualAddress);
-		for(i = 0; i < num; i++) {
-			content = swaddr_read(VirtualAddress + i*4, 4);
-			printf("0x%08x:\t0x%08x\n", VirtualAddress + i*4, content);
+		if(success) {
+			for(i = 0; i < num; i++) {
+				content = swaddr_read(VirtualAddress + i*4, 4);
+				printf("0x%08x:\t0x%08x\n", VirtualAddress + i*4, content);
+			}
 		}
+		else
+			assert(0);
 	}
 	return 0;
 }
@@ -182,15 +185,32 @@ static int cmd_p(char *args)
 		result = expr(args, &success);
 		if(success)
 			printf("%d\n", result);
+		else
+			assert(0);
 	}
 	return 0;
 }
-/*
+
 static int cmp_w(char *args)
 {
-	
+	uint32_t var;
+	WP *p;
+	bool success = 1;
+	if(args == NULL) {
+		printf("Argument required\nUsage: w expression\n");
+		assert(0);
+	}
+	var = expr(args, &success);
+	if(success) {
+		p = new_wp();
+		p->var = var;
+		strcpy(p->str, args);
+	}
+	else
+		assert(0);
+	return 0;
 }
-*/
+
 void ui_mainloop() {
 	while(1) {
 		char *str = rl_gets();
