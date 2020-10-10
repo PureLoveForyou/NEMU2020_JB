@@ -21,7 +21,7 @@ void init_wp_pool() {
 /* TODO: Implement the functionality of watchpoint */
 WP* new_wp()
 {
-	WP *p;
+	WP *p, *q;
 	if(free_ == NULL) {
 		printf("No watchpoint avalible\n");
 		assert(0);
@@ -32,8 +32,20 @@ WP* new_wp()
 	free_ = free_->next;
 
 	/*Add a node to head*/
-	p->next = head;
-        head = p;
+	q = head;
+	if(q == NULL) {
+		head = p;
+		p->next = NULL;
+	}
+	else {
+		while(q->next != NULL) {
+			q = q->next;
+		}
+		q->next = p;
+		p->next = NULL;
+	}
+//	p->next = head;
+//	head = p;
 
 	return p;
 }
