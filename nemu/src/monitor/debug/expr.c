@@ -230,6 +230,7 @@ static uint32_t eval(int p, int q) {
 				}
 			}
 			index = tokens[p].str[i] - '0';
+			printf("index: %d\n", index);
 			switch(i) {
 				case 4:	return reg_l(index);
 				case 5: return reg_w(index);
