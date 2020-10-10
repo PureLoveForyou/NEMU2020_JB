@@ -26,9 +26,13 @@ WP* new_wp()
 		printf("No watchpoint avalible\n");
 		assert(0);
 	}
+
+	/*Delete a node from free*/
 	p = free_;
 	free_ = free_->next;
 	free_->next = NULL;
+
+	/*Add a node to head*/
 	q = head;
 	if(q != NULL) {
 		while(q->next != NULL) {
@@ -41,5 +45,21 @@ WP* new_wp()
 	return p;
 }
 
-void free_wp(WP *wp);
+void free_wp(WP *wp)
+{
+	WP *p, *q;
+	q = head;
+	while(q->next != wp) {
+		q = q->next;	
+	}
+	q->next = wp->next;
+	
+	if(free_ == NULL)
+		free_ = wp;
+	else {
+		p = free_->next;
+		free_ = wp;
+		free_->next = p;
+	}
+}
 
