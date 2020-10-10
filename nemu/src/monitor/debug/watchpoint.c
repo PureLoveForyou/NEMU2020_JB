@@ -132,6 +132,7 @@ void delete_wp(uint32_t n)
 	else {
 		while(p->NO != n && p != NULL) {
 			p = p->next;
+			printf("n: %u\n", n);
 		}
 		if(p->NO == n) {
 			free_wp(p);
