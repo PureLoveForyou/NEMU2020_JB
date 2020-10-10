@@ -198,7 +198,6 @@ static int cmp_w(char *args)
 	bool success = 1;
 	if(args == NULL) {
 		printf("Argument required\nUsage: w expression\n");
-		assert(0);
 	}
 	var = expr(args, &success);
 	if(success) {
