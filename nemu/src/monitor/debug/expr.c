@@ -122,13 +122,13 @@ static bool make_token(char *e) {
 							printf("reg:%s\n", tokens[nr_token].str);
 							for(y = 0; y < 8; y++) {
 								/*Find out which register it is and record it's position*/
-								if(strncmp(tokens[nr_token].str, regsl[y], 3)==0) {
-									tokens[nr_token].str[4] = y + '0';printf("hello");break;
+								if(strcmp(tokens[nr_token].str, regsl[y])==0) {
+									tokens[nr_token].str[4] = y + '0';printf("y:%d", y);break;
 								}
-								else if(strncmp(tokens[nr_token].str, regsw[y], 2)==0) {
+								else if(strcmp(tokens[nr_token].str, regsw[y])==0) {
 									tokens[nr_token].str[5] = y + '0';break;
 								}
-								else if(strncmp(tokens[nr_token].str, regsb[y], 2)==0) {
+								else if(strcmp(tokens[nr_token].str, regsb[y])==0) {
                                                                         tokens[nr_token].str[6] = y + '0';break;
                                                                 }
 								else if(strcmp(tokens[nr_token].str, "eip") ==0) {
