@@ -119,11 +119,10 @@ static bool make_token(char *e) {
 								if(y <= substr_len -2)
 									tokens[nr_token].str[y] = substr_start[y+1];
 							}
-							printf("reg:%s\n", tokens[nr_token].str);
 							for(y = 0; y < 8; y++) {
 								/*Find out which register it is and record it's position*/
 								if(strcmp(tokens[nr_token].str, regsl[y])==0) {
-									tokens[nr_token].str[4] = y + '0';printf("y:%d %c\n", y, tokens[nr_token].str[4]);break;
+									tokens[nr_token].str[4] = y + '0';break;
 								}
 								else if(strcmp(tokens[nr_token].str, regsw[y])==0) {
 									tokens[nr_token].str[5] = y + '0';break;
@@ -225,14 +224,12 @@ static uint32_t eval(int p, int q) {
 			/*Access registers*/
 			int index = 0;
 			for(i = 4; i < 8; i++) {
-				printf("str[%d]%c\n", i, tokens[p].str[i]);
 				if(tokens[p].str[i] > '0'&&tokens[p].str[i] < '8') {
 					index = tokens[p].str[i] - '0';
 					break;
 				}
 			}
 			index = tokens[p].str[i] - '0';
-			printf("index: %d\n", index);
 			switch(i) {
 				case 4:	return reg_l(index);
 				case 5: return reg_w(index);
