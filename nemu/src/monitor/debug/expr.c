@@ -122,7 +122,7 @@ static bool make_token(char *e) {
 							for(y = 0; y < 8; y++) {
 								/*Find out which register it is and record it's position*/
 								if(strcmp(tokens[nr_token].str, regsl[y])==0) {
-									tokens[nr_token].str[4] = y + '0';printf("str[4]:%d\n", tokens[nr_token].str[4]);break;
+									tokens[nr_token].str[4] = y + '0';break;
 								}
 								else if(strcmp(tokens[nr_token].str, regsw[y])==0) {
 									tokens[nr_token].str[5] = y + '0';break;
@@ -230,7 +230,6 @@ static uint32_t eval(int p, int q) {
 				}
 			}
 			index = tokens[p].str[i] - '0';
-			printf("index: %d\n", index);
 			switch(i) {
 				case 4:	return reg_l(index);
 				case 5: return reg_w(index);
