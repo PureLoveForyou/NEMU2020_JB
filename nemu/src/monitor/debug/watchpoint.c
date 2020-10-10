@@ -98,6 +98,7 @@ bool check_wp()
 			printf("Old value: %u\nNew value: %u\n", p->value, new_value);
 			p->value = new_value;
 		}
+		p = p->next;
 	}
 	return flag;
 }
