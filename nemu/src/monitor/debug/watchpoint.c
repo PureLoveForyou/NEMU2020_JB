@@ -56,11 +56,14 @@ void free_wp(WP *wp)
 		printf("No watchpoints\n");
 		assert(0);
 	}
+	else if(p->NO == wp->NO) {
+		head = p->next;
+	}
 	else {
-		while(p != NULL && p != wp) {
+		while(p->next != NULL && p->next->NO != wp->NO) {
 			p = p->next;
 		}
-		if(p == wp)
+		if(p->next->NO == wp->NO)
 			p->next = p->next->next;
 		else
 			assert(0);
