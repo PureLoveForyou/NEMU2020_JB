@@ -44,8 +44,6 @@ WP* new_wp()
 		q->next = p;
 		p->next = NULL;
 	}
-//	p->next = head;
-//	head = p;
 
 	return p;
 }

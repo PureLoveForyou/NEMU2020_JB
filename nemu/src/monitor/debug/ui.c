@@ -204,7 +204,6 @@ static int cmp_w(char *args)
 	}
 	else {
 		value = expr(args, &success);
-		printf("value:%u\n", value);
 		if(success) {
 			p = new_wp();
 			p->value = value;
