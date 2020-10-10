@@ -47,15 +47,26 @@ WP* new_wp()
 
 void free_wp(WP *wp)
 {
-	WP *p, *q;
-	q = head;
-	while(q->next != wp) {
-		q = q->next;	
+	WP *p;
+	p = head;
+	if(p == NULL) {
+		printf("No watchpoints\n");
+		assert(0);
 	}
-	q->next = wp->next;
-	
-	if(free_ == NULL)
+	else {
+		while(p->next != NULL && p->next != wp) {
+			p = p->next;
+		}
+		if(p->next == wp)
+			p->next = p->next->next;
+		else
+			assert(0);
+	}
+
+	if(free_ == NULL) {
 		free_ = wp;
+		free_->next = NULL;
+	}
 	else {
 		p = free_->next;
 		free_ = wp;
