@@ -123,7 +123,7 @@ static bool make_token(char *e) {
 							for(y = 0; y < 8; y++) {
 								/*Find out which register it is and record it's position*/
 								if(strcmp(tokens[nr_token].str, regsl[y])==0) {
-									tokens[nr_token].str[4] = y + '0';printf("y:%d", y);break;
+									tokens[nr_token].str[4] = y + '0';printf("y:%d %c\n", y, tokens[nr_token].str[4]);break;
 								}
 								else if(strcmp(tokens[nr_token].str, regsw[y])==0) {
 									tokens[nr_token].str[5] = y + '0';break;
