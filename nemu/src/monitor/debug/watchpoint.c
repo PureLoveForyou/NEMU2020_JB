@@ -118,7 +118,7 @@ void info_wp()
 		printf("Number  Type   Value   What\n");
 		while(p != NULL) {
 			if(success)
-				printf("%d\tWatchpoint %u: \t%s\n", p->NO, p->value, p->str);
+				printf("%d\tWatchpoint\t%u\t%s\n", p->NO, p->value, p->str);
 			p = p->next;
 		}
 	}
