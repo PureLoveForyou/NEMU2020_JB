@@ -174,31 +174,24 @@ static bool check_parentheses(int p, int q)
 	/*Check if the expression is surrounded by a matchedd pair of parentheses*/
 	bool flag;
 	int stack_count = 0;
-	if( tokens[p].type != '(' || tokens[q].type != ')' ) {
+	if( tokens[p].type != '(' || tokens[q].type != ')' )
 		flag = false;
-	}
 	else {
 		p++;
 		q--;//Make sure the leftmost and the rightmost parentheses are matched
-
 		while(p <= q) {
-			if( tokens[p].type == '(' ) {
+			if( tokens[p].type == '(' ) 
 				stack_count++;
-			}
-			else if( tokens[p].type == ')' && stack_count > 0) {
+			else if( tokens[p].type == ')' && stack_count > 0)
 				stack_count--;
-			}
-			else if( tokens[p].type == ')' && stack_count == 0) {
+			else if( tokens[p].type == ')' && stack_count == 0)
 				return false;//Right parentheses are more than the left
-			}
 			p++;
 		}
-		if(stack_count == 0) {
+		if(stack_count == 0)
 			flag = true;
-		}
-		else {
+		else
 			flag = false;
-		}
 	}
 	return flag;
 }
