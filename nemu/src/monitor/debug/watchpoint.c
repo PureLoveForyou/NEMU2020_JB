@@ -81,9 +81,6 @@ void free_wp(WP *wp)
                 }
                 p->next = wp;
                 wp->next = NULL;
-//		p = free_->next;
-//		free_ = wp;
-//		free_->next = p;
 	}
 	/*Delete the some data in this node*/
 	int i;
