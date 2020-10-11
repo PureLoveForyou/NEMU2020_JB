@@ -75,11 +75,17 @@ void free_wp(WP *wp)
 		free_->next = NULL;
 	}
 	else {
-		p = free_->next;
-		free_ = wp;
-		free_->next = p;
+		p = free_;
+		while(p->next != NULL) {
+                        p = p->next;
+                }
+                p->next = wp;
+                wp->next = NULL;
+//		p = free_->next;
+//		free_ = wp;
+//		free_->next = p;
 	}
-	/*Delete the all data in this node*/
+	/*Delete the some data in this node*/
 	int i;
 	for(i = 0; i < 32; i++)
 		free_->str[i] = '\0';
