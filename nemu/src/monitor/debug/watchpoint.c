@@ -80,8 +80,6 @@ void free_wp(WP *wp)
 		free_->next = p;
 	}
 	/*Delete the all data in this node*/
-	free_->NO = 0;
-	free_->value = 0;
 	int i;
 	for(i = 0; i < 32; i++)
 		free_->str[i] = '\0';
