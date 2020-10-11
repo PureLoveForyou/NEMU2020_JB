@@ -223,8 +223,8 @@ static int cmp_d(char *args)
 		printf("Argument required\nUsage: d N\n");
 	}
 	else {
-		uint32_t num;
-		sscanf(arg, "%u", &num);
+		int num;
+		sscanf(arg, "%d", &num);
 		delete_wp(num);
 	}
 	return 0;

@@ -127,7 +127,7 @@ void info_wp()
 	}
 }
 
-void delete_wp(uint32_t n)
+void delete_wp(int n)
 {
 	WP *p = head;
 	if(p == NULL)
