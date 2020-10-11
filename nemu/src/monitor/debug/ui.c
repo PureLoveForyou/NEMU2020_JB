@@ -62,7 +62,7 @@ static struct {
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
 	{ "si", "Execute one instruction.Format:si n.Execute n instructions", cmd_si },
-	{ "info", "Print the information of registers or the monitor point", cmd_info },
+	{ "info", "Print the information of registers or watchpoints", cmd_info },
 	{ "x", "Scan memory", cmd_x },
 	{ "p", "Evaluation", cmd_p },
 	{ "w", "Set a watchpoint", cmp_w },
