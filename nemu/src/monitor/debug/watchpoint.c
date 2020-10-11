@@ -31,7 +31,7 @@ WP* new_wp()
 	p = free_;
 	free_ = free_->next;
 
-	/*Add a node to head*/
+	/*Add a node to tail*/
 	q = head;
 	if(q == NULL) {
 		head = p;
@@ -56,6 +56,7 @@ void free_wp(WP *wp)
 		printf("No watchpoints\n");
 		assert(0);
 	}
+	/*Delete a node*/
 	else if(p->NO == wp->NO) {
 		head = p->next;
 	}
@@ -68,7 +69,7 @@ void free_wp(WP *wp)
 		else
 			assert(0);
 	}
-
+	/*Add a node*/
 	if(free_ == NULL) {
 		free_ = wp;
 		free_->next = NULL;
@@ -78,6 +79,7 @@ void free_wp(WP *wp)
 		free_ = wp;
 		free_->next = p;
 	}
+	/*Delete the all data in this node*/
 	free_->NO = 0;
 	free_->value = 0;
 	int i;
