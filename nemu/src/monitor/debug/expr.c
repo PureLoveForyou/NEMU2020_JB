@@ -315,7 +315,7 @@ static uint32_t eval(int p, int q) {
 		}
 
 		/*Then divide it into two parts to evaluate*/
-		if( op == 0)
+		if( op == 0 && (tokens[p].type == NEGATIVE||tokens[p].type == '+'))
 			var1 = 0;
 		else
 			var1 = eval(p, op - 1);
