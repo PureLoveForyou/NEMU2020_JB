@@ -39,8 +39,8 @@ static struct rule {
 	{"==", EQ},					//equal
 	{"!=", NOTEQ},					//not equal
 
-	{"&&", AND},					// equal
-	{"\\|\\|", OR},					// equal
+	{"&&", AND},					// and
+	{"\\|\\|", OR},					// or
 	{"!", NOT},					//NOT
 
 	{"[0-9][0-9]*", NUM}				//number
