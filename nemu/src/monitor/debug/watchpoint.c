@@ -115,7 +115,7 @@ void info_wp()
 		printf("NO watchpoint\n");
 	}
 	else {
-		printf("Number  Type   Value   What\n");
+		printf("Number\tType\tValue\tWhat\n");
 		while(p != NULL) {
 			if(success)
 				printf("%d\tWatchpoint\t%u\t%s\n", p->NO, p->value, p->str);
