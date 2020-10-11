@@ -115,10 +115,10 @@ void info_wp()
 		printf("NO watchpoint\n");
 	}
 	else {
-		printf("Number\tType\t\tValue\tWhat\n");
+		printf("Number\tType\t\tValue\t\tWhat\n");
 		while(p != NULL) {
 			if(success)
-				printf("%d\tWatchpoint\t%u\t%s\n", p->NO, p->value, p->str);
+				printf("   %d\tWatchpoint\t%u\t%s\n", p->NO, p->value, p->str);
 			p = p->next;
 		}
 	}
