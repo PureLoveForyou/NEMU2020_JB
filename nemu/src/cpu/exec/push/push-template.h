@@ -12,7 +12,7 @@ static void do_execute() {
         /*operandsize is 4 byte*/
         cpu.esp -= 4;
         if(DATA_BYTE == 1)
-            op_src->val = (int8_t)op_src->val;
+            op_src->val = (uint8_t)op_src->val;
         MEM_W(reg_l(R_ESP), op_src->val);
     }
     print_asm_template1();
