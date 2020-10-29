@@ -4,10 +4,12 @@
 
 static void do_execute() {
     if(DATA_BYTE == 2) {
+        /*operandsize is 2 byte*/
         cpu.esp -= 2;
         MEM_W(cpu.esp, op_src->val);
     }
 	else{
+        /*operandsize is 4 byte*/
         cpu.esp -= 4;
         if(DATA_BYTE == 1)
             op_src->val = (int8_t)op_src->val;
