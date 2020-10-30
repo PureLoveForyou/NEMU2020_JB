@@ -13,9 +13,9 @@ static void do_execute() {
     cpu.OF = ( Sign_of_dest != Sign_of_src) && (cpu.SF == Sign_of_src);
     
     /*judge whether number of 1 in low 8 bits is even*/
-    result ^= result >>4;
-    result ^= result >>2;
-    result ^= result >>1;
+    result ^= result >> 4;
+    result ^= result >> 2;
+    result ^= result >> 1;
     cpu.PF = !(result & 1);
     print_asm_template2();
 }
