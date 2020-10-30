@@ -20,6 +20,13 @@ static void do_execute() {
     print_asm_template2();
 }
 
+#if DATA_BYTE == 2 || DATA_BYTE == 4
 make_instr_helper(si2rm)
+
+#endif
+make_instr_helper(i2rm)
+make_instr_helper(r2rm)
+make_instr_helper(rm2r)
+make_instr_helper(i2a)
 
 #include "cpu/exec/template-end.h"
