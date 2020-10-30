@@ -5,6 +5,7 @@
 static void do_execute() {
     DATA_TYPE andresult = op_src->val & op_dest->val;
 
+    /*update CF ZF OF SF PF*/
     cpu.CF = 0;
     cpu.ZF = !andresult;
     cpu.OF = 0;

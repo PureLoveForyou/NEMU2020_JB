@@ -5,6 +5,7 @@
 static void do_execute() {
     DATA_TYPE result = op_dest->val - op_src->val;
     
+    /*update CF ZF OF SF PF*/
     cpu.CF = op_src->val > op_dest->val;
     cpu.SF = MSB(result);
     cpu.ZF = !result;
