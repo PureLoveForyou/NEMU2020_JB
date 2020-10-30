@@ -2,6 +2,8 @@
 
 #include "data-mov/mov.h"
 #include "data-mov/xchg.h"
+#include "data-mov/pop.h"
+#include "data-mov/push.h"
 
 #include "arith/dec.h"
 #include "arith/inc.h"
@@ -10,6 +12,7 @@
 #include "arith/mul.h"
 #include "arith/idiv.h"
 #include "arith/div.h"
+#include "arith/cmp.h"
 
 #include "logic/and.h"
 #include "logic/or.h"
@@ -19,6 +22,7 @@
 #include "logic/shl.h"
 #include "logic/shr.h"
 #include "logic/shrd.h"
+#include "logic/test.h"
 
 #include "string/rep.h"
 
@@ -26,16 +30,6 @@
 
 #include "special/special.h"
 
-#include "call/call.h"
-
-#include "push/push.h"
-
-#include "test/test.h"
-
-#include "jump/je.h"
-
-#include "cmp/cmp.h"
-
-#include "pop/pop.h"
-
-#include "ret/ret.h"
+#include "control-transfer/call.h"
+#include "control-transfer/je.h"
+#include "control-transfer/ret.h"
