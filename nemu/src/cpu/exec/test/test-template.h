@@ -14,7 +14,7 @@ static void do_execute() {
     andresult ^= andresult >> 4;
     andresult ^= andresult >> 2;
     andresult ^= andresult >> 1;
-    cpu.PF = !andresult;
+    cpu.PF = !(andresult & 1);
 }
 
 make_instr_helper(r2rm);
