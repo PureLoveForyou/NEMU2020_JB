@@ -4,7 +4,6 @@
 
 static void do_execute() {
     DATA_TYPE displacement = op_src->val;//get offset
-    print_asm("je %x", cpu.eip + displacement + DATA_BYTE + 1);
     if(op_src->type == OP_TYPE_IMM) {
         cpu.eip += displacement;//update eip, jump
         print_asm("jmp %x", cpu.eip + 1 + DATA_BYTE);
