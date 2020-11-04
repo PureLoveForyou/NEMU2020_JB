@@ -8,7 +8,7 @@ static void do_execute() {
     OPERAND_W(op_dest, result);
 
     /*update ZF, SF, OF, PF, CF*/
-    cpu.CF = result < op_dest->val;
+    cpu.CF = result > op_dest->val;
     cpu.SF = MSB(result);
     cpu.ZF = !result;
     int Sign_of_dest = MSB(op_dest->val);
