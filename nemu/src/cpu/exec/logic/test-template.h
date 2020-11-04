@@ -9,7 +9,7 @@ static void do_execute() {
     cpu.CF = 0;
     cpu.ZF = !andresult;
     cpu.OF = 0;
-    cpu.SF = (andresult >> 31) & 0x1;//get sign flag
+    cpu.SF = MSB(andresult);//get sign flag
 
     /*judge whether number of 1 in low 8 bits is even*/
     andresult ^= andresult >> 4;
