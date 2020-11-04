@@ -3,7 +3,7 @@
 #define instr setne
 
 static void do_execute() {
-    if(cpu.ZF == 1)
+    if(cpu.ZF == 0)
         OPERAND_W(op_src, 1);
     else
         OPERAND_W(op_src, 0);
