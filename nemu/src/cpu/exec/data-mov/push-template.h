@@ -13,7 +13,7 @@ static void do_execute() {
         reg_l(R_ESP) -= 4;
         if(DATA_BYTE == 1)
             op_src->val = (uint8_t)op_src->val;
-        MEM_W(reg_l(R_ESP), op_src->val);//write data into stack
+        swaddr_write(reg_l(R_ESP), 4, op_src->val);//write data into stack
     }
     print_asm_template1();
 }
