@@ -28,8 +28,7 @@ int main() {
 	nemu_assert(getbit(buf, 1) == 1);
 	nemu_assert(getbit(buf, 2) == 0);
 	nemu_assert(getbit(buf, 3) == 1);
-	set_bp();
-	nemu_assert(getbit(buf, 4) == 0);set_bp();
+	nemu_assert(getbit(buf, 4) == 0);
 	nemu_assert(getbit(buf, 5) == 1);
 	nemu_assert(getbit(buf, 6) == 0);
 	nemu_assert(getbit(buf, 7) == 1);
