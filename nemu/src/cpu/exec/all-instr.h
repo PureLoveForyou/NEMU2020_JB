@@ -42,3 +42,4 @@
 #include "control-transfer/jmp.h"
 #include "control-transfer/jbe.h"
 #include "control-transfer/ret.h"
+#include "control-transfer/jne.h"
