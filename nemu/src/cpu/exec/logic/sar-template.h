@@ -5,7 +5,6 @@
 static void do_execute () {
 	DATA_TYPE src = op_src->val;
 	DATA_TYPE_S dest = op_dest->val;
-	//DATA_TYPE_S temp = dest;
 
 	uint8_t count = src & 0x1f;
 	dest >>= count;
@@ -14,7 +13,6 @@ static void do_execute () {
 	/* TODO: Update EFLAGS. */
 	//panic("please implement me");
 	DATA_TYPE_S result = dest;
-	//int length = (DATA_BYTE << 3) - 1;
 	cpu.CF = 0;
     cpu.ZF = !result;
     cpu.OF = 0;
