@@ -23,7 +23,7 @@ int main() {
 	uint8_t buf[2];
 
 	buf[0] = 0xaa; 
-
+	set_bp();
 	nemu_assert(getbit(buf, 0) == 0);
 	nemu_assert(getbit(buf, 1) == 1);
 	nemu_assert(getbit(buf, 2) == 0);
