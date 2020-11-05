@@ -19,7 +19,7 @@ make_helper(concat(call_rm_, SUFFIX))
     swaddr_write(reg_l(R_ESP), 4, cpu.eip + length);
     DATA_TYPE_S displacement= op_src->val;//displacement
     print_asm_template1();
-    cpu.eip = displacement - length -1;//jump
+    cpu.eip = displacement - length - 1;//jump
     return length + 1;//return length of instruction
 }
 
