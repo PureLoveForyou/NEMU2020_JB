@@ -46,3 +46,4 @@
 #include "control-transfer/jle.h"
 #include "control-transfer/jg.h"
 #include "control-transfer/jl.h"
+#include "control-transfer/jge.h"
