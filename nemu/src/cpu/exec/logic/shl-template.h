@@ -12,7 +12,7 @@ static void do_execute () {
 
 	/* TODO: Update EFLAGS. */
 	//panic("please implement me");
-	DATA_TYPE_S result = dest;
+	DATA_TYPE result = dest;
 	cpu.CF = MSB(dest);
     cpu.ZF = !result;
     //cpu.OF = 0;
