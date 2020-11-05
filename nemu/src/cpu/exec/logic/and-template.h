@@ -9,15 +9,15 @@ static void do_execute () {
 	/* TODO: Update EFLAGS. */
 	//panic("please implement me");
 	cpu.CF = 0;
-    cpu.SF = MSB(result);
-    cpu.ZF = !result;
+   //// cpu.SF = MSB(result);
+   // cpu.ZF = !result;
     cpu.OF = 0;
     
     /*judge whether number of 1 in low 8 bits is even*/
-    result ^= result >> 4;
-    result ^= result >> 2;
-    result ^= result >> 1;
-    cpu.PF = !(result & 1);
+    ///result ^= result >> 4;
+   // result ^= result >> 2;
+    ///result ^= result >> 1;
+    //cpu.PF = !(result & 1);
 
 	print_asm_template2();
 }
