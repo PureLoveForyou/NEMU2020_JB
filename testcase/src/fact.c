@@ -14,7 +14,7 @@ int main() {
 		f[i] = fact(i);
 		nemu_assert(f[i] == ans[i]);
 	}
-
+	set_bp();
 	nemu_assert(i == 13);
 
 	return 0;
