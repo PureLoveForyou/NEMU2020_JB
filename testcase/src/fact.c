@@ -10,11 +10,9 @@ int fact(int n) {
 
 int main() {
 	int i;
-	for(i = 0; i < 1; i ++) {
-		//set_bp();
+	for(i = 0; i < 13; i ++) {
 		f[i] = fact(i);
 		nemu_assert(f[i] == ans[i]);
-		//set_bp();
 	}
 
 	nemu_assert(i == 13);
