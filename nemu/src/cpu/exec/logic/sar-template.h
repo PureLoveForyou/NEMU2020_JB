@@ -15,9 +15,9 @@ static void do_execute () {
 	//panic("please implement me");
 	DATA_TYPE_S result = dest;
 	//int length = (DATA_BYTE << 3) - 1;
-	cpu.CF = 0;
+	cpu.CF = 1;
     cpu.ZF = !result;
-    cpu.OF = 0;
+    cpu.OF = 1;
     cpu.SF = MSB(result);//get sign flag
 
     /*judge whether number of 1 in low 8 bits is even*/
