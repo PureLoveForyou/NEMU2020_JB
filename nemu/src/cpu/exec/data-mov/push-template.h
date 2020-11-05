@@ -18,6 +18,8 @@ static void do_execute() {
     print_asm_template1();
 }
 
+make_instr_helper(i);
+
 #if DATA_BYTE != 1
 make_instr_helper(r);
 make_instr_helper(rm);
