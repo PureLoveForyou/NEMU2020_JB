@@ -4,15 +4,12 @@
 
 static void do_execute () {
 	DATA_TYPE result = op_dest->val & op_src->val;
-    printf("src: 0x%x dest: 0x%x\n",op_src->val,op_dest->val);
-    printf("result: 0x%x\n",result);
 	OPERAND_W(op_dest, result);
 
 	/* TODO: Update EFLAGS. */
 	//panic("please implement me");
-    int len = (DATA_BYTE << 3) - 1;
 	cpu.CF = 0;
-    cpu.SF = result >> len;
+    cpu.SF = MSB(result);
     cpu.ZF = !result;
     cpu.OF = 0;
     
