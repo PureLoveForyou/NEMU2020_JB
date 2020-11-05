@@ -4,6 +4,7 @@
 
 static void do_execute () {
 	DATA_TYPE result = op_dest->val & op_src->val;
+    printf("result: 0x%x\n",result);
 	OPERAND_W(op_dest, result);
 
 	/* TODO: Update EFLAGS. */

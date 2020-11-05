@@ -11,8 +11,8 @@ static void do_execute() {
 	else{
         /*operandsize is 4 byte*/
         reg_l(R_ESP) -= 4;
-        // if(DATA_BYTE == 1)
-        //     op_src->val = (uint8_t)op_src->val;
+        if(DATA_BYTE == 1)
+            op_src->val = (uint8_t)op_src->val;
         swaddr_write(reg_l(R_ESP), 4, op_src->val);//write data into stack
     }
     print_asm_template1();
