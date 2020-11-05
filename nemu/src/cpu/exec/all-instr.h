@@ -44,3 +44,4 @@
 #include "control-transfer/ret.h"
 #include "control-transfer/jne.h"
 #include "control-transfer/jle.h"
+#include "control-transfer/jg.h"
