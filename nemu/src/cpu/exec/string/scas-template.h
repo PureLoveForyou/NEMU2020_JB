@@ -18,7 +18,7 @@ make_helper(concat(scas_n_, SUFFIX)) {
     else
         REG(R_ESI) -= DATA_BYTE;
     /*update CF ZF OF SF PF*/
-    cpu.CF = op_src->val > op_dest->val;
+    cpu.CF = src > dest;
     cpu.SF = MSB(result);
     cpu.ZF = !result;
     int Sign_of_dest = MSB(op_dest->val);
