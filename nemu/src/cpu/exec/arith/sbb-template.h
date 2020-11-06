@@ -7,14 +7,15 @@ static void do_execute() {
     DATA_TYPE src = op_src->val, result;
     if(op_src->size == 1 && op_dest->size != 1)
         op_src->val = (int8_t)op_src->val;
-    result = op_dest->val - src - cpu.CF;
+    src += cpu.CF;
+    result = op_dest->val - src;
     OPERAND_W(op_dest, result);
     /*update CF ZF OF SF PF*/
-    cpu.CF = (src + cpu.CF) > op_dest->val;
+    cpu.CF = src > op_dest->val;
     cpu.SF = MSB(result);
     cpu.ZF = !result;
     int Sign_of_dest = MSB(op_dest->val);
-    int Sign_of_src = MSB(src+cpu.CF);
+    int Sign_of_src = MSB(op_src->val);
     cpu.OF = ( Sign_of_dest != Sign_of_src) && (cpu.SF == Sign_of_src);
     /*judge whether number of 1 in low 8 bits is even*/
     result ^= result >> 4;
