@@ -8,6 +8,7 @@
 #include "data-mov/cltd.h"
 #include "data-mov/movext.h"
 
+
 #include "arith/dec.h"
 #include "arith/inc.h"
 #include "arith/neg.h"
@@ -32,6 +33,7 @@
 #include "logic/setne.h"
 
 #include "string/rep.h"
+#include "string/movs.h"
 
 #include "misc/misc.h"
 
