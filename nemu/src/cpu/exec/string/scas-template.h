@@ -8,7 +8,7 @@ make_helper(concat(scas_n_, SUFFIX)) {
     if(DATA_BYTE == 1)
         src = reg_b(R_AL);
     else if(DATA_BYTE == 2)
-        src = reg_w(R_AL);
+        src = reg_w(R_AX);
     else
         src = reg_l(R_EAX);
     result = dest - src;
