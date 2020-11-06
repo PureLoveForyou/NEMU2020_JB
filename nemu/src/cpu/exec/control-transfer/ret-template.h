@@ -10,4 +10,17 @@ make_helper(concat(ret_o_, SUFFIX)) {
     return 1;//lenth of instruction ret
 }
 
+make_helper(concat(ret_i_, SUFFIX)) {
+    int i, val = instr_fetch(cpu.eip + 1, 2);
+    cpu.eip = MEM_R(reg_l(R_ESP));//Get return address
+    if(DATA_BYTE == 2)
+        cpu.eip &= 0xffff;
+    reg_l(R_ESP) += DATA_BYTE;//update esp
+    for(i = 0; i < val; i++)
+        MEM_W(REG(R_ESP) + i, 0);//pop imm16 bytes of parameters
+    reg_l(R_ESP) += val;//update esp
+    print_asm_template1();
+    return 1;//lenth of instruction ret
+}
+
 #include "cpu/exec/template-end.h"
