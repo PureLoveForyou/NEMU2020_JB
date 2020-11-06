@@ -5,7 +5,7 @@
 static void do_execute() {
     /*calculate result*/
     DATA_TYPE src = op_src->val, result;
-    if(op_src->size == 1 || op_dest->size != 1)
+    if(op_src->size == 1 && op_dest->size != 1)
         src = (int8_t)op_src->val;
     result = op_dest->val - src - cpu.CF;
     OPERAND_W(op_dest, result);
