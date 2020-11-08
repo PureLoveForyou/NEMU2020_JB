@@ -15,10 +15,10 @@ make_helper(concat(ret_i_, SUFFIX)) {
     cpu.eip = MEM_R(REG(R_ESP));//Get return address
     if(DATA_BYTE == 2)
         cpu.eip &= 0xffff;
-    reg_l(R_ESP) += DATA_BYTE;//update esp
-    for(i = 0; i < val; i++)
+    REG(R_ESP) += DATA_BYTE;//update esp
+    for(i = 0; i < val; i += DATA_BYTE)
         MEM_W(REG(R_ESP) + i, 0);//pop imm16 bytes of parameters
-    reg_l(R_ESP) += val;//update esp
+    REG(R_ESP) += val;//update esp
     print_asm_template1();
     return 1;//lenth of instruction ret
 }
