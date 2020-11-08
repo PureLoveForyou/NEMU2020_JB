@@ -3,7 +3,7 @@
 #define instr stos
 
 make_helper(concat(stos_n_, SUFFIX)) {
-    REG(R_EDI) = MEM_R(reg_l(R_EAX));
+    MEM_W(REG(R_EDI), MEM_R(reg_l(R_EAX)));
     /*update edi*/
     if(cpu.DF == 0)
         reg_l(R_EDI) += DATA_BYTE;
