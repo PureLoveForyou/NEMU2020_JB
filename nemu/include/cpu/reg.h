@@ -34,9 +34,9 @@ typedef struct {
 			uint32_t CF : 1;
 			uint32_t    : 1;
 			uint32_t PF : 1;
-			uint32_t    : 0;
+			uint32_t    : 1;
 			uint32_t AF : 1;
-			uint32_t    : 0;
+			uint32_t    : 1;
 			uint32_t ZF : 1;
 			uint32_t SF : 1;
 			uint32_t TF : 1;
@@ -45,7 +45,7 @@ typedef struct {
 			uint32_t OF : 1;
 			uint32_t IOPL : 2;
 			uint32_t NT : 1;
-			uint32_t    : 0;
+			uint32_t    : 1;
 			uint32_t RF : 1;
 			uint32_t VM : 1;
 			uint32_t    : 14;
