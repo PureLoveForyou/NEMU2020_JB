@@ -54,3 +54,4 @@
 #include "control-transfer/jl.h"
 #include "control-transfer/jge.h"
 #include "control-transfer/js.h"
+#include "control-transfer/jns.h"
