@@ -13,7 +13,7 @@ static void do_execute () {
 	/* TODO: Update EFLAGS. */
 	//panic("please implement me");
 	DATA_TYPE_S result = dest;
-	cpu.CF = MSB(src << ((DATA_BYTE << 3) - 1));
+	cpu.CF = 0;
     cpu.ZF = !result;
     cpu.OF = 0;
     cpu.SF = MSB(result);//get sign flag
