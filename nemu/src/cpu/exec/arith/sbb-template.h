@@ -16,7 +16,7 @@ static void do_execute() {
     cpu.ZF = !result;
     int Sign_of_dest = MSB(op_dest->val);
     int Sign_of_src = MSB(op_src->val);
-    cpu.OF = ( Sign_of_dest != Sign_of_src) && (cpu.SF == Sign_of_src);
+    cpu.OF = ( Sign_of_dest != Sign_of_src) && (cpu.SF == Sign_of_dest);
     /*judge whether number of 1 in low 8 bits is even*/
     result ^= result >> 4;
     result ^= result >> 2;
