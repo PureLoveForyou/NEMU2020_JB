@@ -4,14 +4,14 @@
 
 static void do_execute() {
     /*calculate result*/
-    DATA_TYPE src = op_src->val, result;
+    DATA_TYPE result;
     if(op_src->size == 1 && op_dest->size != 1)
-        src = (int32_t)op_src->val;
-    src += cpu.CF;
-    result = op_dest->val - src;
+        result = op_dest->val - (int32_t)op_src->val - cpu.CF;
+    else
+        result = op_dest->val - op_src->val - cpu.CF;
     OPERAND_W(op_dest, result);
     /*update CF ZF OF SF PF*/
-    cpu.CF = (src) > op_dest->val;
+    cpu.CF = (op_src->val + cpu.CF) > op_dest->val;
     cpu.SF = MSB(result);
     cpu.ZF = !result;
     int Sign_of_dest = MSB(op_dest->val);
