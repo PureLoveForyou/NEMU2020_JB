@@ -11,7 +11,7 @@ static void do_execute() {
         result = op_dest->val - op_src->val - cpu.CF;
     OPERAND_W(op_dest, result);
     /*update CF ZF OF SF PF*/
-    cpu.CF = (op_src->val) > op_dest->val;
+    cpu.CF = (op_src->val + cpu.CF) > op_dest->val;
     cpu.SF = MSB(result);
     cpu.ZF = !result;
     int Sign_of_dest = MSB(op_dest->val);
