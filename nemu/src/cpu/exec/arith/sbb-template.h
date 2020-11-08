@@ -4,7 +4,7 @@
 
 static void do_execute() {
     /*calculate result*/
-    DATA_TYPE src = op_src->val, result;
+    DATA_TYPE_S src = op_src->val, result;
     if(op_src->size == 1 && op_dest->size != 1)
         src = (int8_t)op_src->val;
     src += cpu.CF;
