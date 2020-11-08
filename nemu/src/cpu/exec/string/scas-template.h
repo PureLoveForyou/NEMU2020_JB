@@ -22,7 +22,7 @@ make_helper(concat(scas_n_, SUFFIX)) {
     result ^= result >> 2;
     result ^= result >> 1;
     cpu.PF = !(result & 1);
-    print_asm("scas");
+    print_asm("scas%s", str(SUFFIX));
     return 1;
 }
 
