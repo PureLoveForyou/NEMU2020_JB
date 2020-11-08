@@ -3,7 +3,7 @@
 
 char *s[] = {
 	"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 
-	"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab",
+	"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
 	"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
 	", World!\n",
 	"Hello, World!\n",
