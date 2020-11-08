@@ -12,8 +12,6 @@ static void do_execute() {
     OPERAND_W(op_dest, result);
     /*update CF ZF OF SF PF*/
     DATA_TYPE src = op_src->val;
-    if(op_src->size == 1 && op_dest->size != 1)
-        src = (int8_t)op_src->val;
     src += cpu.CF;
     cpu.CF = (src) > op_dest->val;
     cpu.SF = MSB(result);
