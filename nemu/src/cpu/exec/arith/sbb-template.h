@@ -6,7 +6,7 @@ static void do_execute() {
     /*calculate result*/
     swaddr_t src = op_src->val, result;
     if(op_src->size == 1 && op_dest->size != 1)
-        src = (uint32_t)op_src->val;
+        src = (int32_t)op_src->val;
     src += cpu.CF;
     result = op_dest->val - src;
     OPERAND_W(op_dest, result);
@@ -16,7 +16,7 @@ static void do_execute() {
     cpu.ZF = !result;
     int Sign_of_dest = MSB(op_dest->val);
     int Sign_of_src = MSB(src);
-    cpu.OF = ( Sign_of_dest != Sign_of_src) && (cpu.SF == Sign_of_src);
+    cpu.OF = ( Sign_of_dest != Sign_of_src) && (cpu.SF == Sign_of_dest);
     /*judge whether number of 1 in low 8 bits is even*/
     result ^= result >> 4;
     result ^= result >> 2;
