@@ -7,9 +7,9 @@ make_helper(concat(scas_n_, SUFFIX)) {
     DATA_TYPE result = dest - src;
     /*update edi*/
     if(cpu.DF == 0)
-        REG(R_EDI) += DATA_BYTE;
+        reg_l(R_EDI) += DATA_BYTE;
     else
-        REG(R_EDI) -= DATA_BYTE;
+        reg_l(R_EDI) -= DATA_BYTE;
     /*update CF ZF OF SF PF*/
     cpu.CF = src > dest;
     cpu.SF = MSB(result);
