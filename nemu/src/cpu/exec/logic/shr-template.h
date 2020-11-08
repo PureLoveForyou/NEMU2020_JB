@@ -13,7 +13,8 @@ static void do_execute () {
 	/* TODO: Update EFLAGS. */
 	//panic("please implement me");
 	DATA_TYPE result = dest;
-	cpu.CF = MSB(src << ((DATA_BYTE << 3) - 1));
+	//cpu.CF = MSB(src << ((DATA_BYTE << 3) - 1));
+	cpu.CF = 0;
     cpu.ZF = !result;
     cpu.SF = MSB(result);//get sign flag
     /*judge whether number of 1 in low 8 bits is even*/
