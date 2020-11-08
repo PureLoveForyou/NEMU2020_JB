@@ -12,7 +12,7 @@ make_helper(concat(ret_o_, SUFFIX)) {
 
 make_helper(concat(ret_i_, SUFFIX)) {
     int i, val = instr_fetch(cpu.eip + 1, 2);
-    cpu.eip = MEM_R(reg_l(R_ESP));//Get return address
+    cpu.eip = MEM_R(REG(R_ESP));//Get return address
     if(DATA_BYTE == 2)
         cpu.eip &= 0xffff;
     reg_l(R_ESP) += DATA_BYTE;//update esp
