@@ -3,15 +3,8 @@
 #define instr scas
 
 make_helper(concat(scas_n_, SUFFIX)) {
-    uint32_t dest, src = MEM_R(reg_l(R_EDI));
-    DATA_TYPE result;
-    if(DATA_BYTE == 1)
-        dest = reg_b(R_AL);
-    else if(DATA_BYTE == 2)
-        dest = reg_w(R_AX);
-    else
-        dest = reg_l(R_EAX);
-    result = dest - src;
+    swaddr_t dest = REG(R_EAX), src = MEM_R(reg_l(R_EDI));
+    DATA_TYPE result = dest - src;
     /*update edi*/
     if(cpu.DF == 0)
         REG(R_EDI) += DATA_BYTE;
