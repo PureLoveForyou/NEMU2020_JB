@@ -1,8 +1,9 @@
 #include "FLOAT.h"
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
-	nemu_assert(0);
-	return 0;
+	//nemu_assert(0);
+	long long result = (long long)a * (long long)b;
+	return (FLOAT)(result >> 16);
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
@@ -24,8 +25,32 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 	 * out another way to perform the division.
 	 */
 
-	nemu_assert(0);
-	return 0;
+	//nemu_assert(0);
+	int sign = 1;
+	int result, i;
+	if(a < 0)
+	{
+		a = -a;
+		sign = -sign;
+	}
+	if(b < 0)
+	{
+		b = -b;
+		sign = -sign;
+	}
+	result = a/b;
+	a = a % b;
+	for( i = 0; i < 16; i++)
+	{
+		a <<= 1;
+		result <<= 1;
+		if(a >= b)
+		{
+			a -= b;
+			result++;
+		}
+	}
+	return (FLOAT)(result*sign);
 }
 
 FLOAT f2F(float a) {
@@ -39,13 +64,24 @@ FLOAT f2F(float a) {
 	 * performing arithmetic operations on it directly?
 	 */
 
-	nemu_assert(0);
-	return 0;
+	//nemu_assert(0);
+	int A = *(int *)(&a);
+	int sign = A >> 31;
+	int exp = (A >> 23) & 0xff;
+	FLOAT x = A & 0x7fffff;
+	if(exp != 0)
+		x += 1 << 23;
+	exp -= 150;
+	if(exp < -16)
+		x >>= -16 -exp;
+	if(exp > -16)
+		x <<= exp + 16;
+	return (sign == 0) ? x:-x;
 }
 
 FLOAT Fabs(FLOAT a) {
-	nemu_assert(0);
-	return 0;
+	//nemu_assert(0);
+	return (a < 0) ? -a : a;
 }
 
 /* Functions below are already implemented */
