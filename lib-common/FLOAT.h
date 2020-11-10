@@ -7,7 +7,7 @@ typedef int FLOAT;
 
 static inline int F2int(FLOAT a) {
 	//nemu_assert(0);
-	a &= 0xffff0000;
+	//a &= 0xffff0000;
 	return a >> 16;
 }
 
