@@ -11,8 +11,18 @@ static int nr_symtab_entry;
 uint32_t get_var_value(char *var) {
 	int i, result = 0;
 	for(i = 0; i < nr_symtab_entry; i++) {
-		if(symtab[i].st_info == STT_OBJECT && strcmp(var, strtab + symtab[i].st_name) == 0){
-			result = symtab[i].st_value;
+		if(symtab[i].st_info == STT_OBJECT){
+			char name[32];
+			char *temp = strtab + symtab[i].st_name;
+			int length = strlen(temp);
+			strncpy(name, temp, length);
+			name[length] = '0';
+			if(strcmp(var, name) == 0)
+				result = symtab[i].st_value;
+			else {
+				printf("No such variable\n");
+				assert(0);
+			}
 		}
 		else {
 			printf("No such variable\n");
