@@ -5,11 +5,6 @@
  */
 #include <sys/types.h>
 #include <regex.h>
-#include <elf.h>
-
-extern char *strtab;
-extern Elf32_Sym *symtab;
-extern int nr_symtab_entry;
 
 enum {
 	NOTYPE = 256, EQ, NUM, NEGATIVE, HEXNUM, 
@@ -248,17 +243,6 @@ static uint32_t eval(int p, int q) {
 				default:printf("Register doesn't exist\n");assert(0);
 			}
 		}
-		/*else if(tokens[p].type == VARIABLE){
-			int i;
-			for(i = 0; i < nr_symtab_entry; i++) {
-				if(symtab[i].st_info == STT_OBJECT && strcmp(tokens[p].str, strtab + symtab[i].st_name) == 0) {
-					return symtab[i].st_value;
-				}
-				else {
-					assert(0);
-				}
-			}
-		}*/
 		else {
 			/*The number is a hexadecimal number*/
 			result = 0;
