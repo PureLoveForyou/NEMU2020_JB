@@ -249,7 +249,6 @@ static uint32_t eval(int p, int q) {
 		}
 		else if(tokens[p].type == VARIABLE){
 			//It is a variable
-			printf("variable\n");
 			int i;
 			for(i = 0; i < nr_symtab_entry; i++) {
 				if(symtab[i].st_info == STT_OBJECT && strcmp(tokens[p].str, strtab + symtab[i].st_name) == 0) {
