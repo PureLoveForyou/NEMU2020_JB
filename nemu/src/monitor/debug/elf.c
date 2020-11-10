@@ -82,7 +82,7 @@ void load_elf_tables(int argc, char *argv[]) {
 }
 
 uint32_t get_var_value(char *var, bool *success) {
-	printf("varname:%s\n", var);
+	//printf("varname:%s\n", var);
 	*success = true;
 	int i;
 	for(i = 0; i < nr_symtab_entry; i++) {
