@@ -18,7 +18,7 @@ uint32_t get_var_value(char *var) {
 			int length = strlen(temp);
 			strncpy(name, temp, length);
 			name[length] = '\0';
-			printf("tabname:%s", temp);
+			printf("tabname:%s", var);
 			if(strcmp(var, name) == 0)
 				result = symtab[i].st_value;
 			else {
