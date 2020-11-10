@@ -211,7 +211,7 @@ static bool check_parentheses(int p, int q)
 	return flag;
 }
 
-uint32_t get_var_value(char *var);
+uint32_t get_var_value(char *var, bool *suc);
 
 static uint32_t eval(int p, int q) {
 	uint32_t result;
@@ -231,7 +231,15 @@ static uint32_t eval(int p, int q) {
 			}
 		}
 		else if(tokens[p].type == VARIABLE) {
-			return get_var_value(tokens[p].str);
+			bool success = true;
+			int ans = get_var_value(tokens[p].str, &success);
+			if(!success) {
+				printf("No such variable\n");
+				assert(0);
+			}
+			else {
+				return ans;
+			}
 		}
 		else if(tokens[p].type == DOLREG) {
 			/*Access registers*/

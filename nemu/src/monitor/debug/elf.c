@@ -81,9 +81,9 @@ void load_elf_tables(int argc, char *argv[]) {
 	fclose(fp);
 }
 
-uint32_t get_var_value(char *var) {
+uint32_t get_var_value(char *var, bool *suc) {
 	int i;
-	uint32_t result = 0;
+	*suc = true;
 	for(i = 0; i < nr_symtab_entry; i++) {
 		if((symtab[i].st_info & 0xf) == STT_OBJECT){
 			char name[32];
@@ -92,8 +92,9 @@ uint32_t get_var_value(char *var) {
 			strncpy(name, temp, length);
 			name[length] = '\0';
 			if(strcmp(var, name) == 0)
-				result = symtab[i].st_value;
+				return symtab[i].st_value;
 		}
 	}
-	return result;
+	*suc = false;
+	return 0;
 }
