@@ -5,6 +5,11 @@
  */
 #include <sys/types.h>
 #include <regex.h>
+#include <elf.h>
+
+extern char *strtab;
+extern Elf32_Sym *symtab;
+extern int nr_symtab_entry;
 
 enum {
 	NOTYPE = 256, EQ, NUM, NEGATIVE, HEXNUM, 
@@ -242,7 +247,19 @@ static uint32_t eval(int p, int q) {
 				case 7: return cpu.eip;
 				default:printf("Register doesn't exist\n");assert(0);
 			}
-		}	
+		}
+		/*else if(tokens[p].type == VARIABLE){
+			It is a variable
+			int i;
+			for(i = 0; i < nr_symtab_entry; i++) {
+				if(symtab[i].st_info == STT_OBJECT && strcmp(tokens[p].str, strtab + symtab[i].st_name) == 0) {
+					result = symtab[i].st_value;
+				}
+				else {
+					assert("No such variable\n");
+				}
+			}
+		}*/
 		else {
 			/*The number is a hexadecimal number*/
 			result = 0;
@@ -351,11 +368,11 @@ uint32_t expr(char *e, bool *success) {
         for(m = 0; m < nr_token; m++) {
                 /* Mark out which one is minus sign instead of minus, so does dereference operation "*" */
                 if(tokens[m].type == '-'&&(m == 0||(tokens[m-1].type != NUM && tokens[m-1].type != HEXNUM
-                   && tokens[m-1].type != DOLREG && tokens[m-1].type != ')'))) {
+                   && tokens[m-1].type != DOLREG && tokens[m-1].type != ')' && tokens[m-1].type != VARIABLE))) {
                         tokens[m].type = NEGATIVE;
                 }
 		else if(tokens[m].type == '*'&&(m == 0||(tokens[m-1].type != NUM && tokens[m-1].type != HEXNUM
-                   && tokens[m-1].type != DOLREG && tokens[m-1].type != ')'))) {
+                   && tokens[m-1].type != DOLREG && tokens[m-1].type != ')' && tokens[m-1].type != VARIABLE))) {
                         tokens[m].type = DEREFERENCE;
                 }
         }
