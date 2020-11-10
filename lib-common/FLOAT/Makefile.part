@@ -13,10 +13,10 @@ $(FLOAT): $(FLOAT_A_OBJ)
 FLOAT_BYXX := -m32 -O2 -fno-builtin -Ilib-commom -fno-stack-protector -D_FORTIFY_SOURCE=0 -march=i386 -mtune=i386
 
 $(FLOAT_O):
-		mkdir -p obj/lib-common/FLOAT
+		mkdir -p obj/lib-common/FLOAT.c
 		$(CC) $(FLOAT_BYXX) -c lib-commom/FLOAT/FLOAT.c -o $(FLOAT_O)
 
 $(FLOAT_VFPRINTF_O):
-		mkdir -p obj/lib-common/FLOAT
+		mkdir -p obj/lib-common/FLOAT_vfprintf.c
 		$(CC) $(FLOAT_BYXX) -c lib-commom/FLOAT/FLOAT_vfprintf.c -o $(FLOAT_VFPRINTF_O)
 
