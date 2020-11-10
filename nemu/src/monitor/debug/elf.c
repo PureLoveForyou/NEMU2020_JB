@@ -16,7 +16,7 @@ uint32_t get_var_value(char *var) {
 			char *temp = strtab + symtab[i].st_name;
 			int length = strlen(temp);
 			strncpy(name, temp, length);
-			name[length] = '0';
+			name[length] = '\0';
 			if(strcmp(var, name) == 0)
 				result = symtab[i].st_value;
 			else {
