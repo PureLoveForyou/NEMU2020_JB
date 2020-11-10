@@ -104,14 +104,13 @@ static bool make_token(char *e) {
 					case '/': 	tokens[nr_token++].type = rules[i].token_type;break;
 					case '(': 	tokens[nr_token++].type = rules[i].token_type;break;
 					case ')': 	tokens[nr_token++].type = rules[i].token_type;break;
-					
 					case EQ: 	tokens[nr_token++].type = rules[i].token_type;break;
-					case NOTEQ: 	tokens[nr_token++].type = rules[i].token_type;break;
+					case NOTEQ: tokens[nr_token++].type = rules[i].token_type;break;
 					case AND: 	tokens[nr_token++].type = rules[i].token_type;break;
 					case OR: 	tokens[nr_token++].type = rules[i].token_type;break;
-					case NOT:       tokens[nr_token++].type = rules[i].token_type;break;
-					case NOTYPE: 	break;
-					case DOLREG:	tokens[nr_token].type = rules[i].token_type;
+					case NOT:   tokens[nr_token++].type = rules[i].token_type;break;
+					case NOTYPE:break;
+					case DOLREG:tokens[nr_token].type = rules[i].token_type;
 							int y;
 							for(y = 0; y < 32; y++) {
 								/*Initialization and record the name of the register*/
@@ -349,6 +348,6 @@ uint32_t expr(char *e, bool *success) {
         }
 
 	return eval(0, nr_token - 1);
-	panic("please implement me");
+	//panic("please implement me");
 	return 0;
 }
