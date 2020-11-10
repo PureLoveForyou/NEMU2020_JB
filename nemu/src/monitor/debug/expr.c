@@ -214,7 +214,7 @@ static bool check_parentheses(int p, int q)
 }
 
 static uint32_t eval(int p, int q) {
-	uint32_t result;
+	uint32_t result = 0;
 
 	if(p > q) {
 		/*bad expression*/
@@ -248,8 +248,8 @@ static uint32_t eval(int p, int q) {
 				default:printf("Register doesn't exist\n");assert(0);
 			}
 		}
-		/*else if(tokens[p].type == VARIABLE){
-			It is a variable
+		else if(tokens[p].type == VARIABLE){
+			//It is a variable
 			int i;
 			for(i = 0; i < nr_symtab_entry; i++) {
 				if(symtab[i].st_info == STT_OBJECT && strcmp(tokens[p].str, strtab + symtab[i].st_name) == 0) {
@@ -259,7 +259,7 @@ static uint32_t eval(int p, int q) {
 					assert("No such variable\n");
 				}
 			}
-		}*/
+		}
 		else {
 			/*The number is a hexadecimal number*/
 			result = 0;
