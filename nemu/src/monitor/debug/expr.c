@@ -104,14 +104,15 @@ static bool make_token(char *e) {
 					case '*': 	
 					case '/': 	
 					case '(': 	
-					case ')': 	
+					case ')':
 					case EQ: 	
 					case NOTEQ: 
 					case AND: 	
 					case OR: 	
 					case NOT:   tokens[nr_token++].type = rules[i].token_type;break;
 					case NOTYPE:break;
-					case DOLREG:tokens[nr_token].type = rules[i].token_type;
+					case DOLREG:
+							tokens[nr_token].type = rules[i].token_type;
 							int y;
 							for(y = 0; y < 32; y++) {
 								/*Initialization and record the name of the register*/
@@ -135,7 +136,17 @@ static bool make_token(char *e) {
                                                                 }
 							}
 							nr_token++;break;
-					case HEXNUM: 	tokens[nr_token].type = rules[i].token_type; 
+					case VARIABLE:
+							tokens[nr_token].type = rules[i].token_type;
+							int c;
+							for(c = 0; c < 32; c++) {
+								/*Initialization str*/
+								tokens[nr_token].str[c] = '0';
+							}
+							strncpy(tokens[nr_token].str, substr_start, substr_len);
+							nr_token++;
+					case HEXNUM: 	
+							tokens[nr_token].type = rules[i].token_type; 
 							int k, l;
 							for(k = 0; k < 32; k++)
 								tokens[nr_token].str[k] = '0';
@@ -143,7 +154,8 @@ static bool make_token(char *e) {
 								tokens[nr_token].str[k] = substr_start[l];
 							nr_token++;break;
 
-					case NUM: 	tokens[nr_token].type = rules[i].token_type;
+					case NUM: 	
+							tokens[nr_token].type = rules[i].token_type;
 						  	int j, i;
 						  	for( j = 0; j < 32; j++) {
 							  	tokens[nr_token].str[j] = '0';
