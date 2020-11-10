@@ -5,6 +5,11 @@
  */
 #include <sys/types.h>
 #include <regex.h>
+#include <elf.h>
+
+extern char *strtab;
+extern Elf32_Sym *symtab;
+extern int nr_symtab_entry;
 
 enum {
 	NOTYPE = 256, EQ, NUM, NEGATIVE, HEXNUM, 
