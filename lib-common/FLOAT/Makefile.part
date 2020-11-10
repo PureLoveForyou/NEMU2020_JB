@@ -10,14 +10,13 @@ $(FLOAT): $(FLOAT_A_OBJ)
 
 # TODO: complete the following rules
 
-FLOAT_CFLAGS := -c -m32 -msoft-float -fno-stack-protector
-FLOAT_CFLAGS := -c -m32 -fno-stack-protector -D_FORTIFY_SOURCE=0 -fno-builtin -march=i386
+FLOAT_BYXX := -m32 -O2 -fno-builtin -Ilib-commom -fno-stack-protector -D_FORTIFY_SOURCE=0 -march=i386 -mtune=i386
 
-$(FLOAT_O): % : $(LIB_COMMON_DIR)/FLOAT/FLOAT.c
-		@mkdir -p obj/$(LIB_COMMON_DIR)
-		$(call make_command, $(CC), $(FLOAT_CFLAGS), cc $<, $^)
+$(FLOAT_O):
+		mkdir -p obj/lib-common/FLOAT
+		$(CC) $(FLOAT_BYXX) -c lib-commom/FLOAT/FLOAT.c -o $(FLOAT_O)
 
-$(FLOAT_VFPRINTF_O): % : $(LIB_COMMON_DIR)/FLOAT/FLOAT_vfprintf.c
-		@mkdir -p obj/$(LIB_COMMON_DIR)
-		$(call make_command, $(CC), $(FLOAT_CFLAGS), cc $<, $^)
+$(FLOAT_VFPRINTF_O):
+		mkdir -p obj/lib-common/FLOAT
+		$(CC) $(FLOAT_BYXX) -c lib-commom/FLOAT/FLOAT_vfprintf.c -o $(FLOAT_VFPRINTF_O)
 
