@@ -143,7 +143,7 @@ static bool make_token(char *e) {
 							int c;
 							for(c = 0; c < 32; c++) {
 								/*Initialization str*/
-								tokens[nr_token].str[c] = '0';
+								tokens[nr_token].str[c] = '\0';
 							}
 							strncpy(tokens[nr_token].str, substr_start, substr_len);
 							nr_token++;break;
