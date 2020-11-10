@@ -63,7 +63,6 @@ FLOAT f2F(float a) {
 	 * stack. How do you retrieve it to another variable without
 	 * performing arithmetic operations on it directly?
 	 */
-
 	//nemu_assert(0);
 	int A = *(int *)(&a);
 	int sign = A >> 31;
