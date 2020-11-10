@@ -144,7 +144,7 @@ static bool make_token(char *e) {
 								tokens[nr_token].str[c] = '0';
 							}
 							strncpy(tokens[nr_token].str, substr_start, substr_len);
-							nr_token++;
+							nr_token++;break;
 					case HEXNUM: 	
 							tokens[nr_token].type = rules[i].token_type; 
 							int k, l;
