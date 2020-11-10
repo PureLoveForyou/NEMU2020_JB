@@ -96,10 +96,6 @@ uint32_t get_var_value(char *var, bool *success) {
 			if(strcmp(var, name) == 0)
 				return symtab[i].st_value;
 		}
-		else {
-			printf("No such variable\n");
-			assert(0);
-		}
 	}
 	*success = false;
 	return 0;
