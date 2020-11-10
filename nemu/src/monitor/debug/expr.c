@@ -211,6 +211,8 @@ static bool check_parentheses(int p, int q)
 	return flag;
 }
 
+uint32_t get_var_value(char *var);
+
 static uint32_t eval(int p, int q) {
 	uint32_t result;
 
@@ -228,9 +230,9 @@ static uint32_t eval(int p, int q) {
 				result = result*10 + (uint32_t)(tokens[p].str[i] - '0');
 			}
 		}
-		/*else if(tokens[p].type == VARIABLE) {
+		else if(tokens[p].type == VARIABLE) {
 			return get_var_value(tokens[p].str);
-		}*/
+		}
 		else if(tokens[p].type == DOLREG) {
 			/*Access registers*/
 			int index = 0;

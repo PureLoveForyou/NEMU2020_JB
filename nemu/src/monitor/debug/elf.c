@@ -7,13 +7,20 @@ char *exec_file = NULL;
 static char *strtab = NULL;
 static Elf32_Sym *symtab = NULL;
 static int nr_symtab_entry;
-/*
+
 uint32_t get_var_value(char *var) {
-	int i;
-	for(int = 0; i < nr_symtab_entry) {
-		if()
+	int i, result = 0;
+	for(i = 0; i < nr_symtab_entry; i++) {
+		if(symtab[i].st_info == STT_OBJECT && strcmp(var, strtab + symtab[i].st_name) == 0){
+			result = symtab[i].st_value;
+		}
+		else {
+			printf("No such variable\n");
+			assert(0);
+		}
 	}
-}*/
+	return result;
+}
 
 void load_elf_tables(int argc, char *argv[]) {
 	int ret;
