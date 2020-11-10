@@ -7,10 +7,6 @@
 #include <regex.h>
 #include <elf.h>
 
-extern char *strtab;
-extern Elf32_Sym *symtab;
-extern int nr_symtab_entry;
-
 enum {
 	NOTYPE = 256, EQ, NUM, NEGATIVE, HEXNUM, 
 	DEREFERENCE, NOTEQ, AND, OR, NOT, DOLREG, VARIABLE
@@ -232,6 +228,9 @@ static uint32_t eval(int p, int q) {
 				result = result*10 + (uint32_t)(tokens[p].str[i] - '0');
 			}
 		}
+		/*else if(tokens[p].type == VARIABLE) {
+			return get_var_value(tokens[p].str);
+		}*/
 		else if(tokens[p].type == DOLREG) {
 			/*Access registers*/
 			int index = 0;
