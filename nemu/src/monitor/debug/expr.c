@@ -214,7 +214,7 @@ static bool check_parentheses(int p, int q)
 }
 
 static uint32_t eval(int p, int q) {
-	uint32_t result = 0;
+	uint32_t result;
 	if(p > q) {
 		/*bad expression*/
 		printf("Illegal expression\n");
