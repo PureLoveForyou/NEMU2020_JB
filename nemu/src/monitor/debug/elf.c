@@ -12,7 +12,7 @@ uint32_t get_var_value(char *var) {
 	printf("varname:%s\n", var);
 	int i, result = 0;
 	for(i = 0; i < nr_symtab_entry; i++) {
-		if(symtab[i].st_info == STT_OBJECT){
+		if((symtab[i].st_info & 0xf) == STT_OBJECT){
 			char name[32];
 			char *temp = strtab + symtab[i].st_name;
 			int length = strlen(temp);
