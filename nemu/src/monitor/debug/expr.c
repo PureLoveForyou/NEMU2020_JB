@@ -249,7 +249,7 @@ static uint32_t eval(int p, int q) {
 		}
 		else if(tokens[p].type == VARIABLE){
 			//It is a variable
-			printf("variable\n");
+			//printf("variable\n");
 			int i;
 			for(i = 0; i < nr_symtab_entry; i++) {
 				printf("match\n");
