@@ -252,6 +252,7 @@ static uint32_t eval(int p, int q) {
 			printf("variable\n");
 			int i;
 			for(i = 0; i < nr_symtab_entry; i++) {
+				printf("match\n");
 				if(symtab[i].st_info == STT_OBJECT && strcmp(tokens[p].str, strtab + symtab[i].st_name) == 0) {
 					result = symtab[i].st_value;
 				}
