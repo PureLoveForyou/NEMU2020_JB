@@ -263,6 +263,7 @@ static uint32_t eval(int p, int q) {
 		else {
 			/*The number is a hexadecimal number*/
 			result = 0;
+			printf("HEX\n");
 			for(i = 0; i < 32; i++) {
 				/*Transform hexadecimal number into a decaimal number*/
 				if(tokens[p].str[i] >= '0'&&tokens[p].str[i] <= '9')
