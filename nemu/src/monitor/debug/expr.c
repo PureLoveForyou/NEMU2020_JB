@@ -137,6 +137,7 @@ static bool make_token(char *e) {
 							}
 							nr_token++;break;
 					case VARIABLE:
+					{
 							tokens[nr_token].type = rules[i].token_type;
 							int c;
 							for(c = 0; c < 32; c++) {
@@ -145,6 +146,7 @@ static bool make_token(char *e) {
 							}
 							strncpy(tokens[nr_token].str, substr_start, substr_len);
 							nr_token++;break;
+					}
 					case HEXNUM: 	
 							tokens[nr_token].type = rules[i].token_type; 
 							int k, l;
