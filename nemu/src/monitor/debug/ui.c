@@ -187,7 +187,7 @@ static int cmd_p(char *args)
 		uint32_t result;
 		result = expr(args, &success);
 		if(success)
-			printf("%d\n", result);
+			printf("0x%x(%d)\n", result, result);
 		else
 			assert(0);
 	}
