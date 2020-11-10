@@ -8,7 +8,7 @@
 
 enum {
 	NOTYPE = 256, EQ, NUM, NEGATIVE, HEXNUM, 
-	DEREFERENCE, NOTEQ, AND, OR, NOT, DOLREG
+	DEREFERENCE, NOTEQ, AND, OR, NOT, DOLREG, VARIABLE
 
 
 };
@@ -43,7 +43,8 @@ static struct rule {
 	{"\\|\\|", OR},					// or
 	{"!", NOT},					//NOT
 
-	{"[0-9][0-9]*", NUM}				//number
+	{"[0-9][0-9]*", NUM},			//number
+	{"[a-zA-Z_0-9][a-zA-Z_0-9]*", VARIABLE}		//variable
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
