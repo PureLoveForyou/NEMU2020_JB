@@ -215,7 +215,6 @@ static bool check_parentheses(int p, int q)
 
 static uint32_t eval(int p, int q) {
 	uint32_t result = 0;
-
 	if(p > q) {
 		/*bad expression*/
 		printf("Illegal expression\n");
@@ -250,6 +249,7 @@ static uint32_t eval(int p, int q) {
 		}
 		else if(tokens[p].type == VARIABLE){
 			//It is a variable
+			printf("variable\n");
 			int i;
 			for(i = 0; i < nr_symtab_entry; i++) {
 				if(symtab[i].st_info == STT_OBJECT && strcmp(tokens[p].str, strtab + symtab[i].st_name) == 0) {
@@ -263,7 +263,6 @@ static uint32_t eval(int p, int q) {
 		else {
 			/*The number is a hexadecimal number*/
 			result = 0;
-			printf("HEX\n");
 			for(i = 0; i < 32; i++) {
 				/*Transform hexadecimal number into a decaimal number*/
 				if(tokens[p].str[i] >= '0'&&tokens[p].str[i] <= '9')
