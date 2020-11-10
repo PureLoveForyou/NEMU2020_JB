@@ -98,16 +98,16 @@ static bool make_token(char *e) {
 				 */
 
 				switch(rules[i].token_type) {
-					case '+': 	tokens[nr_token++].type = rules[i].token_type;break;
-					case '-': 	tokens[nr_token++].type = rules[i].token_type;break;
-					case '*': 	tokens[nr_token++].type = rules[i].token_type;break;
-					case '/': 	tokens[nr_token++].type = rules[i].token_type;break;
-					case '(': 	tokens[nr_token++].type = rules[i].token_type;break;
-					case ')': 	tokens[nr_token++].type = rules[i].token_type;break;
-					case EQ: 	tokens[nr_token++].type = rules[i].token_type;break;
-					case NOTEQ: tokens[nr_token++].type = rules[i].token_type;break;
-					case AND: 	tokens[nr_token++].type = rules[i].token_type;break;
-					case OR: 	tokens[nr_token++].type = rules[i].token_type;break;
+					case '+':
+					case '-': 	
+					case '*': 	
+					case '/': 	
+					case '(': 	
+					case ')': 	
+					case EQ: 	
+					case NOTEQ: 
+					case AND: 	
+					case OR: 	
 					case NOT:   tokens[nr_token++].type = rules[i].token_type;break;
 					case NOTYPE:break;
 					case DOLREG:tokens[nr_token].type = rules[i].token_type;
