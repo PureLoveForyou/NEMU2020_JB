@@ -214,7 +214,7 @@ static bool check_parentheses(int p, int q)
 uint32_t get_var_value(char *var, bool *suc);
 
 static uint32_t eval(int p, int q) {
-	uint32_t result = 0;
+	uint32_t result;
 
 	if(p > q) {
 		/*bad expression*/
@@ -235,6 +235,7 @@ static uint32_t eval(int p, int q) {
 			int ans = get_var_value(tokens[p].str, &success);
 			if(!success) {
 				printf("No such variable\n");
+				assert(0);
 			}
 			else {
 				return ans;
