@@ -252,7 +252,7 @@ static int cmp_bt(char *args)
 	while(current_ebp.prev_ebp > 0) {
 		get_func_name(&(current_ebp.ret_addr), FuncName);
 		if(FuncName[0] == '\0') {
-			printf("No function called\n");break;
+			printf("No function called. Please run the program first\n");break;
 		}
 		printf("#%d 0x%08x in %s\n", num++, current_ebp.ret_addr, FuncName);
 		printf("arguments: arg[0]:0x%08x arg[1]:0x%08x arg[2]:0x%08x arg[3]:0x%08x\n", 
