@@ -7,10 +7,19 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+/*stack frames struct*/
+typedef struct
+{
+	swaddr_t prev_ebp;
+	swaddr_t ret_addr;
+	uint32_t args[4];
+}PartOfStackFrame;
+
 
 void cpu_exec(uint32_t);
 
-/* We use the `readline' library to provide more flexibility to read from stdin. */
+/* We use the `readline' library to provide 
+more flexibility to read from stdin. */
 char* rl_gets() {
 	static char *line_read = NULL;
 
@@ -51,6 +60,8 @@ static int cmp_w(char *args);
 
 static int cmp_d(char *args);
 
+static int cmp_bt(char *args);
+
 //static int cmp_bt(char *args);
 
 static struct {
@@ -67,7 +78,7 @@ static struct {
 	{ "p", "Evaluation", cmd_p },
 	{ "w", "Set a watchpoint", cmp_w },
 	{ "d", "Delete a watchpoint", cmp_d },
-//	{ "bt", "Print stack frame chain", cmp_bt },
+	{ "bt", "Print backtrace of all stack frames", cmp_bt },
 
 	/* TODO: Add more commands */
 
@@ -217,6 +228,20 @@ static int cmp_w(char *args)
 }
 
 static int cmp_d(char *args)
+{
+	char *arg = strtok(NULL, " ");
+	if(arg == NULL) {
+		printf("Argument required\nUsage: d N\n");
+	}
+	else {
+		int num;
+		sscanf(arg, "%d", &num);
+		delete_wp(num);
+	}
+	return 0;
+}
+
+static int cmp_bt(char *args)
 {
 	char *arg = strtok(NULL, " ");
 	if(arg == NULL) {

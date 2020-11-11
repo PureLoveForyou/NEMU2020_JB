@@ -8,6 +8,38 @@ static char *strtab = NULL;
 static Elf32_Sym *symtab = NULL;
 static int nr_symtab_entry;
 
+uint32_t get_var_value(char *var, bool *suc) {
+	int i;
+	*suc = true;
+	for(i = 0; i < nr_symtab_entry; i++) {
+		if((symtab[i].st_info & 0xf) == STT_OBJECT){
+			char name[32];
+			char *temp = strtab + symtab[i].st_name;
+			int length = strlen(temp);
+			strncpy(name, temp, length);
+			name[length] = '\0';
+			if(strcmp(var, name) == 0)
+				return symtab[i].st_value;
+		}
+	}
+	*suc = false;
+	return 0;
+}
+
+void get_func_name(swaddr_t current_addr, char *name)
+{
+	int i, len;
+	for(i = 0; i < nr_symtab_entry; i++) {
+		if((symtab[i].st_info & 0xf) == STT_FUNC 
+		&& symtab[i].st_value < current_addr 
+		&& symtab[i].st_value + symtab[i].st_size >= current_addr) {
+			len = strlen(strtab + symtab[i].st_name);
+			strncpy(name, strtab + symtab[i].st_name, len);
+			name[len] = '\0';
+		}
+	}
+}
+
 void load_elf_tables(int argc, char *argv[]) {
 	int ret;
 	Assert(argc == 2, "run NEMU with format 'nemu [program]'");
@@ -79,22 +111,4 @@ void load_elf_tables(int argc, char *argv[]) {
 	assert(strtab != NULL && symtab != NULL);
 
 	fclose(fp);
-}
-
-uint32_t get_var_value(char *var, bool *suc) {
-	int i;
-	*suc = true;
-	for(i = 0; i < nr_symtab_entry; i++) {
-		if((symtab[i].st_info & 0xf) == STT_OBJECT){
-			char name[32];
-			char *temp = strtab + symtab[i].st_name;
-			int length = strlen(temp);
-			strncpy(name, temp, length);
-			name[length] = '\0';
-			if(strcmp(var, name) == 0)
-				return symtab[i].st_value;
-		}
-	}
-	*suc = false;
-	return 0;
 }
