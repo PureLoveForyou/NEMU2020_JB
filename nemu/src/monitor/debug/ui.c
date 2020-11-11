@@ -62,8 +62,6 @@ static int cmp_d(char *args);
 
 static int cmp_bt(char *args);
 
-//static int cmp_bt(char *args);
-
 static struct {
 	char *name;
 	char *description;
@@ -241,16 +239,26 @@ static int cmp_d(char *args)
 	return 0;
 }
 
+void get_func_name(swaddr_t *current_addr, char *name);
+
 static int cmp_bt(char *args)
 {
-	char *arg = strtok(NULL, " ");
-	if(arg == NULL) {
-		printf("Argument required\nUsage: d N\n");
-	}
-	else {
-		int num;
-		sscanf(arg, "%d", &num);
-		delete_wp(num);
+	int num = 0;
+	char FuncName[32];
+	memset(FuncName, '\0', sizeof(FuncName));
+	PartOfStackFrame current_ebp;
+	current_ebp.prev_ebp = reg_l(R_EBP);
+	current_ebp.ret_addr = cpu.eip;
+	while(current_ebp.prev_ebp > 0) {
+		get_func_name(&(current_ebp.ret_addr), FuncName);
+		if(FuncName[0] == '\0')
+			break;
+		printf("#%d 0x%08x in %s\n", num++, current_ebp.ret_addr, FuncName);
+		printf("arguments: arg[0]:%08x arg[1]:%08x arg[2]:%08x arg[3]:%08x\n", 
+				swaddr_read(current_ebp.prev_ebp + 8, 4), swaddr_read(current_ebp.prev_ebp + 12, 4), 
+				swaddr_read(current_ebp.prev_ebp + 16, 4), swaddr_read(current_ebp.prev_ebp + 20, 4));
+		current_ebp.ret_addr = swaddr_read(current_ebp.prev_ebp + 4, 4);
+		current_ebp.prev_ebp = swaddr_read(current_ebp.prev_ebp, 4);
 	}
 	return 0;
 }

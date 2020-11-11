@@ -26,18 +26,20 @@ uint32_t get_var_value(char *var, bool *suc) {
 	return 0;
 }
 
-void get_func_name(swaddr_t current_addr, char *name)
+void get_func_name(swaddr_t *current_addr, char *name)
 {
 	int i, len;
 	for(i = 0; i < nr_symtab_entry; i++) {
 		if((symtab[i].st_info & 0xf) == STT_FUNC 
-		&& symtab[i].st_value < current_addr 
-		&& symtab[i].st_value + symtab[i].st_size >= current_addr) {
+		&& symtab[i].st_value < *current_addr 
+		&& symtab[i].st_value + symtab[i].st_size >= *current_addr) {
 			len = strlen(strtab + symtab[i].st_name);
 			strncpy(name, strtab + symtab[i].st_name, len);
 			name[len] = '\0';
+			return;
 		}
 	}
+	name[0] = '\0';
 }
 
 void load_elf_tables(int argc, char *argv[]) {
