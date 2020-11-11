@@ -257,7 +257,7 @@ static int cmp_bt(char *args)
 		if(num == 0)
 			printf("#%d %s\n", num, FuncName);
 		else
-			printf("#%d 0x%08x in %s\n", num, current_ebp.ret_addr, FuncName);
+			printf("#%d 0x%08x in %s ", num, current_ebp.ret_addr, FuncName);
 		if(strcmp(FuncName, "main") == 0)
 			printf("\n");
 		else
