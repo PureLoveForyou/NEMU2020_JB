@@ -257,7 +257,7 @@ static int cmp_bt(char *args)
 		if(num == 0)
 			printf("#%d %s ", num, FuncName);
 		else
-			printf("#%d 0x%08x in %s ()", num, current_ebp.ret_addr, FuncName);
+			printf("#%d 0x%08x in %s () ", num, current_ebp.ret_addr, FuncName);
 		printf("arguments: arg[0]:0x%08x arg[1]:0x%08x arg[2]:0x%08x arg[3]:0x%08x\n", 
 				swaddr_read(current_ebp.prev_ebp + 8, 4), swaddr_read(current_ebp.prev_ebp + 12, 4), 
 				swaddr_read(current_ebp.prev_ebp + 16, 4), swaddr_read(current_ebp.prev_ebp + 20, 4));
