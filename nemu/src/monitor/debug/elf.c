@@ -36,7 +36,7 @@ void get_func_name(swaddr_t *current_addr, char *name)
 			len = strlen(strtab + symtab[i].st_name);
 			strncpy(name, strtab + symtab[i].st_name, len);
 			name[len] = '\0';
-			*current_addr = symtab[i].st_value;
+			//*current_addr = symtab[i].st_value;
 			return;
 		}
 	}
