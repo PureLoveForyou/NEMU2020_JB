@@ -1,7 +1,7 @@
 #include "trap.h"
 
-long long add(long long a, long long b) {
-	long long c = a + b;
+long long add(long long a, long long b, long long d) {
+	long long c = a + b + d;
 	set_bp();
 	return c;
 }
@@ -16,7 +16,7 @@ int main() {
 	int loop = 0;
 	for(i = 0; i < NR_DATA; i ++) {
 		for(j = 0; j < NR_DATA; j ++) {
-			nemu_assert(add(test_data[i], test_data[j]) == ans[ans_idx ++]);
+			nemu_assert(add(test_data[i], test_data[j], test_data[j + 1]) == ans[ans_idx ++]);
 			loop ++;
 		}
 	}
