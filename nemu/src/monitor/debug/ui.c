@@ -254,12 +254,19 @@ static int cmp_bt(char *args)
 		if(FuncName[0] == '\0') {
 			printf("No function called. Please run the program first\n");break;
 		}
-		printf("#%d 0x%08x in %s\n", num++, current_ebp.ret_addr, FuncName);
-		printf("arguments: arg[0]:0x%08x arg[1]:0x%08x arg[2]:0x%08x arg[3]:0x%08x\n", 
+		if(num == 0)
+			printf("#%d %s\n", num, FuncName);
+		else
+			printf("#%d 0x%08x in %s\n", num, current_ebp.ret_addr, FuncName);
+		if(strcmp(FuncName, "main") == 0)
+			printf("\n");
+		else
+			printf("arguments: arg[0]:0x%08x arg[1]:0x%08x arg[2]:0x%08x arg[3]:0x%08x\n", 
 				swaddr_read(current_ebp.prev_ebp + 8, 4), swaddr_read(current_ebp.prev_ebp + 12, 4), 
 				swaddr_read(current_ebp.prev_ebp + 16, 4), swaddr_read(current_ebp.prev_ebp + 20, 4));
 		current_ebp.ret_addr = swaddr_read(current_ebp.prev_ebp + 4, 4);
 		current_ebp.prev_ebp = swaddr_read(current_ebp.prev_ebp, 4);
+		num++;
 	}
 	return 0;
 }
