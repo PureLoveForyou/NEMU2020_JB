@@ -255,7 +255,7 @@ static int cmp_bt(char *args)
 			printf("No function called. Please run the program first\n");break;
 		}
 		if(num == 0)
-			printf("#%d %s ()\n", num, FuncName);
+			printf("#%d %s ", num, FuncName);
 		else
 			printf("#%d 0x%08x in %s ", num, current_ebp.ret_addr, FuncName);
 		if(strcmp(FuncName, "main") == 0)
