@@ -255,7 +255,7 @@ static int cmp_bt(char *args)
 			printf("No function called\n");break;
 		}
 		printf("#%d 0x%08x in %s\n", num++, current_ebp.ret_addr, FuncName);
-		printf("arguments: arg[0]:%08x arg[1]:%08x arg[2]:%08x arg[3]:%08x\n", 
+		printf("arguments: arg[0]:0x%08x arg[1]:0x%08x arg[2]:0x%08x arg[3]:0x%08x\n", 
 				swaddr_read(current_ebp.prev_ebp + 8, 4), swaddr_read(current_ebp.prev_ebp + 12, 4), 
 				swaddr_read(current_ebp.prev_ebp + 16, 4), swaddr_read(current_ebp.prev_ebp + 20, 4));
 		current_ebp.ret_addr = swaddr_read(current_ebp.prev_ebp + 4, 4);
