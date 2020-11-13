@@ -32,6 +32,8 @@ static void modify_vfprintf() {
 	mprotect((void *)( ( (int)(p - 101) ) & 0xfffff000), 4096*2, PROT_READ | PROT_EXEC | PROT_WRITE);
 	*p = *p + format_FLOAT - (int)(&_fpmaxtostr);//call format_FLOAT by modifying instruction call-fpmaxtostr's offset
 
+	/*change argument*/
+	char *argument = (char *)(pvf + 0x2fc);//fstpt
 #if 0
 	else if (ppfs->conv_num <= CONV_A) {  /* floating point */
 		ssize_t nf;
