@@ -34,6 +34,20 @@ static void modify_vfprintf() {
 
 	/*change argument*/
 	char *argument = (char *)(pvf + 0x2fc);//fstpt
+	*argument = 0xff;//push
+	*(argument + 1) = 0x32;
+	*(argument + 2) = 0x90;//nop
+	/*change sub 0xc into sub 0x8*/
+	argument = (char *)(pvf + 0x306 - 0xb);
+	*argument = 0x8;
+	/*erase float instruction*/
+	argument = (char *)(pvf + 0x306 - 0x22);
+	*argument = 0x90;
+	*(argument + 1) = 0x90;
+	argument = (char *)(pvf + 0x306 - 0x1d);
+	*argument = 0x90;
+	argument = (char *)(pvf + 0x306 - 0x1e);
+	*argument = 0x90;
 #if 0
 	else if (ppfs->conv_num <= CONV_A) {  /* floating point */
 		ssize_t nf;
