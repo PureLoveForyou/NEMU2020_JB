@@ -17,7 +17,23 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
 	 */
 
 	char buf[80];
-	int len = sprintf(buf, "0x%08x", f);
+	int sign = (f >> 32) & 1;
+	if(sign)
+		f = (~f) + 1;
+	int integer = f >> 16;
+	int decimal = 0, i = 15, ac = 1e8;
+	int len = 0;
+	for(; i >= 0; --i) {
+		ac >>= 1;
+		if((f >> i) & 1)
+			decimal += ac;
+	}
+	while(decimal > 999999)
+		decimal /= 10;
+	if(sign)
+		len = sprintf(buf, "-%d.%06d", integer, decimal);
+	else
+		len = sprintf(buf, "%d.%06d", integer, decimal);
 	return __stdio_fwrite(buf, len, stream);
 }
 
@@ -39,11 +55,12 @@ static void modify_vfprintf() {
 	*(argument + 2) = 0x90;//nop
 	/*change sub 0xc into sub 0x8*/
 	argument = (char *)(pvf + 0x306 - 0xb);
-	*argument = 0x8;
+	*argument = 0x08;
 	/*erase float instruction*/
 	argument = (char *)(pvf + 0x306 - 0x22);
 	*argument = 0x90;
-	*(argument + 1) = 0x90;
+	argument = (char *)(pvf + 0x306 - 0x21);
+	*argument = 0x90;
 	argument = (char *)(pvf + 0x306 - 0x1d);
 	*argument = 0x90;
 	argument = (char *)(pvf + 0x306 - 0x1e);
