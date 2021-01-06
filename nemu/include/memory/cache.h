@@ -25,7 +25,7 @@ write allocate
 
 //L1
 #define CACHE_BLOCK_SIZE_L1 64
-#define CACHE_SIZE_L1 64*1024
+#define CACHE_SIZE_L1 256
 #define CACHE_WAY_BIT_L1 3//8-way set associative, 3 bits
 #define CACHE_BLOCK_BIT_L1 6//64 B, 6 bits
 #define CACHE_SET_BIT_L1 7//64KB/(64B*8) = 2^7
