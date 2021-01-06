@@ -1,4 +1,5 @@
 #include "nemu.h"
+#include "memory/cache.h"
 
 #define ENTRY_START 0x100000
 #define EFLAGS_INITIAL_VALUE 0x00000002
@@ -91,4 +92,7 @@ void restart() {
 
 	/* Initialize DRAM. */
 	init_ddr3();
+
+	/* Initialize CACHE. */
+	InitCache();
 }
