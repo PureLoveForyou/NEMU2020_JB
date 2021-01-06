@@ -8,7 +8,7 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 /* Memory accessing interfaces */
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
-	int L1_1st_line = ReadCache_L1(addr);
+	/*int L1_1st_line = ReadCache_L1(addr);
 	uint32_t offset = addr & (CACHE_BLOCK_SIZE_L1 - 1);
 	uint8_t ret[BURST_LEN << 1];
 	if (offset + len > CACHE_BLOCK_SIZE_L1){
@@ -21,13 +21,13 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 
 	int temp = 0;
 	uint32_t ans = unalign_rw(ret + temp, 4) & (~0u >> ((4 - len) << 3));
-	return ans;
-	//return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
+	return ans;*/
+	return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
-	WriteCache_L1(addr, len, data);
-	//dram_write(addr, len, data);
+	//WriteCache_L1(addr, len, data);
+	dram_write(addr, len, data);
 }
 
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
