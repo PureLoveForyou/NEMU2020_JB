@@ -16,7 +16,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 		memcpy(ret,Cache_L1[L1_1st_line].data + offset,CACHE_BLOCK_SIZE_L1 - offset);
 		memcpy(ret + CACHE_BLOCK_SIZE_L1 - offset,Cache_L1[L1_2nd_line].data,len - (CACHE_BLOCK_SIZE_L1 - offset));
 	}else {
-		memcpy(ret,Cache_L1[L1_1st_line].data + offset,len);
+		memcpy(ret,Cache_L1[L1_1st_line].data + offset, len);
 	}
 
 	int temp = 0;
