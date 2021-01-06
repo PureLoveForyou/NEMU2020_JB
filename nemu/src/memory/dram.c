@@ -73,7 +73,7 @@ static void ddr3_read(hwaddr_t addr, void *data) {
 }
 
 void ddr3_read_call(hwaddr_t addr, void *data){
-	ddr3_read(addr, data);//call ddr3_read
+	ddr3_read(addr, data);//call static function ddr3_read
 }
 
 static void ddr3_write(hwaddr_t addr, void *data, uint8_t *mask) {
@@ -101,7 +101,7 @@ static void ddr3_write(hwaddr_t addr, void *data, uint8_t *mask) {
 }
 
 void ddr3_write_call(hwaddr_t addr, void *data, uint8_t *mask){
-	ddr3_write(addr, data, mask);
+	ddr3_write(addr, data, mask);//call static function ddr3_write
 }
 
 uint32_t dram_read(hwaddr_t addr, size_t len) {
