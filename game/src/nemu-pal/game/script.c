@@ -2326,7 +2326,7 @@ PAL_InterpretInstruction(
       //
       {
          if (pScript->rgwOperand[0] <= gpGlobals->g.rgScene[gpGlobals->wNumScene - 1].wEventObjectIndex ||
-            pScript->rgwOperand[0] > gpGlobals->g.rgScene[gpGlobals->wNumScene].wEventObjectIndex)
+            pScript->rgw[0] > gpGlobals->g.rgScene[gpGlobals->wNumScene].wEventObjectIndex)
          {
             //
             // The event object is not in the current scene

@@ -175,7 +175,7 @@ static int cmd_x(char *args)
 		VirtualAddress = expr(arg2, &success);
 		if(success) {
 			for(i = 0; i < num; i++) {
-				content = swaddr_read(VirtualAddress + i*4, 4);
+				content = swaddr_read(VirtualAddress + i*4, 4, R_DS);
 				printf("0x%08x:\t0x%08x\n", VirtualAddress + i*4, content);
 			}
 		}
@@ -259,10 +259,10 @@ static int cmp_bt(char *args)
 		else*/
 		printf("#%d 0x%08x in %s () ", num, current_ebp.ret_addr, FuncName);
 		printf("arguments: arg[0]:0x%08x arg[1]:0x%08x arg[2]:0x%08x arg[3]:0x%08x\n", 
-				swaddr_read(current_ebp.prev_ebp + 8, 4), swaddr_read(current_ebp.prev_ebp + 12, 4), 
-				swaddr_read(current_ebp.prev_ebp + 16, 4), swaddr_read(current_ebp.prev_ebp + 20, 4));
-		current_ebp.ret_addr = swaddr_read(current_ebp.prev_ebp + 4, 4);
-		current_ebp.prev_ebp = swaddr_read(current_ebp.prev_ebp, 4);
+				swaddr_read(current_ebp.prev_ebp + 8, 4, R_SS), swaddr_read(current_ebp.prev_ebp + 12, 4, R_SS), 
+				swaddr_read(current_ebp.prev_ebp + 16, 4, R_SS), swaddr_read(current_ebp.prev_ebp + 20, 4, R_SS));
+		current_ebp.ret_addr = swaddr_read(current_ebp.prev_ebp + 4, 4, R_SS);
+		current_ebp.prev_ebp = swaddr_read(current_ebp.prev_ebp, 4, R_SS);
 		num++;
 	}
 	return 0;

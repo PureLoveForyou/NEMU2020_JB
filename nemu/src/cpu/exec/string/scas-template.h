@@ -3,7 +3,7 @@
 #define instr scas
 
 make_helper(concat(scas_n_, SUFFIX)) {
-    swaddr_t dest = REG(R_EAX), src = MEM_R(reg_l(R_EDI));
+    swaddr_t dest = REG(R_EAX), src = MEM_R(reg_l(R_EDI), R_ES);
     DATA_TYPE result = dest - src;
     /*update edi*/
     if(cpu.DF == 0)

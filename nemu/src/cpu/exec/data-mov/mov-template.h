@@ -14,7 +14,7 @@ make_instr_helper(rm2r)
 
 make_helper(concat(mov_a2moffs_, SUFFIX)) {
 	swaddr_t addr = instr_fetch(eip + 1, 4);
-	MEM_W(addr, REG(R_EAX));
+	MEM_W(addr, REG(R_EAX), R_DS);
 
 	print_asm("mov" str(SUFFIX) " %%%s,0x%x", REG_NAME(R_EAX), addr);
 	return 5;
@@ -22,7 +22,7 @@ make_helper(concat(mov_a2moffs_, SUFFIX)) {
 
 make_helper(concat(mov_moffs2a_, SUFFIX)) {
 	swaddr_t addr = instr_fetch(eip + 1, 4);
-	REG(R_EAX) = MEM_R(addr);
+	REG(R_EAX) = MEM_R(addr, R_DS);
 
 	print_asm("mov" str(SUFFIX) " 0x%x,%%%s", addr, REG_NAME(R_EAX));
 	return 5;
@@ -38,10 +38,6 @@ make_helper(mov_cr2r){
 			reg_l(reg_num) = cpu.cr0.val;//mov cr0 to r
 			print_asm("mov CR0 %s",REG_NAME(reg_num));
 			break;
-		/*case 3:
-			reg_l(reg_num) = cpu.cr3.val;
-			print_asm("mov CR3 %s",REG_NAME(reg_num));
-			break;*/
 		default:
 			break;
 	}
@@ -57,11 +53,6 @@ make_helper(mov_r2cr){
 			cpu.cr0.val = reg_l(reg_num);//mov r to cr0
 			print_asm("mov %s CR0",REG_NAME(reg_num));
 			break;
-		case 3:
-			/*init_tlb();
-			cpu.cr3.val = reg_l(reg_num);
-			print_asm("mov %s CR3",REG_NAME(reg_num));
-			break;*/
 		default:
 			break;
 	}

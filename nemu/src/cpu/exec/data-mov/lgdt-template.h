@@ -3,15 +3,15 @@
 #define instr lgdt
 
 static void do_execute() {
-	cpu.gdtr.limit = swaddr_read(op_src->addr, 2);
+	cpu.gdtr.limit = swaddr_read(op_src->addr, 2, R_SS);
 
     if(op_src->size == 2){
         /* 24 bits */
-        cpu.gdtr.base = swaddr_read(op_src->addr + 2, 3);
+        cpu.gdtr.base = swaddr_read(op_src->addr + 2, 3, R_SS);
     }
     else if(op_src->size == 4){
         /* 36 bits */
-        cpu.gdtr.base = swaddr_read(op_src->addr + 2, 4);
+        cpu.gdtr.base = swaddr_read(op_src->addr + 2, 4, R_SS);
     }
     print_asm_template1();
 }

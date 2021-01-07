@@ -3,7 +3,7 @@
 #define instr lods
 
 make_helper(concat(lods_n_, SUFFIX)) {
-        REG(R_EAX) = MEM_R(reg_l(R_ESI));
+        REG(R_EAX) = MEM_R(reg_l(R_ESI), R_DS);
     /*update esi*/
     if(cpu.DF == 0)
         reg_l(R_ESI) += DATA_BYTE;

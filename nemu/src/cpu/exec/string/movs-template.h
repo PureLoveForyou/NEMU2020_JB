@@ -3,7 +3,7 @@
 #define instr movs
 
 make_helper(concat(movs_n_, SUFFIX)) {
-    MEM_W(reg_l(R_EDI), MEM_R(reg_l(R_ESI)));
+    MEM_W(reg_l(R_EDI), MEM_R(reg_l(R_ESI), R_DS), R_ES);
     if(cpu.DF == 0) {
         reg_l(R_EDI) += DATA_BYTE;
         reg_l(R_ESI) += DATA_BYTE;
