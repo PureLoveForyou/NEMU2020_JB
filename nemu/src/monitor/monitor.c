@@ -44,6 +44,12 @@ void init_monitor(int argc, char *argv[]) {
 	welcome();
 }
 
+void Init_CR0(){
+	/*init CR0*/
+	cpu.cr0.protect_enable = 0;//real mode
+	cpu.cr0.paging = 0;//paging mode
+}
+
 #ifdef USE_RAMDISK
 static void init_ramdisk() {
 	int ret;
@@ -95,4 +101,7 @@ void restart() {
 
 	/* Initialize CACHE. */
 	InitCache();
+
+	/* Initialize CR0. */
+	Init_CR0();
 }

@@ -15,6 +15,13 @@ enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
  * For more details about the register encoding scheme, see i386 manual.
  */
 
+typedef struct{
+	uint32_t base; //base address
+	uint32_t limit;
+	uint16_t selector, attribute;
+}Segment_reg;
+
+
 typedef struct {	
 	union {
 		union {
@@ -56,7 +63,20 @@ typedef struct {
 
 	CR0 cr0;
 
+	struct{
+		/* GDTR */
+		uint32_t base;
+		uint16_t limit;
+	}gdtr;
 	
+	union{
+		struct{
+			Segment_reg sreg[4];
+		};
+		struct{
+			Segment_reg es, cs, ss, ds;
+		};
+	};
 	
 	swaddr_t eip;
 
