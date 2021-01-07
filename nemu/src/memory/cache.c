@@ -12,7 +12,11 @@ void dram_write(hwaddr_t addr, size_t len, uint32_t data);
 void InitCache(){
     int i;
     for(i = 0; i < CACHE_SIZE_L1/CACHE_BLOCK_SIZE_L1; ++i){
-        Cache_L1[i].valid = 0;
+        Cache_L1[i].valid = false;
+    }
+    for (i = 0;i < CACHE_SIZE_L2 / CACHE_BLOCK_SIZE_L2; ++i){
+        Cache_L2[i].valid = false;
+        Cache_L2[i].dirty = false;
     }
     clock_time = 0;
 }
@@ -46,7 +50,7 @@ int ReadCache_L1(hwaddr_t hwaddr){
     i = set + rand() % CACHE_WAY_SIZE_L1;
     memcpy(Cache_L1[i].data,Cache_L2[pl].data, CACHE_BLOCK_SIZE_L1);
 
-    Cache_L1[i].valid = 1;
+    Cache_L1[i].valid = true;
     Cache_L1[i].tag = tag;
     return i;
 }
@@ -115,8 +119,8 @@ int ReadCache_L2(hwaddr_t addr){
     for (j = 0;j < CACHE_BLOCK_SIZE_L2 / BURST_LEN;j ++){
         ddr3_read_call(block_start + BURST_LEN * j, Cache_L2[i].data + BURST_LEN * j);
     }
-    Cache_L2[i].dirty = 0;
-    Cache_L2[i].valid = 1;
+    Cache_L2[i].dirty = false;
+    Cache_L2[i].valid = true;
     Cache_L2[i].tag = tag;
     return i;
 }
@@ -142,6 +146,6 @@ void WriteCache_L2(hwaddr_t addr, size_t len, uint32_t data){
     }
     /*write allocate*/
     i = ReadCache_L2(addr);
-    Cache_L2[i].dirty = 1;
+    Cache_L2[i].dirty = true;
     memcpy(Cache_L2[i].data + offset, &data, len);
 }
