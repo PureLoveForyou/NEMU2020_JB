@@ -42,3 +42,17 @@ void reg_test() {
 	assert(eip_sample == cpu.eip);
 }
 
+void sreg_set(uint8_t sreg_id){
+	uint16_t idx = cpu.sreg[sreg_id].selector >> 3;//The index of sreg
+	lnaddr_t chart_addr = cpu.gdtr.base + (idx << 3);//chart addr
+	
+	sreg_info.part1 = lnaddr_read(chart_addr, 4);
+	sreg_info.part2 = lnaddr_read(chart_addr + 4, 4);
+
+	cpu.sreg[sreg_id].base = sreg_info.base1 + (sreg_info.base2 << 16) + (sreg_info.base3 << 24);
+	cpu.sreg[sreg_id].limit = sreg_info.limit1 + (sreg_info.limit2 << 16) + (0xfff << 24);
+	if(sreg_info.g == 1){
+		/* g == 0, 1B; g== 1, 4 KB(2^12) */
+		cpu.sreg[sreg_id].limit <<= 12;
+	}
+}
