@@ -50,6 +50,11 @@ void Init_CR0(){
 	cpu.cr0.paging = 0;//paging mode
 }
 
+void Init_CS(){
+	cpu.cs.base = 0;
+	cpu.cs.limit = 0xffffffff;
+}
+
 #ifdef USE_RAMDISK
 static void init_ramdisk() {
 	int ret;
@@ -104,4 +109,7 @@ void restart() {
 
 	/* Initialize CR0. */
 	Init_CR0();
+
+	/* Initialize CR0. */
+	Init_CS();
 }
