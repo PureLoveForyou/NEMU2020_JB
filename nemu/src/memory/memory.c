@@ -15,7 +15,7 @@ lnaddr_t seg_translate(swaddr_t addr, size_t len, uint8_t sreg_id){
 }
 
 hwaddr_t page_translate(lnaddr_t addr){
-	if(!cpu.cr0.protect_enable || !cpu.cr0.paging) 
+	if(!cpu.cr0.protect_enable && !cpu.cr0.paging) 
 		return addr;//No paging mechanism, return directly
 
 	// addr: directory | page | offset
@@ -31,7 +31,7 @@ hwaddr_t page_translate(lnaddr_t addr){
 	tmp = (cpu.cr3.page_directory_base << 12) + (dir << 2);
 	first.val = hwaddr_read(tmp, 4);
 	Assert(first.p == 1, "Directory cannot be used!");
-	
+
 	// get page 
 	tmp = (first.addr << 12) + (page << 2);
 	second.val =  hwaddr_read(tmp, 4);
