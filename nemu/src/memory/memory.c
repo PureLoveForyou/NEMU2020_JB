@@ -1,5 +1,6 @@
 #include "common.h"
 #include "memory/cache.h"
+#include "memory/tlb.h"
 #include "burst.h"
 #include "nemu.h"
 
@@ -24,6 +25,11 @@ hwaddr_t page_translate(lnaddr_t addr){
 	uint32_t page = (addr >> 12) & 0x3ff;
 	uint32_t offset = addr & 0xfff;
 
+	/* read TLB, task 4 */
+	int i = read_tlb(addr);
+	if(i != -1)
+		return (tlb[i].page_num << 12) + offset;
+
 	// directory and second page
 	Page_Descriptor first, second;
 	
@@ -36,6 +42,7 @@ hwaddr_t page_translate(lnaddr_t addr){
 	tmp = (first.addr << 12) + (page << 2);
 	second.val =  hwaddr_read(tmp, 4);
 	Assert(second.p == 1, "Page cannot be used!");
+	write_tlb(addr, (second.addr << 12) + offset);//task 4
 	return (second.addr << 12) + offset;
 }
 
