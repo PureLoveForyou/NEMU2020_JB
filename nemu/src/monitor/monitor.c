@@ -1,5 +1,6 @@
 #include "nemu.h"
 #include "memory/cache.h"
+#include "memory/tlb.h"
 
 #define ENTRY_START 0x100000
 #define EFLAGS_INITIAL_VALUE 0x00000002
@@ -110,6 +111,9 @@ void restart() {
 	/* Initialize CR0. */
 	Init_CR0();
 
-	/* Initialize CR0. */
+	/* Initialize CS. */
 	Init_CS();
+
+	/* Initialize TLB. */
+	init_tlb();
 }
