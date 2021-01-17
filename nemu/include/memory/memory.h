@@ -24,4 +24,7 @@ void swaddr_write(swaddr_t, size_t, uint32_t, uint8_t sreg);
 void lnaddr_write(lnaddr_t, size_t, uint32_t);
 void hwaddr_write(hwaddr_t, size_t, uint32_t);
 
+hwaddr_t page_translate(lnaddr_t addr);
+hwaddr_t page_translate_version2(lnaddr_t addr, int *flag);
+
 #endif

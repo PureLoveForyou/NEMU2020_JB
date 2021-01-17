@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include "memory.h"
 
 /*stack frames struct*/
 typedef struct
@@ -62,6 +63,8 @@ static int cmp_d(char *args);
 
 static int cmp_bt(char *args);
 
+static int cmd_page(char * args);
+
 static struct {
 	char *name;
 	char *description;
@@ -77,6 +80,7 @@ static struct {
 	{ "w", "Set a watchpoint", cmp_w },
 	{ "d", "Delete a watchpoint", cmp_d },
 	{ "bt", "Print backtrace of all stack frames", cmp_bt },
+	{ "page", "Output page level address translation result of addr or failure information if fails", cmd_page },
 
 	/* TODO: Add more commands */
 
@@ -264,6 +268,25 @@ static int cmp_bt(char *args)
 		current_ebp.ret_addr = swaddr_read(current_ebp.prev_ebp + 4, 4, R_SS);
 		current_ebp.prev_ebp = swaddr_read(current_ebp.prev_ebp, 4, R_SS);
 		num++;
+	}
+	return 0;
+}
+
+static int cmd_page(char *args){
+	if(args == NULL){
+		printf("Argument required\nUsage: page ADDR\n");
+	}
+	else{
+		uint32_t addr;
+		sscanf(args, "%x", &addr);
+		int flag = 0;
+		uint32_t real_addr = page_translate_version2(addr, &flag);
+		if(!flag)
+			printf("0x%08x\n", real_addr);
+		else if(flag == 1)
+			printf("Directory cannot be used!\n");
+		else 
+			printf("Page cannot be used!\n");
 	}
 	return 0;
 }

@@ -39,6 +39,38 @@ hwaddr_t page_translate(lnaddr_t addr){
 	return (second.addr << 12) + offset;
 }
 
+hwaddr_t page_translate_version2(lnaddr_t addr, int *flag){
+	if(!cpu.cr0.protect_enable || !cpu.cr0.paging) 
+		return addr;//No paging mechanism, return directly
+
+	// addr: directory | page | offset
+	uint32_t tmp;
+	uint32_t dir = addr >> 22;
+	uint32_t page = (addr >> 12) & 0x3ff;
+	uint32_t offset = addr & 0xfff;
+
+	// directory and second page
+	Page_Descriptor first, second;
+	
+	// get directory
+	tmp = (cpu.cr3.page_directory_base << 12) + (dir << 2);
+	first.val = hwaddr_read(tmp, 4);
+	if(first.p == 0){
+		*flag = 1;
+		return 0;
+	}
+	
+	// get page 
+	tmp = (first.addr << 12) + (page << 2);
+	second.val =  hwaddr_read(tmp, 4);
+	if(second.p == 0){
+		*flag = 2;
+		return 0;
+	}
+	
+	return (second.addr << 12) + offset;
+}
+
 /* Memory accessing interfaces */
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
